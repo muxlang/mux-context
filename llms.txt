@@ -9,22 +9,22 @@ repo owns the facts that span more than one repo.
 
 ## Architecture & design
 
-- [Architecture / repo map](https://github.com/muxlang/context/blob/main/ARCHITECTURE.md): how the repos connect and how a .mux file becomes a binary
-- [Value representation](https://github.com/muxlang/context/blob/main/docs/design/value-representation.md): the unified Value enum, boxing, the three type representations
-- [Memory model](https://github.com/muxlang/context/blob/main/docs/design/memory.md): reference counting, RefHeader, scope-based cleanup
-- [Monomorphization](https://github.com/muxlang/context/blob/main/docs/design/monomorphization.md): compile-time generics
-- [Object system](https://github.com/muxlang/context/blob/main/docs/design/object-system.md): ObjectRef, type registry, static interface dispatch
-- [Operators](https://github.com/muxlang/context/blob/main/docs/design/operators.md): short-circuit lowering, operator overloading
-- [Collections](https://github.com/muxlang/context/blob/main/docs/design/collections.md): list/map/set, BTree rationale, nesting
-- [Error handling](https://github.com/muxlang/context/blob/main/docs/design/error-handling.md): result/optional layout
-- [Modules](https://github.com/muxlang/context/blob/main/docs/design/modules.md): import resolution, name mangling, module init
+- [Architecture / repo map](https://github.com/muxlang/mux-context/blob/main/ARCHITECTURE.md): how the repos connect and how a .mux file becomes a binary
+- [Value representation](https://github.com/muxlang/mux-context/blob/main/docs/design/value-representation.md): the unified Value enum, boxing, the three type representations
+- [Memory model](https://github.com/muxlang/mux-context/blob/main/docs/design/memory.md): reference counting, RefHeader, scope-based cleanup
+- [Monomorphization](https://github.com/muxlang/mux-context/blob/main/docs/design/monomorphization.md): compile-time generics
+- [Object system](https://github.com/muxlang/mux-context/blob/main/docs/design/object-system.md): ObjectRef, type registry, static interface dispatch
+- [Operators](https://github.com/muxlang/mux-context/blob/main/docs/design/operators.md): short-circuit lowering, operator overloading
+- [Collections](https://github.com/muxlang/mux-context/blob/main/docs/design/collections.md): list/map/set, BTree rationale, nesting
+- [Error handling](https://github.com/muxlang/mux-context/blob/main/docs/design/error-handling.md): result/optional layout
+- [Modules](https://github.com/muxlang/mux-context/blob/main/docs/design/modules.md): import resolution, name mangling, module init
 
 ## Reference
 
-- [Feature map](https://github.com/muxlang/context/blob/main/docs/features.md): language/stdlib features to implementing modules
-- [Glossary](https://github.com/muxlang/context/blob/main/docs/glossary.md): cross-repo terminology
-- [Release process](https://github.com/muxlang/context/blob/main/docs/release-process.md): per-repo versioning and shipping
-- [Decisions](https://github.com/muxlang/context/blob/main/docs/decisions/README.md): architecture decision records
+- [Feature map](https://github.com/muxlang/mux-context/blob/main/docs/features.md): language/stdlib features to implementing modules
+- [Glossary](https://github.com/muxlang/mux-context/blob/main/docs/glossary.md): cross-repo terminology
+- [Release process](https://github.com/muxlang/mux-context/blob/main/docs/release-process.md): per-repo versioning and shipping
+- [Decisions](https://github.com/muxlang/mux-context/blob/main/docs/decisions/README.md): architecture decision records
 
 ## Repos
 
