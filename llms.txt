@@ -24,6 +24,7 @@ repo owns the facts that span more than one repo.
 - [Feature map](https://github.com/muxlang/mux-context/blob/main/docs/features.md): language/stdlib features to implementing modules
 - [Glossary](https://github.com/muxlang/mux-context/blob/main/docs/glossary.md): cross-repo terminology
 - [Release process](https://github.com/muxlang/mux-context/blob/main/docs/release-process.md): per-repo versioning and shipping
+- [Repo governance](https://github.com/muxlang/mux-context/blob/main/docs/repo-governance.md): canonical labels, issue types, milestones, and Linear integration
 - [Decisions](https://github.com/muxlang/mux-context/blob/main/docs/decisions/README.md): architecture decision records
 
 ## Repos
