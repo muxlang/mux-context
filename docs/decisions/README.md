@@ -10,3 +10,4 @@ Consequences. Keep them short; link to [design notes](../design/) for mechanics.
 
 - [0001](0001-multi-repo-split.md) - split the monorepo into the `muxlang` org.
 - [0002](0002-independent-versioning.md) - version each repo independently.
+- [0003](0003-verify-consumers-against-source.md) - verify consumers against sibling source in CI, not published pins.

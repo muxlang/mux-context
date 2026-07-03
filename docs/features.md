@@ -29,7 +29,8 @@ relative to the owning repo. User-facing docs for these live at
 | Primitives + conversions | `int.rs`, `float.rs`, `bool.rs`, `string.rs`, `tuple.rs`, `boxing.rs` |
 | Collections | `list.rs`, `map.rs`, `set.rs` (see [design/collections.md](design/collections.md)) |
 | optional / result | `optional.rs`, `result.rs` (see [design/error-handling.md](design/error-handling.md)) |
-| `std.assert` | `assert.rs` |
+| Runtime panics (div/mod-by-zero, index/key errors, assert) | `panic.rs` (see [design/panics.md](design/panics.md)) |
+| `std.assert` | `assert.rs` (failures route through `panic.rs`) |
 | `std.math` | `math.rs` |
 | `std.io` (files, paths, stdin) | `io.rs` |
 | `std.random` | `random.rs` |

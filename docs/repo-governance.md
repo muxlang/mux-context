@@ -113,3 +113,15 @@ prioritization.
 - Milestones show per-repo release planning; see
   [independent versioning](decisions/0002-independent-versioning.md).
 
+## Cross-repo CI and canonical artifacts
+
+Where one repo consumes an artifact owned by a sibling (the compiler links
+`mux-runtime`; `tree-sitter-mux` and `mux-website` copy the canonical
+`syntax-matrix.json`), CI must verify against the sibling's live **source**, not
+a published or vendored copy - build the dependency from a `main` checkout, or
+fail on drift for vendored copies. Cross-repo version bumps and publishes are a
+release action, not a per-change requirement. See
+[decision 0003](decisions/0003-verify-consumers-against-source.md) for the
+rationale and consequences, and the org-wide audit in muxlang/mux-context#3 (with
+per-repo tracking issues) for status.
+

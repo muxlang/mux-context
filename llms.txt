@@ -17,6 +17,7 @@ repo owns the facts that span more than one repo.
 - [Operators](https://github.com/muxlang/mux-context/blob/main/docs/design/operators.md): short-circuit lowering, operator overloading
 - [Collections](https://github.com/muxlang/mux-context/blob/main/docs/design/collections.md): list/map/set, BTree rationale, nesting
 - [Error handling](https://github.com/muxlang/mux-context/blob/main/docs/design/error-handling.md): result/optional layout
+- [Runtime panics](https://github.com/muxlang/mux-context/blob/main/docs/design/panics.md): process-terminating failures, the panic format, why no baked source snippet
 - [Modules](https://github.com/muxlang/mux-context/blob/main/docs/design/modules.md): import resolution, name mangling, module init
 
 ## Reference
