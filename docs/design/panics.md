@@ -32,6 +32,10 @@ panic: key not found in map: key bob
 panic: assertion failed: expected 2, got 1
 ```
 
+Assertion panics currently omit the `-->` line: the `std.assert` runtime entry
+points are not yet passed their call site, so no source location is available at
+the panic. This is a known limitation, not a design choice.
+
 ## What panics
 
 - **Integer `/` and `%` by zero.** Float division follows IEEE 754 (`inf`/`nan`)
