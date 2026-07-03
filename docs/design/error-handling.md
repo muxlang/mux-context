@@ -35,3 +35,7 @@ auto res = ok("value")  // discriminant = ok,   data = box("value")
 - **Interop** - `optional` and `result` can wrap the same underlying types.
 
 `result<T, E>` requires `E` to implement the built-in `Error` interface.
+
+`result` and `optional` are for *recoverable* conditions. Unrecoverable failures
+(division by zero, out-of-bounds access, failed assertions) terminate the process
+instead - see [panics.md](panics.md).

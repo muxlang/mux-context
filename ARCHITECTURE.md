@@ -17,9 +17,11 @@ The **compiler** (`mux-compiler`, Rust + LLVM) turns source into LLVM IR and
 invokes `clang` to produce a native binary. That binary links the **runtime**
 (`mux-runtime`, plain Rust, no LLVM) for reference counting, UTF-8 strings,
 collections, conversions, and the standard library. The compiler does not import
-the runtime as a Rust crate - it links the built static library and resolves the
-runtime source from a sibling checkout, `MUX_RUNTIME_SRC`, or the published
-crates.io crate.
+the runtime as a Rust crate - it links the built static library, which it builds
+from runtime source: a sibling checkout or `MUX_RUNTIME_SRC`. CI builds from the
+runtime's `main` source (see
+[decision 0003](docs/decisions/0003-verify-consumers-against-source.md)); the
+crates.io crate is the pinned fallback used for releases.
 
 ## Repo dependency graph
 
