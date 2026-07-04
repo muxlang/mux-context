@@ -105,12 +105,13 @@ Each repo has synced templates under `.github/ISSUE_TEMPLATE/`. Sources live in
 | mux-compiler | Bug, Feature, Documentation |
 | mux-runtime | Bug, Feature |
 | mux-website | Bug, Feature, Documentation |
-| mux-website-api | Bug, Security |
+| mux-website-api | Bug (+ private security advisories via contact link) |
 | mux-syntax-highlighting | Bug, Syntax spec change |
 | tree-sitter-mux | Bug, Grammar sync |
 | mux-context | Cross-repo question, ADR proposal |
 
-All templates apply `needs triage` on creation.
+All templates apply `needs triage` on creation. Blank issues are disabled in
+every repo so contributors always pick a template.
 
 ## Triage workflow
 
