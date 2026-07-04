@@ -1,127 +1,129 @@
-# Repo governance: labels, types, milestones, and Linear
+# Repo governance: labels, templates, and project fields
 
-The muxlang org keeps issue metadata consistent across every repo so work looks
-and behaves the same everywhere and round-trips cleanly with Linear. This doc is
-the source of truth for that convention. The enforcement lives in the
-[`.github`](https://github.com/muxlang/.github) repo; this doc explains the
-"what" and "why".
+The muxlang org keeps issue metadata consistent across every repo. This doc is
+the policy source of truth. Enforcement (label YAML, template sources, sync
+scripts) lives in the
+[`.github`](https://github.com/muxlang/.github) repo.
 
-## Issue types (org-level)
+## Architecture
 
-The org defines three issue types that apply to every repo automatically:
+| Layer | Where | What it owns |
+| --- | --- | --- |
+| Policy | `mux-context` (this doc) | Why, strict rules, triage workflow |
+| Enforcement | `muxlang/.github` | `labels/*.yml`, `templates/<repo>/`, sync scripts |
+| Per-repo files | Each repo's `.github/ISSUE_TEMPLATE/` | Synced from `.github/templates/`; do not hand-edit |
 
-- `Task` - a specific piece of work
-- `Bug` - an unexpected problem or behavior
-- `Feature` - a request, idea, or new functionality
+## Strict rules
 
-Types are the primary "kind" of an issue. Labels below are orthogonal to types
-and add dimensions the type does not carry (priority, area, workflow state). Do
-not add `bug` / `feature` / `enhancement` labels - use the type instead.
+1. **Do not hand-edit synced files** in a repo's `.github/ISSUE_TEMPLATE/`.
+   Change the source in `muxlang/.github/templates/<repo>/` and re-sync.
+2. **Do not use milestones.** Planning uses the org project board. GitHub still
+   shows an empty Milestone slot on issues; ignore it.
+3. **Do not use priority labels.** Priority is set on
+   [Mux Project Tasks](https://github.com/orgs/muxlang/projects/2) only
+   (Urgent / High / Medium / Low).
+4. **Do not add `bug` or `feature` labels.** Kind comes from the template
+   chosen at filing time; apply kind labels (`enhancement`, `documentation`,
+   `chore`, etc.) during triage.
+5. **Exactly one workflow state on the project board** per issue: Backlog,
+   In Progress, or Done.
+6. **Do not invent ad hoc labels.** Add to `labels/labels.yml` or a repo
+   overlay, update this doc, run `sync-labels.sh`.
+7. **IDE labels** (`vscode`, `neovim`, etc.) belong only on
+   `mux-syntax-highlighting` and `tree-sitter-mux`.
+8. **No PR templates.** Link issues in the PR description; CI enforces quality.
+9. **ASCII only** in label names and descriptions.
+
+## Priority and status
+
+Both live on [Mux Project Tasks](https://github.com/orgs/muxlang/projects/2),
+not as issue labels.
+
+| Field | Values | When to set |
+| --- | --- | --- |
+| Priority | Urgent, High, Medium, Low | During triage |
+| Status | Backlog, In Progress, Done | Backlog by default after triage |
 
 ## Labels
 
-The canonical label set is recorded in
-[`.github/labels/labels.yml`](https://github.com/muxlang/.github/blob/main/labels/labels.yml),
-with repo-specific extras in overlay files (see below). This YAML is the
-authoritative list; labels are applied to each repo manually from it (for
-example with `gh label create <name> --color <hex> --description <desc> --force
---repo muxlang/<repo>`). When you change the list, re-apply it to the affected
-repos and delete any labels you removed.
+Canonical set:
+[`.github/labels/labels.yml`](https://github.com/muxlang/.github/blob/main/labels/labels.yml).
+Repo overlays: `.github/labels/<repo>.yml`.
 
-Canonical labels:
+Apply with `./scripts/sync-labels.sh` in the `.github` repo.
 
-| Group | Label | Meaning |
+### Org-wide labels (every repo)
+
+| Group | Label | When to use |
 | --- | --- | --- |
 | Kind | `documentation` | Docs improvements or additions |
 | Kind | `chore` | Cleanup, maintenance, dependency bumps |
 | Kind | `refactor` | Internal restructuring, no behavior change |
 | Kind | `optimization` | Performance or efficiency improvement |
 | Kind | `testing` | Test coverage or test infrastructure |
-| Priority | `priority: urgent` | Needs attention now |
-| Priority | `priority: high` | Important, schedule soon |
-| Priority | `priority: medium` | Normal priority |
-| Priority | `priority: low` | Nice to have, no rush |
+| Kind | `enhancement` | Improvement to existing behavior or UX |
 | Quality | `inconsistency` | Behaves or looks different across places that should match |
-| Quality | `polish` | Small rough edge or papercut; nothing broken, just unrefined |
-| Workflow | `needs triage` | Not yet reviewed or categorized |
-| Workflow | `blocked` | Blocked on another issue or dependency |
-| Workflow | `needs testing` | Needs testing to confirm cases are covered |
+| Quality | `polish` | Small rough edge; nothing broken, just unrefined |
+| Workflow | `needs triage` | Not yet reviewed (auto-applied by templates) |
+| Workflow | `blocked` | Blocked on another issue or external dependency |
+| Workflow | `needs testing` | Fix landed but needs broader test confirmation |
 | Workflow | `duplicate` | Already exists |
-| Workflow | `invalid` | Does not seem right |
-| Workflow | `wontfix` | Will not be worked on |
+| Workflow | `invalid` | Not actionable |
+| Workflow | `wontfix` | Acknowledged but will not be worked on |
 | Community | `good first issue` | Good for newcomers |
-| Community | `help wanted` | Extra attention is needed |
+| Community | `help wanted` | Extra attention needed from contributors |
 
-### Repo-specific overlays
+### Repo overlays
 
-A repo may add labels that only make sense there, recorded in an overlay file
-`.github/labels/<repo>.yml`. Apply the overlay on top of the canonical set for
-that repo. Today the only overlay is
-[`labels/mux-compiler.yml`](https://github.com/muxlang/.github/blob/main/labels/mux-compiler.yml)
-(`stdlib`, `frontend`, complexity labels, and the `tembo` / `dependencies` bot
-labels). Bot-managed labels belong in the overlay of the repo whose bot posts
-them so they are not removed during a cleanup.
+| Repo | Extra labels |
+| --- | --- |
+| mux-compiler | `stdlib`, `frontend`, `low/med/high complexity`, `dependencies`, `tembo` |
+| mux-runtime | `stdlib`, `ffi` |
+| mux-website | `playground`, `docs-site`, `mux-ai`, `docusaurus` |
+| mux-website-api | `security`, `sandbox`, `deployment` |
+| mux-syntax-highlighting | `syntax-spec`, `textmate`, `editor-support`, `vscode`, `sublime`, `jetbrains`, `neovim`, `helix` |
+| tree-sitter-mux | `grammar`, `queries`, `syntax-matrix`, `neovim`, `helix`, `emacs` |
+| mux-context | `architecture`, `adr`, `governance` |
 
-## Milestones
+### Kind label guide
 
-Milestones stay **per-repo** and are not replicated across the org. Repos are
-versioned independently (see
-[decision 0002](decisions/0002-independent-versioning.md)), so a shared milestone
-set would not map to any single release. Track cross-repo work through the shared
-[Mux Project Tasks](https://github.com/orgs/muxlang/projects/2) project instead.
+| Situation | Label or template |
+| --- | --- |
+| Something broken | Bug report template |
+| New capability | Feature request template |
+| Existing behavior improved | `enhancement` |
+| Performance only | `optimization` |
+| Internal code change | `refactor` |
 
-## Fields (Project)
+## Issue templates
 
-Custom fields live on the org [Project #2](https://github.com/orgs/muxlang/projects/2),
-not on individual repos, so one project already gives cross-repo field
-consistency. Priority is carried on issues by the `priority: *` labels (so it
-round-trips to Linear); the project `Status` field tracks workflow state.
+Each repo has synced templates under `.github/ISSUE_TEMPLATE/`. Sources live in
+`muxlang/.github/templates/<repo>/`.
 
-## Project board (GitHub)
+| Repo | Templates |
+| --- | --- |
+| mux-compiler | Bug, Feature, Documentation |
+| mux-runtime | Bug, Feature |
+| mux-website | Bug, Feature, Documentation |
+| mux-website-api | Bug (+ private security advisories via contact link) |
+| mux-syntax-highlighting | Bug, Syntax spec change |
+| tree-sitter-mux | Bug, Grammar sync |
+| mux-context | Cross-repo question, ADR proposal |
 
-The org project [Mux Project Tasks](https://github.com/orgs/muxlang/projects/2)
-aggregates issues across all repos in one board for cross-repo visibility and
-prioritization.
+All templates apply `needs triage` on creation. Blank issues are disabled in
+every repo so contributors always pick a template.
 
-### Board structure
+## Triage workflow
 
-- **Status** field (workflow state, mixing priority levels and workflow for now):
-  High Priority, Medium Priority, Low Priority, Future Work, In Progress, Done.
-  Over time, new issues should use the **Priority** field separately (below).
-- **Priority** field (new, Urgent / High / Medium / Low): Use this for issue
-  priority instead of embedding it in Status. Separating priority from workflow
-  makes sorting and filtering clearer.
-- **Labels** field: Shows the canonical label set (documentation, chore, refactor,
-  testing, etc.).
-- **Repository** field: Filter by repo.
-- **Milestone** field: Links to release milestones in each repo.
-
-### Workflow
-
-1. Create issues in the repo you're working on (auto-added to the project).
-2. Triage: set Priority (Urgent/High/Medium/Low) and Status (Backlog/In
-   Progress/Done).
-3. Filter by Repository, Priority, Status, Labels to find work to do or see
-   cross-repo impact.
-
-### Tips
-
-- Filter by Repository to see one repo's work, or by Priority to see what's
-  urgent org-wide.
-- Status currently mixes priority with workflow; future issues should use the
-  Priority field instead.
-- Milestones show per-repo release planning; see
-  [independent versioning](decisions/0002-independent-versioning.md).
+1. Contributor files via a template -> `needs triage` label applied.
+2. Maintainer reviews: confirm repo, set project **Priority** and **Status**
+   (Backlog), apply kind/area labels, remove `needs triage`.
+3. When work starts: Status -> In Progress.
+4. When closed: Status -> Done.
 
 ## Cross-repo CI and canonical artifacts
 
-Where one repo consumes an artifact owned by a sibling (the compiler links
-`mux-runtime`; `tree-sitter-mux` and `mux-website` copy the canonical
-`syntax-matrix.json`), CI must verify against the sibling's live **source**, not
-a published or vendored copy - build the dependency from a `main` checkout, or
-fail on drift for vendored copies. Cross-repo version bumps and publishes are a
-release action, not a per-change requirement. See
-[decision 0003](decisions/0003-verify-consumers-against-source.md) for the
-rationale and consequences, and the org-wide audit in muxlang/mux-context#3 (with
-per-repo tracking issues) for status.
-
+Where one repo consumes an artifact owned by a sibling, CI must verify against
+the sibling's live **source**, not a published or vendored copy. See
+[decision 0003](decisions/0003-verify-consumers-against-source.md) and
+muxlang/mux-context#3 for status.
