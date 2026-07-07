@@ -1,0 +1,19 @@
+name: Cross-repo question
+description: Unsure which repo, or the work spans multiple repos
+labels: ["needs triage"]
+assignees: ["DerekCorniello"]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+    validations:
+      required: true
+  - type: textarea
+    id: repos
+    attributes:
+      label: Which repos might this touch?
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context

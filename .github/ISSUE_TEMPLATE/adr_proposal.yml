@@ -1,0 +1,27 @@
+name: ADR or design proposal
+description: Propose an architecture decision or cross-repo design change
+labels: ["needs triage", "adr"]
+assignees: ["DerekCorniello"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: textarea
+    id: repos
+    attributes:
+      label: Affected repos
+    validations:
+      required: true
