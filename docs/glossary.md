@@ -23,6 +23,10 @@ live in the [docs](https://mux-lang.dev); this is the cross-repo/internal vocabu
   + `TypeId`). See [design/object-system.md](design/object-system.md).
 - **Reference counting** - Mux's deterministic memory management; every heap value
   has a `RefHeader`. No GC, no manual free. See [design/memory.md](design/memory.md).
+- **Statement temporary** - an owned reference-counted value produced mid-expression
+  and never bound to a variable (a literal, a call/concat result). Spilled to an
+  entry-block slot and released at the statement boundary. See
+  [design/memory.md](design/memory.md).
 - **Static dispatch** - interface methods resolve at compile time (no runtime
   vtable lookup). The reason interfaces can't be added to foreign types.
 - **`syntax-matrix.json`** - the canonical syntax spec, owned by
@@ -30,3 +34,7 @@ live in the [docs](https://mux-lang.dev); this is the cross-repo/internal vocabu
 - **`TypeNode` / `Type` / `BasicTypeEnum`** - the AST / semantic / LLVM
   representations of a type, respectively.
 - **`Value`** - the single runtime enum that represents every Mux value.
+- **Value semantics** - binding or passing a value type (primitive, string,
+  collection, object) produces an independent deep copy (`mux_value_deep_clone`),
+  not an alias; sharing is opt-in via a reference (`&T`). See
+  [design/memory.md](design/memory.md).

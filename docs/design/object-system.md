@@ -25,6 +25,14 @@ instantiation from function calls and enum-variant construction). `new` is
 reserved for the compiler-generated constructor - user methods must not be named
 `new`; use named factories like `from(...)` or `with_<feature>(...)`.
 
+The generated constructor stores every field as a **boxed** value, including
+fields left at their default (a `bool` field defaults to a boxed `false`, not a
+raw `i1`), so reads through the uniform boxed-pointer path are always well-formed.
+Field assignment retains the stored value, and the destructor releases every
+field. Objects are value types: binding or passing one produces an independent
+deep copy unless a reference (`&T`) is used. See
+[memory.md](memory.md) for the full ownership and cleanup model.
+
 ## Interface dispatch is static
 
 Interfaces use **static dispatch** - there is no runtime vtable lookup. VTables
