@@ -1,6 +1,6 @@
 name: ADR or design proposal
 description: Propose an architecture decision or cross-repo design change
-labels: ["needs triage", "adr"]
+labels: ["needs triage"]
 assignees: ["DerekCorniello"]
 body:
   - type: textarea
