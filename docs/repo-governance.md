@@ -51,7 +51,10 @@ Canonical set:
 [`.github/labels/labels.yml`](https://github.com/muxlang/.github/blob/main/labels/labels.yml).
 Repo overlays: `.github/labels/<repo>.yml`.
 
-Apply with `./scripts/sync-labels.sh` in the `.github` repo.
+Apply with `./scripts/sync-labels.sh` in the `.github` repo. Verify with
+`./scripts/validate-labels.py`, which diffs the live labels of every repo
+against the canonical YAML and exits nonzero on drift; run it after any
+sync or retire.
 
 ### Org-wide labels (every repo)
 
@@ -99,7 +102,10 @@ Apply with `./scripts/sync-labels.sh` in the `.github` repo.
 ## Issue templates
 
 Each repo has synced templates under `.github/ISSUE_TEMPLATE/`. Sources live in
-`muxlang/.github/templates/<repo>/`.
+`muxlang/.github/templates/<repo>/`. Templates are structured YAML issue
+forms (`*.yml`), not markdown: required fields are enforced at filing time
+and forms set no title prefix. Do not encode the kind in the title (no
+`[Bug] -` prefixes); the chosen form records it.
 
 | Repo | Templates |
 | --- | --- |
