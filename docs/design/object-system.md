@@ -28,10 +28,14 @@ reserved for the compiler-generated constructor - user methods must not be named
 The generated constructor stores every field as a **boxed** value, including
 fields left at their default (a `bool` field defaults to a boxed `false`, not a
 raw `i1`), so reads through the uniform boxed-pointer path are always well-formed.
-Field assignment retains the stored value, and the destructor releases every
-field. Objects are value types: binding or passing one produces an independent
-deep copy unless a reference (`&T`) is used. See
-[memory.md](memory.md) for the full ownership and cleanup model.
+The exception is an **enum-typed field**, which is stored inline as a struct and
+defaulted to a zeroed inline value (the first variant) rather than a boxed
+pointer. Field assignment retains the stored value, and the generated copy and
+destructor deep-clone / release every *boxed* field while skipping inline fields
+(the bulk copy already duplicates them and they own no heap reference). Objects
+are value types: binding or passing one produces an independent deep copy unless
+a reference (`&T`) is used. See [memory.md](memory.md) for the full ownership and
+cleanup model.
 
 ## Interface dispatch is static
 

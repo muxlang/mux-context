@@ -8,6 +8,11 @@ live in the [docs](https://mux-lang.dev); this is the cross-repo/internal vocabu
   [design/value-representation.md](design/value-representation.md).
 - **C-ABI / FFI surface** - the `extern "C"` functions the runtime exposes
   (`mux_*`) that compiler-generated code calls.
+- **Closure teardown** - closures are not RC `Value`s; they are `malloc`'d as
+  `[refcount | fn_ptr | captures_ptr | capture_count]` and reference-counted with
+  `mux_closure_retain` / `mux_closure_release`. The final release walks the
+  capture array, drops one reference per captured value, and frees the closure.
+  See [design/memory.md](design/memory.md).
 - **Codegen** - the compiler stage that emits LLVM IR (`mux-compiler/src/codegen`).
 - **`common`** - the keyword for static (class-level) methods, called on the class
   rather than an instance. Distinct from `const` (immutable values).
@@ -21,6 +26,9 @@ live in the [docs](https://mux-lang.dev); this is the cross-repo/internal vocabu
   the runtime is versioned independently.
 - **ObjectRef** - the runtime representation of a class instance (shared ownership
   + `TypeId`). See [design/object-system.md](design/object-system.md).
+- **Program-exit teardown** - top-level (global) variables survive module init so
+  a later `main()` can read them, then `main` releases each owned global once at
+  process exit. See [design/memory.md](design/memory.md).
 - **Reference counting** - Mux's deterministic memory management; every heap value
   has a `RefHeader`. No GC, no manual free. See [design/memory.md](design/memory.md).
 - **Statement temporary** - an owned reference-counted value produced mid-expression
