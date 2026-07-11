@@ -139,7 +139,8 @@ until all of them pass. These are shared org conventions, not per-repo choices.
   thread with a justification) and let the review re-run; never merge around an
   unresolved Greptile review. This applies to docs-only PRs too.
 - **SonarCloud / SonarQube** - the quality gate. New code must meet the coverage
-  threshold and introduce no new blocking issues.
+  threshold and introduce no new issues (the gate fails on any new issue, not
+  only blocking ones).
 - **Rust Checks** (code repos) - `cargo fmt --check`, `cargo clippy -D warnings`,
   and the test suite (with coverage) must all pass.
 - **Integration / Downstream smoke** - where a repo consumes a sibling, its
