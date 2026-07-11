@@ -31,7 +31,8 @@ scripts) lives in the
    overlay, update this doc, run `sync-labels.sh`.
 7. **IDE labels** (`vscode`, `neovim`, etc.) belong only on
    `mux-syntax-highlighting` and `tree-sitter-mux`.
-8. **No PR templates.** Link issues in the PR description; CI enforces quality.
+8. **No PR templates.** Link issues in the PR description; CI enforces quality
+   (see [Required CI checks](#required-ci-checks-merge-gates)).
 9. **ASCII only** in label names and descriptions.
 
 ## Priority and status
@@ -126,6 +127,28 @@ every repo so contributors always pick a template.
    (Backlog), apply kind/area labels, remove `needs triage`.
 3. When work starts: Status -> In Progress.
 4. When closed: Status -> Done.
+
+## Required CI checks (merge gates)
+
+Rule 8 above ("CI enforces quality") is concrete: every repo protects its default
+branch with a set of required status checks, and a pull request cannot be merged
+until all of them pass. These are shared org conventions, not per-repo choices.
+
+- **Greptile Review** - the AI code review, and a MUST-PASS gate in every repo: a
+  red Greptile check blocks merge. Address every finding (fix it, or resolve the
+  thread with a justification) and let the review re-run; never merge around an
+  unresolved Greptile review. This applies to docs-only PRs too.
+- **SonarCloud / SonarQube** - the quality gate. New code must meet the coverage
+  threshold and introduce no new issues (the gate fails on any new issue, not
+  only blocking ones).
+- **Rust Checks** (code repos) - `cargo fmt --check`, `cargo clippy -D warnings`,
+  and the test suite (with coverage) must all pass.
+- **Integration / Downstream smoke** - where a repo consumes a sibling, its
+  end-to-end and downstream-source checks must pass (see the section below).
+- **Valgrind Memory Checks** (mux-compiler, mux-runtime) - compiled programs and
+  the runtime's test binaries must be free of definite/indirect leaks and memory
+  errors. Benign third-party noise (TLS crates such as rustls/ring/ureq, and LLVM)
+  is covered by checked-in suppression files, never by loosening the gate.
 
 ## Cross-repo CI and canonical artifacts
 
