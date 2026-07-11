@@ -34,7 +34,11 @@ pointer. Field assignment retains the stored value, and the generated copy and
 destructor deep-clone / release every *boxed* field while skipping inline fields
 (the bulk copy already duplicates them and they own no heap reference). Objects
 are value types: binding or passing one produces an independent deep copy unless
-a reference (`&T`) is used. See [memory.md](memory.md) for the full ownership and
+a reference (`&T`) is used. This is not in tension with the "shared ownership"
+above: shared ownership is the *runtime implementation mechanism* (the
+reference-counted `ObjectData`), while value semantics is the *language-level
+contract* - the RC sharing lives beneath a copy-on-bind surface. See
+[memory.md](memory.md) for the full ownership and
 cleanup model.
 
 ## Interface dispatch is static

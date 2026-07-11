@@ -55,7 +55,7 @@ The compiler follows a single rule so every allocation is released exactly once.
   cleanup runs, so it survives to the caller at `+1`.
 
 Runtime wrappers that build a container around a value - `mux_result_ok_value`,
-`mux_optional_some_value`, `mux_new_tuple`, `mux_list_push_back`, `mux_map_get`,
+`mux_optional_some_value`, `mux_new_tuple`, `mux_list_push_back`, `mux_map_put`,
 and friends - **clone their argument without consuming it**. Whoever passed the
 intermediate in still owns it and must release it (or construct the wrapped value
 directly). Getting this wrong is the classic "wrapped an owned temporary and
@@ -72,8 +72,11 @@ An RC scope stack tracks each reference-counted local:
 
 1. **Enter scope** - function entry, module init, if-block, loop body, match arm.
 2. **Track variable** - register each RC-typed local's storage slot.
-3. **Exit / return** - load each tracked slot and decrement, innermost scope
-   first (the reverse of entry order).
+3. **Exit / return** - load each tracked slot and decrement in reverse (LIFO)
+   order, innermost scope first and, within a scope, last-declared first (the
+   exact reverse of entry/declaration order). Destroying in reverse is
+   load-bearing: it prevents a use-after-free when one value's teardown reads an
+   earlier-declared one.
 
 This handles early returns and guarantees a variable's storage is released once
 its binding ends.
