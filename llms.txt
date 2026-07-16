@@ -15,7 +15,7 @@ repo owns the facts that span more than one repo.
 - [Monomorphization](https://github.com/muxlang/mux-context/blob/main/docs/design/monomorphization.md): compile-time generics
 - [Object system](https://github.com/muxlang/mux-context/blob/main/docs/design/object-system.md): ObjectRef, type registry, static interface dispatch
 - [Operators](https://github.com/muxlang/mux-context/blob/main/docs/design/operators.md): short-circuit lowering, operator overloading
-- [Collections](https://github.com/muxlang/mux-context/blob/main/docs/design/collections.md): list/map/set, BTree rationale, nesting
+- [Collections](https://github.com/muxlang/mux-context/blob/main/docs/design/collections.md): list/map/set, BTree rationale, nesting, empty literals (`{}` is a set, `{:}` is a map)
 - [Error handling](https://github.com/muxlang/mux-context/blob/main/docs/design/error-handling.md): result/optional layout
 - [Runtime panics](https://github.com/muxlang/mux-context/blob/main/docs/design/panics.md): process-terminating failures, the panic format, why no baked source snippet
 - [Modules](https://github.com/muxlang/mux-context/blob/main/docs/design/modules.md): import resolution, name mangling, module init
