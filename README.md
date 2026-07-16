@@ -1,9 +1,20 @@
-# Mux context
+<div align="center">
 
-Cross-repo knowledge hub for the [Mux programming language](https://github.com/muxlang).
-This repo is the one place that owns facts spanning more than one code repo:
-how the repos fit together, the language's design rationale, a feature-to-module
-map, shared terminology, and the release process.
+<img src="https://mux-lang.dev/img/mux-logo.png" alt="Mux Logo" width="120">
+
+# mux-context
+
+**The cross-repo knowledge hub for [Mux](https://github.com/muxlang)**
+
+[![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](LICENSE)
+[![Docs](https://img.shields.io/badge/docs-mux--lang.dev-blue.svg?style=flat-square)](https://mux-lang.dev)
+[![Sonar Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=muxlang_mux-context&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=muxlang_mux-context)
+
+</div>
+
+This repo is the one place that owns facts spanning more than one code repo: how
+the repos fit together, the language's design rationale, a feature-to-module map,
+shared terminology, and the release process.
 
 It holds **no build-consumed artifacts** - things a build step reads (the
 canonical syntax spec, generated grammars, rustdoc) stay in the repo whose
@@ -12,6 +23,8 @@ it, this repo does not own it.*
 
 Agents: see [`llms.txt`](llms.txt) for a flat, link-per-line index of everything
 here.
+
+---
 
 ## Start here
 
@@ -23,6 +36,8 @@ here.
 - [Repo governance](docs/repo-governance.md) - labels, issue templates, and project board rules.
 - [Design notes](docs/design/) - why the compiler and runtime work the way they do.
 - [Decisions](docs/decisions/) - architecture decision records.
+
+---
 
 ## Canonical facts
 
@@ -37,11 +52,15 @@ These are the source of truth other READMEs copy from.
 - **Install:** `curl -fsSL https://raw.githubusercontent.com/muxlang/mux-compiler/main/scripts/install.sh | sh`
 - **License:** MIT.
 
+---
+
 ## Filing issues
 
 Not sure which repo a bug or idea belongs to? **Open it in this repo** - issues
 filed here are triaged and moved to the right repo. If an issue is clearly scoped
 to one repo (e.g. a compiler crash, a website typo), file it there directly.
+
+---
 
 ## Repositories
 
@@ -55,4 +74,8 @@ to one repo (e.g. a compiler crash, a website typo), file it there directly.
 | [mux-syntax-highlighting](https://github.com/muxlang/mux-syntax-highlighting) | TextMate grammar, VSCode extension, editor configs, and the canonical syntax spec. |
 | [.github](https://github.com/muxlang/.github) | Org profile + shared community-health files (contributing, code of conduct, issue/PR templates). |
 
-Mux is MIT-licensed and welcomes contributions.
+---
+
+## License
+
+[MIT](LICENSE) - Maintained by [Derek Corniello](https://github.com/DerekCorniello). Contributions welcome.
