@@ -16,6 +16,14 @@ monorepo). The per-repo `AGENTS.md` files link here instead of duplicating this.
   **MAINTAINER-ONLY** - the agent prepares everything and hands these to the user.
 - No registry tokens are stored in CI; crates are published manually from a local
   checkout (`cargo login` once, then `cargo publish`).
+- **Docs follow the release, never lead it.** `mux-website` deploys `docs/` from
+  `main` on every merge, but the playground runs the *released* compiler pinned
+  in `mux-website-api` (`Dockerfile` `ARG MUX_VERSION`). Docs that teach syntax
+  from an unreleased compiler go live while the playground still rejects them -
+  this shipped once with the `{:}` empty-map literal. When a compiler change adds
+  or alters syntax, hold the docs PR until that release ships, or cut the release
+  first. `mux-website`'s `check:docs-snippets` compiles every docs example against
+  the playground's pinned release to catch the skew.
 
 ## mux-compiler
 
