@@ -7,6 +7,10 @@
 The Mux source lives across the muxlang org as independent repos. This `context`
 repo owns the facts that span more than one repo.
 
+## Start here
+
+- [Agent skill / orientation](https://github.com/muxlang/mux-context/blob/main/SKILL.md): where truth lives per repo, language quick facts, and the cross-repo rules
+
 ## Architecture & design
 
 - [Architecture / repo map](https://github.com/muxlang/mux-context/blob/main/ARCHITECTURE.md): how the repos connect and how a .mux file becomes a binary
