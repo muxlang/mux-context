@@ -51,9 +51,11 @@ conversions, or reflection.
   and docs/language-guide/overview.md). Steps 3-4 CI-check against canonical
   MAIN, so they stay red until step 2 merges; rerun after, nothing is broken.
 - ASCII only in code, comments, and commit messages. No direct pushes to
-  default branches - always branch + PR. Greptile reviews every PR; verify
-  its "regression" claims against main before accepting them. SonarCloud
-  fails PRs on any new issue; cognitive complexity <= 15 per function.
+  default branches - always branch + PR. Before opening a PR, run the
+  code-review skill (`/code-review`) on your working diff and fix what it finds,
+  so the change is clean before Greptile and SonarCloud see it. Greptile reviews
+  every PR; verify its "regression" claims against main before accepting them.
+  SonarCloud fails PRs on any new issue; cognitive complexity <= 15 per function.
 - Misbehaving compiled Mux programs (LLVM UB) hang instead of crashing:
   wrap every run of a freshly compiled program in `timeout N ...`.
 - Never read `.env` files into context; `source .env` in the shell instead.
