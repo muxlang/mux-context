@@ -1,5 +1,10 @@
 # 0002 - Version each repo independently
 
+> **Partly superseded by [0004](0004-runtime-resolved-from-source.md).** The
+> compiler no longer pins a semver range on a published `mux-runtime`, so the
+> "publish the runtime, then bump the compiler's range, then release" ordering
+> below no longer applies. Independent versioning otherwise stands.
+
 ## Context
 
 After the [multi-repo split](0001-multi-repo-split.md) the old root `VERSION`

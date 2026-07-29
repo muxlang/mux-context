@@ -63,9 +63,16 @@ conversions, or reflection.
   impacts or is closely related to the issue at hand, fix it as part of that
   work; if it is unrelated, file it as its own issue. Never silently leave an
   uncovered bug, and do not bundle an unrelated one into the PR.
-- rc-leak-check cache trap: switching `MUX_RUNTIME_FEATURES` (e.g. between the
-  default runtime and one built with `rc-leak-check`) can leave a stale runtime
-  in the compiler's cache, so a program links the wrong runtime and gives a
-  FALSE leak-check pass or fail. Delete the runtime cache
-  (`~/.cache/mux-lang`) and rebuild after changing features, and re-verify
-  leak results from a clean cache before trusting them.
+- The compiler links a PREBUILT runtime and never builds one while compiling a
+  program. It looks at `MUX_RUNTIME_LIB`, then a library beside the compiler
+  binary (or in `../lib`), then the one in `target/` - which needs an explicit
+  `cargo build -p mux-runtime`, because cargo emits a dependency's rlib and
+  never its staticlib. A plain `cargo build` leaves programs failing to link
+  with undefined `mux_*` symbols.
+- `MUX_RUNTIME_LIB` wins over everything, so a leftover value (including one in
+  a gitignored `.cargo/config.toml`) silently overrides the library you just
+  built. Check it first when runtime behavior does not match the source.
+- rc-leak-check: the feature sits outside mux-runtime's `full` set, so the
+  default runtime never carries the exit-time assertion. `scripts/leak-check.sh`
+  builds that runtime and FORCES it via `MUX_RUNTIME_LIB` - that force is the
+  whole mechanism, and without it a leaking program silently exits 0.
