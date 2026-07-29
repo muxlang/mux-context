@@ -17,11 +17,11 @@ The **compiler** (`mux-compiler`, Rust + LLVM) turns source into LLVM IR and
 invokes `clang` to produce a native binary. That binary links the **runtime**
 (`mux-runtime`, plain Rust, no LLVM) for reference counting, UTF-8 strings,
 collections, conversions, and the standard library. The compiler does not import
-the runtime as a Rust crate - it links the built static library, which it either
-builds from runtime source (a sibling checkout, `MUX_RUNTIME_SRC`, or the git
-checkout cargo made for the locked commit) or takes prebuilt from the release
-bundle. `mux-runtime` is a git dependency on its `main` branch, pinned to one
-commit by `Cargo.lock`, so CI and release tags build the same source (see
+the runtime as a Rust crate - it links a prebuilt static library, and never
+builds one while compiling a program. That library is either bundled beside the
+compiler in a release install, or built by cargo into `target/`; `MUX_RUNTIME_LIB`
+overrides both. `mux-runtime` is a git dependency on its `main` branch, pinned to
+one commit by `Cargo.lock`, so CI and release tags build the same source (see
 decisions [0003](docs/decisions/0003-verify-consumers-against-source.md) and
 [0004](docs/decisions/0004-runtime-resolved-from-source.md)). The crates.io
 channel is frozen.
