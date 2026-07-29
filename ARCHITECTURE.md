@@ -18,8 +18,9 @@ invokes `clang` to produce a native binary. That binary links the **runtime**
 (`mux-runtime`, plain Rust, no LLVM) for reference counting, UTF-8 strings,
 collections, conversions, and the standard library. The compiler does not import
 the runtime as a Rust crate - it links a prebuilt static library, and never
-builds one while compiling a program. That library is either bundled beside the
-compiler in a release install, or built by cargo into `target/` (which takes an
+builds one while compiling a program. That library is either bundled with a
+release install (beside the binary, or in a sibling `lib/`), or built by cargo
+into `target/` (which takes an
 explicit `cargo build -p mux-runtime`, since cargo emits a dependency's rlib and
 never its staticlib); `MUX_RUNTIME_LIB` overrides both. `mux-runtime` is a git
 dependency on its `main` branch, pinned to one commit by `Cargo.lock`, so CI and

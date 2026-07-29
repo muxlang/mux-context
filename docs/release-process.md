@@ -57,9 +57,11 @@ Not released on its own cadence any more: `mux-compiler` consumes it from `main`
 by commit, so merging to `main` is what makes a runtime change available. See
 [ADR 0004](decisions/0004-runtime-resolved-from-source.md).
 
-1. Merge the change to `main`.
-2. Update `CHANGELOG.md` under an `## [Unreleased]` heading, so the history stays
-   readable even without version tags.
+1. Update `CHANGELOG.md` under the `## [Unreleased]` heading **in the same PR as
+   the change**, so the entry lands with the code it describes rather than as a
+   follow-up. Without version tags this is the only record of what changed.
+2. Merge to `main`. That is what makes the change available - there is no
+   publish step.
 3. The compiler picks it up when a compiler branch runs
    `cargo update -p mux-runtime`, or when a release settles the pin. Until then
    the compiler keeps building the commit its lock names, which is the point of

@@ -50,7 +50,8 @@ crates.io channel.
   shadowed the lower ones - the reason a release shipped that could not compile
   hello world while every developer machine masked it. Resolution is now
   `MUX_RUNTIME_LIB`, the library beside the binary, then the one cargo built
-  into `target/`.
+  into `target/`. A release install carries it beside the binary or in a
+  sibling `lib/`, which is the layout `scripts/install.sh` produces.
 - The pin moves when a change needs it (`cargo update -p mux-runtime`) or when a
   release settles it deliberately - not on a schedule. Automating it was
   considered and rejected: [0003](0003-verify-consumers-against-source.md)
