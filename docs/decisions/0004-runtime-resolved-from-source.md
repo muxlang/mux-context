@@ -38,11 +38,19 @@ crates.io channel.
   commit, so `--locked` builds - CI and release tags included - stay
   reproducible. This extends 0003's "verify against source" from CI to release.
 - `MUX_RUNTIME_VERSION` carries the locked commit as semver build metadata
-  (`0.5.0+g1a2b3c4`). A git-sourced runtime keeps one version across every
-  commit, and that string keys the runtime build cache, which reuses a library
-  built from an immutable source without a freshness check. 0003 already
-  identified this; without the commit in the key, two runtimes share a cache
-  entry and a program can link a stale one.
+  (`0.5.0+g1a2b3c4`), so `mux version` identifies exactly which runtime a binary
+  was built against. A git-sourced runtime keeps one version across every
+  commit, so the version alone cannot.
+- **The compiler always links the full prebuilt runtime and never builds one
+  while compiling a program.** It previously built a feature-trimmed runtime per
+  program, which measurement showed buys nothing: static linking already
+  discards archive members nothing references, so hello world is 16K against
+  either. That removed the build cache, the source lookups, the per-program
+  feature sets, and a five-level resolution order whose upper entries silently
+  shadowed the lower ones - the reason a release shipped that could not compile
+  hello world while every developer machine masked it. Resolution is now
+  `MUX_RUNTIME_LIB`, the library beside the binary, then the one cargo built
+  into `target/`.
 - The pin moves when a change needs it (`cargo update -p mux-runtime`) or when a
   release settles it deliberately - not on a schedule. Automating it was
   considered and rejected: [0003](0003-verify-consumers-against-source.md)
