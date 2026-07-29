@@ -43,8 +43,12 @@ crates.io channel.
   built from an immutable source without a freshness check. 0003 already
   identified this; without the commit in the key, two runtimes share a cache
   entry and a program can link a stale one.
-- `main` tracks runtime `main` through a scheduled workflow that advances the
-  pin and opens a PR, rather than by loosening the lock.
+- The pin moves when a change needs it (`cargo update -p mux-runtime`) or when a
+  release settles it deliberately - not on a schedule. Automating it was
+  considered and rejected: [0003](0003-verify-consumers-against-source.md)
+  already has each repo's CI build against the other's `main`, so an FFI break
+  surfaces from both directions without the pin moving, and a lock that trails
+  runtime `main` between coupled changes costs nothing.
 - Existing crates.io releases (`mux-lang` through 0.6.0, `mux-runtime` through
   0.5.0) stay published and are not yanked - yanking frees no name and only
   breaks anyone pinned. No new versions are published there.

@@ -15,8 +15,9 @@ monorepo). The per-repo `AGENTS.md` files link here instead of duplicating this.
   reports both, with the locked commit as build metadata:
   `compiler v0.6.0` / `runtime v0.5.0+g4e2dc14`.
 - **A release needs no publish handshake.** Whatever commit `Cargo.lock` names at
-  the tag is what ships. A scheduled workflow
-  (`mux-compiler/.github/workflows/runtime-bump.yml`) advances that pin on `main`.
+  the tag is what ships. The pin moves when someone runs
+  `cargo update -p mux-runtime` - because a change needs it, or deliberately as
+  part of preparing a release.
 - **crates.io is frozen.** `mux-lang` (through 0.6.0) and `mux-runtime` (through
   0.5.0) remain published and are not yanked, but no new versions go there.
   Releases are GitHub tarballs installed via `scripts/install.sh`.
@@ -59,8 +60,11 @@ by commit, so merging to `main` is what makes a runtime change available. See
 1. Merge the change to `main`.
 2. Update `CHANGELOG.md` under an `## [Unreleased]` heading, so the history stays
    readable even without version tags.
-3. The compiler picks it up on the next scheduled runtime-bump PR, or immediately
-   via `cargo update -p mux-runtime` in a compiler branch.
+3. The compiler picks it up when a compiler branch runs
+   `cargo update -p mux-runtime`, or when a release settles the pin. Until then
+   the compiler keeps building the commit its lock names, which is the point of
+   the lock. Both repos' CI already build against the other's `main`, so an FFI
+   break surfaces without waiting for the pin to move.
 
 The `version` field in `Cargo.toml` is inert while the crates.io channel is
 frozen. Leave it alone unless publishing resumes.
