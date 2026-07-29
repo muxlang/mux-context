@@ -8,14 +8,21 @@ monorepo). The per-repo `AGENTS.md` files link here instead of duplicating this.
 
 - The **"Mux version"** is the `mux-compiler` package version
   (`mux-compiler/Cargo.toml`, read as `CARGO_PKG_VERSION`).
-- `mux-runtime` is versioned and published on its own cadence. The compiler pins
-  a compatible semver range; `mux --version` reports both, e.g.
-  `mux 0.5.1 (runtime 0.5.0)`.
+- `mux-runtime` is a **git dependency** on its `main` branch, pinned to one exact
+  commit by `Cargo.lock` (see
+  [ADR 0004](decisions/0004-runtime-resolved-from-source.md)). It is not
+  published, and the compiler does not pin a semver range on it. `mux version`
+  reports both, with the locked commit as build metadata:
+  `compiler v0.6.0` / `runtime v0.5.0+g4e2dc14`.
+- **A release needs no publish handshake.** Whatever commit `Cargo.lock` names at
+  the tag is what ships. A scheduled workflow
+  (`mux-compiler/.github/workflows/runtime-bump.yml`) advances that pin on `main`.
+- **crates.io is frozen.** `mux-lang` (through 0.6.0) and `mux-runtime` (through
+  0.5.0) remain published and are not yanked, but no new versions go there.
+  Releases are GitHub tarballs installed via `scripts/install.sh`.
 - **Agent boundary:** preparing a release (changelog, version bump, lockfile) is
-  agent-safe. Tagging, publishing to crates.io, and deploying are
-  **MAINTAINER-ONLY** - the agent prepares everything and hands these to the user.
-- No registry tokens are stored in CI; crates are published manually from a local
-  checkout (`cargo login` once, then `cargo publish`).
+  agent-safe. Tagging and deploying are **MAINTAINER-ONLY** - the agent prepares
+  everything and hands these to the user.
 - **Docs follow the release, never lead it.** `mux-website` deploys `docs/` from
   `main` on every merge, but the playground runs the *released* compiler pinned
   in `mux-website-api` (`Dockerfile` `ARG MUX_VERSION`). Docs that teach syntax
@@ -33,21 +40,30 @@ monorepo). The per-repo `AGENTS.md` files link here instead of duplicating this.
    Added / Changed / Fixed (/ Security), referencing issue/PR numbers.
 3. **Bump the version** in `mux-compiler/Cargo.toml`; update the README version
    badge and the `- **Current Version:**` line to match.
-4. **Refresh the lockfile** - `cargo build`.
-5. *(maintainer)* **Tag** - `git tag -a vX.Y.Z -m "Release vX.Y.Z" && git push origin vX.Y.Z`.
-6. *(maintainer)* **Publish** - `cargo publish` (package `mux-lang`; binary `mux`).
-   If the release needs a new runtime, publish `mux-runtime` first (below), then
-   bump the `mux-runtime = "X.Y"` range in `mux-compiler/Cargo.toml`.
+4. **Settle the runtime pin** - if the release should carry a newer runtime than
+   `Cargo.lock` names, run `cargo update -p mux-runtime` and commit the lock.
+   Confirm the intended commit with `mux version`.
+5. **Refresh the lockfile** - `cargo build`.
+6. *(maintainer)* **Tag** - `git tag -a vX.Y.Z -m "Release vX.Y.Z" && git push origin vX.Y.Z`.
+   The `Release` workflow builds the per-platform tarballs `--locked` and
+   publishes the GitHub release. There is no `cargo publish` step.
 7. *(maintainer)* **Deploy the playground** - in `mux-website-api`, bump
    `ARG MUX_VERSION` in the Dockerfile to this release and `fly deploy`.
 
 ## mux-runtime
 
-1. Bump `version` in `Cargo.toml` and update the changelog.
-2. *(maintainer)* `cargo publish` (requires `cargo login`).
-3. *(maintainer)* Tag - `git tag -a vX.Y.Z -m "Release vX.Y.Z" && git push origin vX.Y.Z`.
+Not released on its own cadence any more: `mux-compiler` consumes it from `main`
+by commit, so merging to `main` is what makes a runtime change available. See
+[ADR 0004](decisions/0004-runtime-resolved-from-source.md).
 
-Publish the runtime **before** bumping the compiler's dependency on it.
+1. Merge the change to `main`.
+2. Update `CHANGELOG.md` under an `## [Unreleased]` heading, so the history stays
+   readable even without version tags.
+3. The compiler picks it up on the next scheduled runtime-bump PR, or immediately
+   via `cargo update -p mux-runtime` in a compiler branch.
+
+The `version` field in `Cargo.toml` is inert while the crates.io channel is
+frozen. Leave it alone unless publishing resumes.
 
 ## mux-website-api
 

@@ -17,20 +17,23 @@ The **compiler** (`mux-compiler`, Rust + LLVM) turns source into LLVM IR and
 invokes `clang` to produce a native binary. That binary links the **runtime**
 (`mux-runtime`, plain Rust, no LLVM) for reference counting, UTF-8 strings,
 collections, conversions, and the standard library. The compiler does not import
-the runtime as a Rust crate - it links the built static library, which it builds
-from runtime source: a sibling checkout or `MUX_RUNTIME_SRC`. CI builds from the
-runtime's `main` source (see
-[decision 0003](docs/decisions/0003-verify-consumers-against-source.md)); the
-crates.io crate is the pinned fallback used for releases.
+the runtime as a Rust crate - it links the built static library, which it either
+builds from runtime source (a sibling checkout, `MUX_RUNTIME_SRC`, or the git
+checkout cargo made for the locked commit) or takes prebuilt from the release
+bundle. `mux-runtime` is a git dependency on its `main` branch, pinned to one
+commit by `Cargo.lock`, so CI and release tags build the same source (see
+decisions [0003](docs/decisions/0003-verify-consumers-against-source.md) and
+[0004](docs/decisions/0004-runtime-resolved-from-source.md)). The crates.io
+channel is frozen.
 
 ## Repo dependency graph
 
 ```
-mux-compiler ----(links, version-pins)----> mux-runtime
-     ^                                            ^
-     | runs the released binary                   | published to crates.io
-     |                                            |
-mux-website-api                              (compiled programs)
+mux-compiler ----(links, git dep pinned by lock)----> mux-runtime
+     ^                                                     ^
+     | runs the released binary                            |
+     |                                                (compiled programs)
+mux-website-api
      ^
      | HTTP /api/compile
      |
