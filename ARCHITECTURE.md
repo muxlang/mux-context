@@ -21,8 +21,9 @@ the runtime as a Rust crate - it links a prebuilt static library, and never
 builds one while compiling a program. That library is either bundled beside the
 compiler in a release install, or built by cargo into `target/` (which takes an
 explicit `cargo build -p mux-runtime`, since cargo emits a dependency's rlib and
-never its staticlib); `MUX_RUNTIME_LIB` overrides both. `mux-runtime` is a git dependency on its `main` branch, pinned to
-one commit by `Cargo.lock`, so CI and release tags build the same source (see
+never its staticlib); `MUX_RUNTIME_LIB` overrides both. `mux-runtime` is a git
+dependency on its `main` branch, pinned to one commit by `Cargo.lock`, so CI and
+release tags build the same source (see
 decisions [0003](docs/decisions/0003-verify-consumers-against-source.md) and
 [0004](docs/decisions/0004-runtime-resolved-from-source.md)). The crates.io
 channel is frozen.
@@ -44,8 +45,9 @@ mux-syntax-highlighting ----(canonical syntax-matrix.json)----> tree-sitter-mux 
                          \--(generates)--> TextMate grammar, VSCode extension
 ```
 
-- **mux-compiler -> mux-runtime:** link-time dependency with an independent
-  semver pin. `mux --version` reports both, e.g. `mux 0.5.1 (runtime 0.5.0)`.
+- **mux-compiler -> mux-runtime:** link-time dependency resolved from git and
+  pinned to a commit by `Cargo.lock`. `mux version` reports both, with the
+  locked commit as build metadata: `compiler v0.6.0` / `runtime v0.5.0+g4e2dc14`.
 - **mux-website-api -> mux-compiler:** runs a *released* `mux` binary (a
   deliberately pinned compiler version), not arbitrary `main`.
 - **mux-website -> mux-website-api:** the in-browser playground POSTs source to
