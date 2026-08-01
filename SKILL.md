@@ -56,6 +56,20 @@ conversions, or reflection.
   so the change is clean before Greptile and SonarCloud see it. Greptile reviews
   every PR; verify its "regression" claims against main before accepting them.
   SonarCloud fails PRs on any new issue; cognitive complexity <= 15 per function.
+- The two SonarCloud checks are NOT redundant. `SonarCloud Code Analysis` is
+  posted by Sonar's own app and runs the built-in "Sonar way" gate, which has no
+  new-issue condition at all - it fails only on ratings, coverage, duplication
+  and hotspots reviewed. Ratings are issue-derived but lenient: one new Bug or
+  Vulnerability fails it, while code smells only move a debt-ratio threshold, so
+  any number of them can pass. Each repo's own "Fail on new SonarCloud issues"
+  step is the only thing enforcing zero new issues, and custom quality gates are
+  a paid feature, so it cannot be replaced by configuration. Never delete it as a
+  duplicate of a green app check.
+- **Never poll or watch CI.** Do not run background loops, `gh run watch`,
+  `gh pr checks --watch`, or any command that waits on a pipeline, unless the
+  user explicitly asks. After pushing, report what to watch and where - the PR
+  link, the check name, and what a pass or failure would mean - and move on to
+  other work. The user decides when to look.
 - Misbehaving compiled Mux programs (LLVM UB) hang instead of crashing:
   wrap every run of a freshly compiled program in `timeout N ...`.
 - Never read `.env` files into context; `source .env` in the shell instead.
