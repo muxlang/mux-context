@@ -138,9 +138,15 @@ until all of them pass. These are shared org conventions, not per-repo choices.
   red Greptile check blocks merge. Address every finding (fix it, or resolve the
   thread with a justification) and let the review re-run; never merge around an
   unresolved Greptile review. This applies to docs-only PRs too.
-- **SonarCloud / SonarQube** - the quality gate. New code must meet the coverage
-  threshold and introduce no new issues (the gate fails on any new issue, not
-  only blocking ones).
+- **SonarCloud / SonarQube** - two checks that are easy to mistake for
+  duplicates, and both must pass. `SonarCloud Code Analysis` is posted by Sonar's
+  app and runs the built-in "Sonar way" gate, which has **no new-issue
+  condition**: it fails on ratings, coverage, duplication and hotspots reviewed,
+  so new code smells can pass it. The repo's own `SonarQube` job is what fails on
+  **any** new issue, not only blocking ones - and since custom quality gates are
+  a paid feature, that job is the only enforcement of it. Never remove it as
+  redundant with a green app check. New code must also meet the coverage
+  threshold.
 - **Rust Checks** (code repos) - `cargo fmt --check`, `cargo clippy -D warnings`,
   and the test suite (with coverage) must all pass.
 - **Integration / Downstream smoke** - where a repo consumes a sibling, its
