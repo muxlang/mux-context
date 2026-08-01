@@ -55,7 +55,8 @@ conversions, or reflection.
   code-review skill (`/code-review`) on your working diff and fix what it finds,
   so the change is clean before Greptile and SonarCloud see it. Greptile reviews
   every PR; verify its "regression" claims against main before accepting them.
-  SonarCloud fails PRs on any new issue; cognitive complexity <= 15 per function.
+  The repo-local `SonarQube` job fails PRs on any new issue (see the next rule -
+  the app-posted check does not); cognitive complexity <= 15 per function.
 - The two SonarCloud checks are NOT redundant. `SonarCloud Code Analysis` is
   posted by Sonar's own app and runs the built-in "Sonar way" gate, which has no
   new-issue condition at all - it fails only on ratings, coverage, duplication
