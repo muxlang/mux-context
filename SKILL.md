@@ -33,3 +33,22 @@ trust memory or anything copied here.
 - Branch via PR, no direct pushes to default. ASCII only in files and commits.
 - A compiled Mux program may hang instead of crashing; wrap fresh runs in
   `timeout N ...`.
+
+## Cross-repo rules
+
+These are owned by no single repo, so they live here.
+
+- **Syntax change fan-out, in order:** `mux-compiler`, then
+  `mux-syntax-highlighting` canonical matrix (MERGE FIRST), then
+  `tree-sitter-mux` (vendored matrix + grammar), then `mux-website` (Monaco,
+  Shiki, and keyword lists). Consumers stay red until the canonical matrix
+  merges; rerun after, nothing is broken.
+- **Never poll or watch CI.** Do not run background loops, `gh run watch`,
+  `gh pr checks --watch`, or anything that waits on a pipeline, unless asked.
+  After pushing, report the link and what pass/fail would mean, then stop.
+- **The repo-local "fail on new SonarQube issues" step is the only zero-new-issue
+  enforcement; do not delete it as a duplicate of the app-posted SonarCloud
+  check (Sonar's own gate has no new-issue condition).**
+- **Never read `.env` files into context; `source .env` in the shell instead.**
+- **Pre-existing bugs:** fix if directly related to your issue, otherwise file
+  it as its own issue; never bundle an unrelated fix into the PR.
