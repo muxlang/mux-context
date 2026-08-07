@@ -9,7 +9,7 @@ repo owns the facts that span more than one repo.
 
 ## Start here
 
-- [Agent skill / orientation](https://github.com/muxlang/mux-context/blob/main/SKILL.md): where truth lives per repo, language quick facts, and the cross-repo rules
+- [Agent skill / orientation](https://github.com/muxlang/mux-context/blob/main/SKILL.md): where truth lives per repo and the cross-repo rules
 
 ## Architecture & design
 
