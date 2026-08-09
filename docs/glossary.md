@@ -41,6 +41,14 @@ live in the [docs](https://mux-lang.dev); this is the cross-repo/internal vocabu
   `mux-syntax-highlighting` and vendored into `tree-sitter-mux`.
 - **`TypeNode` / `Type` / `BasicTypeEnum`** - the AST / semantic / LLVM
   representations of a type, respectively.
+- **Underscore (`_`)** - two different things that share a spelling. A LONE `_`
+  is a hole: the match wildcard and the unused-parameter marker. It binds
+  nothing, cannot be read, and a signature may carry several of them. An
+  identifier that merely STARTS with `_` is an ordinary name that binds and can
+  be read. The lexical rule is `[a-zA-Z][a-zA-Z0-9_]* | _[a-zA-Z0-9_]+` - a
+  leading underscore needs at least one more character, which is what keeps the
+  lone `_` reserved. Lives in `syntax-matrix.json` as `identifiers.pattern`, and
+  is duplicated in the compiler's own lexer.
 - **`Value`** - the single runtime enum that represents every Mux value.
 - **Value semantics** - binding or passing a value type (primitive, string,
   collection, object) produces an independent deep copy (`mux_value_deep_clone`),
