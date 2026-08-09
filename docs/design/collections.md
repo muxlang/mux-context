@@ -8,8 +8,8 @@ arbitrary nesting (e.g. `list<map<string, list<int>>>`).
 | Collection | Backing type | Use case |
 |------------|--------------|----------|
 | `list<T>` | `Vec<Value>` | contiguous, indexed access |
-| `map<K,V>` | `BTreeMap<Value, Value>` | key/value pairs, sorted keys |
-| `set<T>` | `BTreeSet<Value>` | unique elements, membership |
+| `map<K,V>` | `OrderedMap<Value, Value>` | key/value pairs, insertion-order iteration |
+| `set<T>` | `OrderedSet<Value>` | unique elements, membership |
 
 ## Empty literals: `{}` is a set, `{:}` is a map
 
@@ -34,14 +34,31 @@ Consequences worth knowing:
 - Nesting follows the same rule per position: `map<int, set<int>> x = {1: {}}`
   is a map of sets, while `map<int, map<int, int>> y = {1: {:}}` is a map of maps.
 
-## Why BTree, not Hash
+## Hash tables with insertion-order iteration
 
-`map` and `set` use the B-tree variants rather than hash maps for:
+`map` and `set` are backed by `OrderedMap`/`OrderedSet` in `mux-runtime`:
+a `hashbrown::HashTable` of slab indices plus an intrusive doubly-linked list
+through the slab. That combination is what gives both average-case O(1)
+operations and insertion order, which a plain `HashMap` would not.
 
-- **Deterministic iteration order** - always the same order.
-- **Ordered operations** - first/last element, range queries.
-- **Reproducible output** - `to_string()` is stable, which matters for the
-  golden-file snapshot tests in `mux-compiler`.
+They replaced the B-tree variants for:
+
+- **Average-case O(1) operations** - lookup, insertion and removal are expected
+  constant time rather than the B-tree's worst-case O(log n), which is what a
+  user of a hash-based collection expects from any other language. The
+  guarantee is average-case, not worst-case: adversarial or degenerate hashing
+  collapses a bucket to a linear scan, and insertion is amortized because the
+  table resizes. A type whose `hash` is poorly distributed pays for it here.
+- **Insertion-order iteration** - deterministic without being sorted, so a
+  `map` prints the way it was built. Re-assigning an existing key keeps its
+  original position, matching Python and JavaScript.
+- **`Hashable` becomes implementable** - nothing in the runtime hashed while
+  the collections were trees, so a type could not opt into being a key.
+
+The order links cost two `usize` per entry over a B-tree node, which is the
+price of iterating in insertion order. Equality and hashing stay
+order-insensitive: two maps with the same pairs are equal however they were
+built.
 
 ## How nesting is tracked
 
@@ -55,6 +72,6 @@ The type system threads nesting through all three stages
 ## Reference counting in collections
 
 Collections are reference-count-allocated and contain reference-count-allocated
-values. When a collection's count reaches zero, its backing `Vec`/`BTree` is
+values. When a collection's count reaches zero, its backing storage is
 dropped, each contained value is decremented, and nested collections are freed
 recursively. See [memory.md](memory.md).
