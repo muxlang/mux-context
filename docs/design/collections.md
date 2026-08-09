@@ -8,8 +8,8 @@ arbitrary nesting (e.g. `list<map<string, list<int>>>`).
 | Collection | Backing type | Use case |
 |------------|--------------|----------|
 | `list<T>` | `Vec<Value>` | contiguous, indexed access |
-| `map<K,V>` | `HashMap<Value, Value>` | key/value pairs, insertion-order iteration |
-| `set<T>` | `HashSet<Value>` | unique elements, membership |
+| `map<K,V>` | `OrderedMap<Value, Value>` | key/value pairs, insertion-order iteration |
+| `set<T>` | `OrderedSet<Value>` | unique elements, membership |
 
 ## Empty literals: `{}` is a set, `{:}` is a map
 
@@ -36,13 +36,26 @@ Consequences worth knowing:
 
 ## Hash tables with insertion-order iteration
 
-`map` and `set` use hash tables rather than B-trees for:
+`map` and `set` are backed by `OrderedMap`/`OrderedSet` in `mux-runtime`:
+a `hashbrown::HashTable` of slab indices plus an intrusive doubly-linked list
+through the slab. That combination is what gives both O(1) operations and
+insertion order, which a plain `HashMap` would not.
 
-- **O(1) operations** - constant-time lookup, insertion, and deletion.
-- **Insertion-order iteration** - elements iterate in the order they were
-  inserted, providing deterministic and predictable iteration order.
-- **Lower memory overhead** - hash tables use less memory than B-trees for
-  typical use cases.
+They replaced the B-tree variants for:
+
+- **O(1) operations** - lookup, insertion and removal are constant time rather
+  than O(log n), which is what a user of a hash-based collection expects from
+  any other language.
+- **Insertion-order iteration** - deterministic without being sorted, so a
+  `map` prints the way it was built. Re-assigning an existing key keeps its
+  original position, matching Python and JavaScript.
+- **`Hashable` becomes implementable** - nothing in the runtime hashed while
+  the collections were trees, so a type could not opt into being a key.
+
+The order links cost two `usize` per entry over a B-tree node, which is the
+price of iterating in insertion order. Equality and hashing stay
+order-insensitive: two maps with the same pairs are equal however they were
+built.
 
 ## How nesting is tracked
 
