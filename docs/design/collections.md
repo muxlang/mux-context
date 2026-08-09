@@ -38,14 +38,17 @@ Consequences worth knowing:
 
 `map` and `set` are backed by `OrderedMap`/`OrderedSet` in `mux-runtime`:
 a `hashbrown::HashTable` of slab indices plus an intrusive doubly-linked list
-through the slab. That combination is what gives both O(1) operations and
-insertion order, which a plain `HashMap` would not.
+through the slab. That combination is what gives both average-case O(1)
+operations and insertion order, which a plain `HashMap` would not.
 
 They replaced the B-tree variants for:
 
-- **O(1) operations** - lookup, insertion and removal are constant time rather
-  than O(log n), which is what a user of a hash-based collection expects from
-  any other language.
+- **Average-case O(1) operations** - lookup, insertion and removal are expected
+  constant time rather than the B-tree's worst-case O(log n), which is what a
+  user of a hash-based collection expects from any other language. The
+  guarantee is average-case, not worst-case: adversarial or degenerate hashing
+  collapses a bucket to a linear scan, and insertion is amortized because the
+  table resizes. A type whose `hash` is poorly distributed pays for it here.
 - **Insertion-order iteration** - deterministic without being sorted, so a
   `map` prints the way it was built. Re-assigning an existing key keeps its
   original position, matching Python and JavaScript.
