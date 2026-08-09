@@ -143,26 +143,26 @@ are excluded.
 
 ## Initialization
 
-Fields with no explicit default are zero-initialized as **boxed** values (a
-`bool` field becomes a boxed `false`, not a raw `i1`), matching how
-explicitly-defaulted fields and later assignments store them. Storing a raw
-scalar into a pointer-sized field slot would leave its upper bytes undefined and
-make a later boxed read dereference garbage.
+Fields with no explicit default are zero-initialized as follows:
 
-Enum-typed fields are the exception: an enum is stored **inline** as a struct, not
-as a boxed pointer, so its default is a zeroed inline value (the first variant).
-Routing an enum-field default through the class-constructor path would wrongly
-allocate a heap object for the enum and leak it.
+- **Primitive fields** (`int`, `float`, `bool`, `char`) - stored inline with
+  their zero value (e.g., `false`, `0`, `0.0`).
+- **Other fields** (**string**, **objects**, **collections**) - stored as boxed
+  `NULL` pointers, matching how explicitly-defaulted and later-assigned boxed
+  fields are stored.
+- **Enum-typed fields** - stored inline as a struct with a zeroed inline value
+  (the first variant). Routing an enum-field default through the class-constructor
+  path would wrongly allocate a heap object for the enum and leak it.
 
 ## Object copy and destruction
 
 Each class gets a generated copy function and destructor
 (`mux-compiler/src/codegen/classes.rs`). The copy bulk-`memcpy`s the class data,
-then deep-clones each **boxed** field; the destructor `mux_rc_dec`s each **boxed**
-field. Both skip fields whose storage is not a pointer (inline data such as an
-enum struct): the bulk copy already duplicated them and they own no heap
-reference, so treating their first word as a refcount pointer would corrupt
-memory.
+then deep-clones each **boxed** field (those stored as pointers); the destructor
+`mux_rc_dec`s each **boxed** field. Both skip fields whose storage is inline
+(primitive fields and enum structs): the bulk copy already duplicated them and
+they own no heap reference, so treating their first word as a refcount pointer
+would corrupt memory.
 
 ## String ownership at the C-ABI boundary
 

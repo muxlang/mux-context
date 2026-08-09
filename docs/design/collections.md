@@ -8,8 +8,8 @@ arbitrary nesting (e.g. `list<map<string, list<int>>>`).
 | Collection | Backing type | Use case |
 |------------|--------------|----------|
 | `list<T>` | `Vec<Value>` | contiguous, indexed access |
-| `map<K,V>` | `BTreeMap<Value, Value>` | key/value pairs, sorted keys |
-| `set<T>` | `BTreeSet<Value>` | unique elements, membership |
+| `map<K,V>` | `HashMap<Value, Value>` | key/value pairs, insertion-order iteration |
+| `set<T>` | `HashSet<Value>` | unique elements, membership |
 
 ## Empty literals: `{}` is a set, `{:}` is a map
 
@@ -34,14 +34,15 @@ Consequences worth knowing:
 - Nesting follows the same rule per position: `map<int, set<int>> x = {1: {}}`
   is a map of sets, while `map<int, map<int, int>> y = {1: {:}}` is a map of maps.
 
-## Why BTree, not Hash
+## Hash tables with insertion-order iteration
 
-`map` and `set` use the B-tree variants rather than hash maps for:
+`map` and `set` use hash tables rather than B-trees for:
 
-- **Deterministic iteration order** - always the same order.
-- **Ordered operations** - first/last element, range queries.
-- **Reproducible output** - `to_string()` is stable, which matters for the
-  golden-file snapshot tests in `mux-compiler`.
+- **O(1) operations** - constant-time lookup, insertion, and deletion.
+- **Insertion-order iteration** - elements iterate in the order they were
+  inserted, providing deterministic and predictable iteration order.
+- **Lower memory overhead** - hash tables use less memory than B-trees for
+  typical use cases.
 
 ## How nesting is tracked
 
@@ -55,6 +56,6 @@ The type system threads nesting through all three stages
 ## Reference counting in collections
 
 Collections are reference-count-allocated and contain reference-count-allocated
-values. When a collection's count reaches zero, its backing `Vec`/`BTree` is
+values. When a collection's count reaches zero, its backing storage is
 dropped, each contained value is decremented, and nested collections are freed
 recursively. See [memory.md](memory.md).
