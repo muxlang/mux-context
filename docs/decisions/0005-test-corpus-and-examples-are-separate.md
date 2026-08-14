@@ -65,13 +65,25 @@ its own CI, distinct from the compiler's own tests.
   release would deadlock - a fix for a compiler-caused failure could not merge
   until the release shipped, and the release should not ship with a broken
   example.
-- The guarantee that examples work against a real *release* therefore does not
-  exist yet. It requires running the same script from the release jobs in
-  mux-compiler and mux-runtime, which is follow-up work.
-- mux-compiler takes a CI dependency on mux-examples when that lands. This is
-  the dependency inversion #44 raised, accepted deliberately: output diffs over
-  a dozen programs are far less brittle than 432 filename-keyed snapshots, and
-  it blocks a *release* rather than a merge.
+- The guarantee that examples work against a real *release* comes from running
+  the same script outside this repo, and does exist. Both gates are defined in
+  the repo they run in, which is authoritative; the summary here can go stale,
+  so check the workflow before relying on a detail of it:
+  - [mux-compiler's release workflow](https://github.com/muxlang/mux-compiler/blob/main/.github/workflows/release.yml)
+    runs it against the artifact it is about to publish, installed the way a
+    user installs it, so a broken example blocks the release.
+  - [mux-runtime's CI](https://github.com/muxlang/mux-runtime/blob/main/.github/workflows/ci.yml)
+    runs it on every pull request. That repo has no release workflow - merging
+    to `main` is what makes a change available (see
+    [0004](0004-runtime-resolved-from-source.md)) - so a pull request is the
+    last point before users get the change.
+- mux-compiler and mux-runtime both take a CI dependency on mux-examples. This
+  is the dependency inversion #44 raised, accepted deliberately: output diffs
+  over a dozen programs are far less brittle than 432 filename-keyed snapshots.
+  In mux-compiler it blocks a *release* rather than a merge; in mux-runtime,
+  which has no release step, it blocks a merge, because there is no later gate.
+  The cost is real and worth stating: a stale `expected_output.txt` can hold up
+  a release, and the fix for it lives in another repo.
 - Authoring the first corpus against a real compiler found nine defects, which is
   the clearest argument for the repo existing and the reason to keep the examples
   runnable rather than illustrative:
