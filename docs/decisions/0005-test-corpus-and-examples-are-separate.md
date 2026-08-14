@@ -72,7 +72,10 @@ its own CI, distinct from the compiler's own tests.
   the dependency inversion #44 raised, accepted deliberately: output diffs over
   a dozen programs are far less brittle than 432 filename-keyed snapshots, and
   it blocks a *release* rather than a merge.
-- Authoring the first corpus against a real compiler found nine defects
-  (muxlang/mux-runtime#50, #51, #52, #53; muxlang/mux-compiler#391, #394, #395,
-  #397, and a nested-function ICE). That is the clearest argument for the repo
-  existing, and the reason to keep the examples runnable rather than illustrative.
+- Authoring the first corpus against a real compiler found nine defects, which is
+  the clearest argument for the repo existing and the reason to keep the examples
+  runnable rather than illustrative:
+  muxlang/mux-runtime#50, muxlang/mux-runtime#51, muxlang/mux-runtime#52,
+  muxlang/mux-runtime#53, muxlang/mux-compiler#391, muxlang/mux-compiler#394,
+  muxlang/mux-compiler#395, muxlang/mux-compiler#397, and a nested function
+  reading an enclosing local, which was an internal compiler error.
