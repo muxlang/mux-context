@@ -66,12 +66,17 @@ its own CI, distinct from the compiler's own tests.
   until the release shipped, and the release should not ship with a broken
   example.
 - The guarantee that examples work against a real *release* comes from running
-  the same script outside this repo, and does exist: mux-compiler's release
-  workflow runs it in `verify-install`, against the artifact it is about to
-  publish and installed the way a user installs it, so a broken example blocks
-  the release. mux-runtime has no release workflow - merging to `main` is what
-  makes a change available - so its CI runs the examples on every pull request
-  instead, which is the last point before users get the change.
+  the same script outside this repo, and does exist. Both gates are defined in
+  the repo they run in, which is authoritative; the summary here can go stale,
+  so check the workflow before relying on a detail of it:
+  - [mux-compiler's release workflow](https://github.com/muxlang/mux-compiler/blob/main/.github/workflows/release.yml)
+    runs it against the artifact it is about to publish, installed the way a
+    user installs it, so a broken example blocks the release.
+  - [mux-runtime's CI](https://github.com/muxlang/mux-runtime/blob/main/.github/workflows/ci.yml)
+    runs it on every pull request. That repo has no release workflow - merging
+    to `main` is what makes a change available (see
+    [0004](0004-runtime-resolved-from-source.md)) - so a pull request is the
+    last point before users get the change.
 - mux-compiler and mux-runtime both take a CI dependency on mux-examples. This
   is the dependency inversion #44 raised, accepted deliberately: output diffs
   over a dozen programs are far less brittle than 432 filename-keyed snapshots.
