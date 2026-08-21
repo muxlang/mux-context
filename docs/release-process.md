@@ -76,8 +76,12 @@ by commit, so merging to `main` is what makes a runtime change available. See
    the lock. Both repos' CI already build against the other's `main`, so an FFI
    break surfaces without waiting for the pin to move.
 
-The `version` field in `Cargo.toml` is inert while the crates.io channel is
-frozen. Leave it alone unless publishing resumes.
+The `version` field in `Cargo.toml` is not published while the crates.io channel
+is frozen, but it still moves with the changelog heading. Leaving it behind is
+what let `tree-sitter.json` and a VS Code manifest claim 0.5.0 while their
+changelogs said 0.6.0 - a heading that cannot be matched to what shipped is the
+problem this section exists to prevent, and an unpublished field is no less
+capable of drifting than a published one.
 
 ## mux-website-api
 
