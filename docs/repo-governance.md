@@ -9,6 +9,7 @@ scripts) lives in the
 
 | Layer | Where | What it owns |
 | --- | --- | --- |
+| Kind | Org **issue types** | Bug, Enhancement, Documentation, Chore, Decision |
 | Policy | `mux-context` (this doc) | Why, strict rules, triage workflow |
 | Enforcement | `muxlang/.github` | `labels/*.yml`, `templates/<repo>/`, sync scripts |
 | Per-repo files | Each repo's `.github/ISSUE_TEMPLATE/` | Synced from `.github/templates/`; do not hand-edit |
@@ -22,9 +23,10 @@ scripts) lives in the
 3. **Do not use priority labels.** Priority is set on
    [Mux Project Tasks](https://github.com/orgs/muxlang/projects/2) only
    (Urgent / High / Medium / Low).
-4. **Do not add `bug` or `feature` labels.** Kind comes from the template
-   chosen at filing time; apply kind labels (`enhancement`, `documentation`,
-   `chore`, etc.) during triage.
+4. **Do not label the kind.** Kind is an **issue type**, set by the template at
+   filing time - not `bug`, `feature`, `enhancement` or `documentation` labels.
+   A type is single-select and shows in every issue list, which is what makes it
+   the right home for "what sort of thing is this".
 5. **Exactly one workflow state on the project board** per issue: Backlog,
    In Progress, or Done.
 6. **Do not invent ad hoc labels.** Add to `labels/labels.yml` or a repo
@@ -99,6 +101,29 @@ sync or retire.
 | Performance only | `optimization` |
 | Internal code change | `refactor` |
 
+## Issue types
+
+Kind is an org-level **issue type**, set by the template at filing time:
+
+| Type | For |
+| --- | --- |
+| Bug | Something behaves incorrectly, crashes, or produces a wrong answer |
+| Enhancement | A new capability, or an existing one made better |
+| Documentation | Docs are missing, wrong, or misleading |
+| Chore | Maintenance that changes no behaviour: CI, dependencies, refactors, tests |
+| Decision | A cross-repo question, or a design choice to record as an ADR |
+
+Types and labels answer different questions, which is why both exist. A type is
+**single-select**: exactly one kind per issue, and no way to file something that
+is both a bug and a feature. Labels are many, and carry the axes a single field
+cannot:
+
+- **area** - `stdlib`, `frontend`, `ffi`, `playground`, `grammar`
+- **state** - `needs triage`, `blocked`, `needs testing`
+- **disposition** - `duplicate`, `invalid`, `wontfix`, `good first issue`
+
+So: one type, any number of labels, and no label that restates the type.
+
 ## Issue templates
 
 Each repo has synced templates under `.github/ISSUE_TEMPLATE/`. Sources live in
@@ -144,10 +169,10 @@ are what muxlang/mux-context#28 was about.
    docs problem. Do not restate it in the title - no `[Bug] -` prefix.
 2. **Write a title that names the defect, not the area.** "Importing a std.dsa
    type is an internal compiler error" beats "import problem".
-3. **Leave the labels alone at filing time.** The template applies
-   `needs triage`; kind and area labels are applied during triage. Never add
-   `bug` or `feature` (the template carries that) and never add a priority
-   label - priority lives on the project board only.
+3. **Leave the labels alone at filing time.** The template sets the issue
+   **type** and applies `needs triage`; area labels come during triage. Never
+   add a label that restates the type (`bug`, `enhancement`, `documentation`),
+   and never add a priority label - priority lives on the project board only.
 4. **Do not set a milestone.** Planning is the project board.
 5. **Say how it was found and how to reproduce it.** A failing program, the
    exact diagnostic, and what you expected instead. For a compiler or runtime
@@ -157,8 +182,9 @@ are what muxlang/mux-context#28 was about.
 ### Triaging one
 
 Set **Priority** and **Status** on
-[Mux Project Tasks](https://github.com/orgs/muxlang/projects/2), apply kind and
-area labels, then remove `needs triage`. Exactly one status: Backlog, In
+[Mux Project Tasks](https://github.com/orgs/muxlang/projects/2), apply area
+labels, correct the **type** if the filer picked the wrong form, then remove
+`needs triage`. Exactly one status: Backlog, In
 Progress, or Done.
 
 Issues opened by org members are triaged at filing time, so they do not carry
