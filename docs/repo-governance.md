@@ -117,16 +117,74 @@ and forms set no title prefix. Do not encode the kind in the title (no
 | tree-sitter-mux | Bug, Grammar sync |
 | mux-context | Cross-repo question, ADR proposal |
 
-All templates apply `needs triage` on creation. Blank issues are disabled in
-every repo so contributors always pick a template.
+All templates apply `needs triage` on creation, and the triage workflow removes
+it again for issues opened by org members - they can set priority and status
+directly, so the label would only ask a maintainer to review their own filing.
+Blank issues are disabled in every repo so contributors always pick a template.
 
 ## Triage workflow
 
-1. Contributor files via a template -> `needs triage` label applied.
+1. Contributor files via a template -> `needs triage` label applied. An issue
+   opened by an org member has it removed automatically (muxlang/mux-context#19).
 2. Maintainer reviews: confirm repo, set project **Priority** and **Status**
    (Backlog), apply kind/area labels, remove `needs triage`.
 3. When work starts: Status -> In Progress.
 4. When closed: Status -> Done.
+
+## Filing an issue, and running a PR
+
+The rules above say what the metadata means. This says how to actually file and
+land work, and it applies to agents as much as to people - the omissions here
+are what muxlang/mux-context#28 was about.
+
+### Filing an issue
+
+1. **Pick the template that matches the kind.** Blank issues are disabled, and
+   the form you choose is what records whether this is a bug, a feature or a
+   docs problem. Do not restate it in the title - no `[Bug] -` prefix.
+2. **Write a title that names the defect, not the area.** "Importing a std.dsa
+   type is an internal compiler error" beats "import problem".
+3. **Leave the labels alone at filing time.** The template applies
+   `needs triage`; kind and area labels are applied during triage. Never add
+   `bug` or `feature` (the template carries that) and never add a priority
+   label - priority lives on the project board only.
+4. **Do not set a milestone.** Planning is the project board.
+5. **Say how it was found and how to reproduce it.** A failing program, the
+   exact diagnostic, and what you expected instead. For a compiler or runtime
+   issue, the smallest program that shows it is worth more than a description
+   of it.
+
+### Triaging one
+
+Set **Priority** and **Status** on
+[Mux Project Tasks](https://github.com/orgs/muxlang/projects/2), apply kind and
+area labels, then remove `needs triage`. Exactly one status: Backlog, In
+Progress, or Done.
+
+Issues opened by org members are triaged at filing time, so they do not carry
+`needs triage` - the label marks work that still needs a maintainer's judgement,
+and someone who can set priority directly has already given it.
+
+### Running a PR
+
+1. **One branch per repo, named the same across repos** when the change spans
+   more than one - that is what pairs them in CI (see
+   [Pairing a change that spans repos](#pairing-a-change-that-spans-repos)).
+2. **Link the issue in the description.** There are no PR templates, so the
+   description carries the whole case: what was wrong, why this fixes it, and
+   what was verified. `Closes #N` for the issue it resolves.
+3. **Say what you actually ran.** "Full suite, clippy and rc-leak-check pass" is
+   worth more than a claim that it works, and a reviewer can tell the difference.
+4. **A red check is a claim about your change until you have shown otherwise.**
+   If it is red for a reason outside the diff - a stale run, a coupled change
+   whose other half has not merged - say which in the PR, rather than leaving a
+   reviewer to assume it was checked.
+5. **Merge order for a coupled change**: producer first, then the consumer's
+   pin bump. The pin bump is the gate; see
+   [What gates, and what only reports](#what-gates-and-what-only-reports).
+6. **Changelog entry in the same PR as the change**, under a numbered dated
+   heading - not a rolling `Unreleased` one. See the
+   [release process](release-process.md).
 
 ## Required CI checks (merge gates)
 
@@ -162,3 +220,33 @@ Where one repo consumes an artifact owned by a sibling, CI must verify against
 the sibling's live **source**, not a published or vendored copy. See
 [decision 0003](decisions/0003-verify-consumers-against-source.md) and
 muxlang/mux-context#3 for status.
+
+### Pairing a change that spans repos
+
+Develop it on a **branch of the same name in every repo it touches**. That is
+the whole coordination mechanism: a cross-repo job looks for a branch of the
+current PR's name in the repo it is checking out, and uses `main` if there is
+none.
+
+Nothing to label, create, or clean up. A branch either exists or it does not,
+which also means it works the same on a push, where there is no pull request to
+carry metadata.
+
+This replaced `paired-<repo>:<branch>` labels. They were metadata rather than
+content: they did not travel with the commit, did not appear in the diff, did
+not exist on a push, needed creating before they could be applied, and only took
+effect if you remembered to close and reopen the PR - labelling does not start a
+run, and re-running replays the original payload.
+
+### What gates, and what only reports
+
+A consumer's CI builds the sibling commit its lockfile names. A job that builds
+the sibling's **branch** source instead is therefore a preview of a state that
+does not exist yet, and on a deliberately breaking change its failure is
+expected information rather than a defect. Those jobs report; they do not gate.
+
+The gate is the **pin-bump PR** - the change that moves the consumer's lockfile
+onto the new commit. That is the first build which actually contains the change,
+it runs the consumer's full suite, and it is required there. Merging a coupled
+change means merging the producer, then the pin bump; the second one is where a
+real break surfaces and blocks.
