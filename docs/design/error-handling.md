@@ -79,3 +79,52 @@ Four lines per call rather than one, but the early return is written down, and
 the function reads top to bottom instead of drifting right. Reading `address`
 before every path assigns it is a compile error, so the flatness costs no
 safety.
+
+## Reading a document: three operations, three answers
+
+Reading structured data conflates three things that fail differently, and Mux
+gives each the wrapper its failure deserves.
+
+| Operation | What can go wrong | Answer |
+| --- | --- | --- |
+| **Parse** text into a structure | Malformed input, with a position and a reason | `result` |
+| **Read** a value of a given kind | It is a different kind | `result`, naming what was found |
+| **Coerce** text to a type | The text does not parse as that type | `result` |
+
+`json.parse`, `csv.parse` and `sql.connect` are the first. `Json.as_int` and
+`SqlValue.as_int` are the second. A CSV cell read as an `int` is the third,
+because a cell is always text.
+
+The middle row was `optional` at first, on the reasoning that "is this an int"
+has no answer beyond yes or no. That was wrong in practice: a config with
+`"port": "8080"` quoted gave back `none`, and the reader could not tell a string
+from a null from an absent field. The kind that WAS there is real information,
+and on the SQL side it was already being computed and then discarded. So the
+accessors report it:
+
+```
+expected an int, found a string
+```
+
+One deliberate exception stays an `optional`: asking whether a field is present
+at all. Absence there is the question being asked rather than a failure of
+expectation, and keeping it an optional is what lets an `optional<T>` field
+accept a missing key while a required one reports it.
+
+### Prefer declaring the shape
+
+Accessors are the escape hatch. A document whose shape can be described should
+be read into a class, where the error names the field as well:
+
+```mux
+class Config { int port  string host }
+
+match Config.from_json(text) {
+    ok(cfg) { ... }
+    err(e)  { print(e) }   // field 'port': expected an int
+}
+```
+
+`Json` exists because Mux containers are homogeneous - `{"port": 8080, "host":
+"localhost"}` is a type error as a Mux map, and `[1, "two", true]` is legal JSON
+that no Mux list can hold. Those are the cases the accessors remain for.
