@@ -57,9 +57,17 @@ Not released on its own cadence any more: `mux-compiler` consumes it from `main`
 by commit, so merging to `main` is what makes a runtime change available. See
 [ADR 0004](decisions/0004-runtime-resolved-from-source.md).
 
-1. Update `CHANGELOG.md` under the `## [Unreleased]` heading **in the same PR as
-   the change**, so the entry lands with the code it describes rather than as a
+1. Update `CHANGELOG.md` under a numbered, dated heading **in the same PR as the
+   change**, so the entry lands with the code it describes rather than as a
    follow-up. Without version tags this is the only record of what changed.
+
+   Not a rolling `## [Unreleased]` heading. One that never closes gives no way
+   to say which changes a given compiler pin contains - twenty-two entries had
+   accumulated under it by 0.6.0 - and the compiler, which kept no such heading,
+   went three PRs with no release notes at all. A heading that does not close
+   fails in both directions. Open the next numbered heading when the first
+   change after a release lands, and move the `version` field with it so the two
+   cannot drift.
 2. Merge to `main`. That is what makes the change available - there is no
    publish step.
 3. The compiler picks it up when a compiler branch runs
@@ -68,8 +76,12 @@ by commit, so merging to `main` is what makes a runtime change available. See
    the lock. Both repos' CI already build against the other's `main`, so an FFI
    break surfaces without waiting for the pin to move.
 
-The `version` field in `Cargo.toml` is inert while the crates.io channel is
-frozen. Leave it alone unless publishing resumes.
+The `version` field in `Cargo.toml` is not published while the crates.io channel
+is frozen, but it still moves with the changelog heading. Leaving it behind is
+what let `tree-sitter.json` and a VS Code manifest claim 0.5.0 while their
+changelogs said 0.6.0 - a heading that cannot be matched to what shipped is the
+problem this section exists to prevent, and an unpublished field is no less
+capable of drifting than a published one.
 
 ## mux-website-api
 
