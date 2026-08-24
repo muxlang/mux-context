@@ -1,6 +1,7 @@
 name: Cross-repo question
 description: Unsure which repo, or the work spans multiple repos
 labels: ["needs triage"]
+type: Decision
 assignees: ["DerekCorniello"]
 body:
   - type: textarea

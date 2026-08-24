@@ -9,6 +9,7 @@ scripts) lives in the
 
 | Layer | Where | What it owns |
 | --- | --- | --- |
+| Kind | Org **issue types** | Bug, Enhancement, Documentation, Chore, Decision |
 | Policy | `mux-context` (this doc) | Why, strict rules, triage workflow |
 | Enforcement | `muxlang/.github` | `labels/*.yml`, `templates/<repo>/`, sync scripts |
 | Per-repo files | Each repo's `.github/ISSUE_TEMPLATE/` | Synced from `.github/templates/`; do not hand-edit |
@@ -22,9 +23,10 @@ scripts) lives in the
 3. **Do not use priority labels.** Priority is set on
    [Mux Project Tasks](https://github.com/orgs/muxlang/projects/2) only
    (Urgent / High / Medium / Low).
-4. **Do not add `bug` or `feature` labels.** Kind comes from the template
-   chosen at filing time; apply kind labels (`enhancement`, `documentation`,
-   `chore`, etc.) during triage.
+4. **Do not label the kind.** Kind is an **issue type**, set by the template at
+   filing time - not `bug`, `feature`, `enhancement` or `documentation` labels.
+   A type is single-select and shows in every issue list, which is what makes it
+   the right home for "what sort of thing is this".
 5. **Exactly one workflow state on the project board** per issue: Backlog,
    In Progress, or Done.
 6. **Do not invent ad hoc labels.** Add to `labels/labels.yml` or a repo
@@ -60,12 +62,12 @@ sync or retire.
 
 | Group | Label | When to use |
 | --- | --- | --- |
-| Kind | `documentation` | Docs improvements or additions |
-| Kind | `chore` | Cleanup, maintenance, dependency bumps |
-| Kind | `refactor` | Internal restructuring, no behavior change |
-| Kind | `optimization` | Performance or efficiency improvement |
-| Kind | `testing` | Test coverage or test infrastructure |
-| Kind | `enhancement` | Improvement to existing behavior or UX |
+| Kind (legacy) | `documentation` | Do not apply - kind is an issue type now |
+| Kind (legacy) | `chore` | Do not apply - kind is an issue type now |
+| Kind (legacy) | `refactor` | Do not apply - kind is an issue type now |
+| Kind (legacy) | `optimization` | Do not apply - kind is an issue type now |
+| Kind (legacy) | `testing` | Do not apply - kind is an issue type now |
+| Kind (legacy) | `enhancement` | Do not apply - kind is an issue type now |
 | Quality | `inconsistency` | Behaves or looks different across places that should match |
 | Quality | `polish` | Small rough edge; nothing broken, just unrefined |
 | Workflow | `needs triage` | Not yet reviewed (auto-applied by templates) |
@@ -76,6 +78,12 @@ sync or retire.
 | Workflow | `wontfix` | Acknowledged but will not be worked on |
 | Community | `good first issue` | Good for newcomers |
 | Community | `help wanted` | Extra attention needed from contributors |
+
+The Kind group is legacy: it predates issue types and stays in
+[`.github/labels/labels.yml`](https://github.com/muxlang/.github/blob/main/labels/labels.yml)
+and on the issues that already carry it, but nothing new may apply it.
+Retiring it (remove from the YAML, strip the labels from open issues) has not
+happened yet, so `validate-labels.py` still expects the labels to exist.
 
 ### Repo overlays
 
@@ -89,15 +97,30 @@ sync or retire.
 | tree-sitter-mux | `grammar`, `queries`, `syntax-matrix`, `neovim`, `helix`, `emacs` |
 | mux-context | `architecture`, `adr`, `governance` |
 
-### Kind label guide
+## Issue types
 
-| Situation | Label or template |
+Kind is an org-level **issue type**, set by the template at filing time. The
+situation decides the template, and the template decides the type - there is
+no kind label to pick by hand:
+
+| Type | For |
 | --- | --- |
-| Something broken | Bug report template |
-| New capability | Feature request template |
-| Existing behavior improved | `enhancement` |
-| Performance only | `optimization` |
-| Internal code change | `refactor` |
+| Bug | Something behaves incorrectly, crashes, or produces a wrong answer |
+| Enhancement | A new capability, or an existing one made better |
+| Documentation | Docs are missing, wrong, or misleading |
+| Chore | Maintenance that changes no behaviour: CI, dependencies, refactors, tests |
+| Decision | A cross-repo question, or a design choice to record as an ADR |
+
+Types and labels answer different questions, which is why both exist. A type is
+**single-select**: exactly one kind per issue, and no way to file something that
+is both a bug and a feature. Labels are many, and carry the axes a single field
+cannot:
+
+- **area** - `stdlib`, `frontend`, `ffi`, `playground`, `grammar`
+- **state** - `needs triage`, `blocked`, `needs testing`
+- **disposition** - `duplicate`, `invalid`, `wontfix`, `good first issue`
+
+So: one type, any number of labels, and no label that restates the type.
 
 ## Issue templates
 
@@ -117,16 +140,83 @@ and forms set no title prefix. Do not encode the kind in the title (no
 | tree-sitter-mux | Bug, Grammar sync |
 | mux-context | Cross-repo question, ADR proposal |
 
-All templates apply `needs triage` on creation. Blank issues are disabled in
-every repo so contributors always pick a template.
+All templates apply `needs triage` on creation, and the triage workflow removes
+it again when the filer has admin or write access to the repository, confirmed
+through the permission API - they can handle every repo-side part of triage
+(labels, closing, reopening) themselves, so the label would only ask a
+maintainer to review their own filing. Project **Priority** and **Status** are
+not part of that exchange: they live on the org project, and an exempt issue
+picks them up at the next planning pass like every other issue, so removing
+the label skips no required field.
+Blank issues are disabled in every repo so contributors always pick a template.
 
 ## Triage workflow
 
-1. Contributor files via a template -> `needs triage` label applied.
+1. Contributor files via a template -> `needs triage` label applied. An issue
+   whose filer has admin or write access has it removed automatically
+   (muxlang/mux-context#19).
 2. Maintainer reviews: confirm repo, set project **Priority** and **Status**
-   (Backlog), apply kind/area labels, remove `needs triage`.
+   (Backlog), correct the **type** if the filer picked the wrong form, apply
+   area labels, remove `needs triage`. Never apply a kind label - see
+   [Issue types](#issue-types).
 3. When work starts: Status -> In Progress.
 4. When closed: Status -> Done.
+
+## Filing an issue, and running a PR
+
+The rules above say what the metadata means. This says how to actually file and
+land work, and it applies to agents as much as to people - the omissions here
+are what muxlang/mux-context#28 was about.
+
+### Filing an issue
+
+1. **Pick the template that matches the kind.** Blank issues are disabled, and
+   the form you choose is what records whether this is a bug, a feature or a
+   docs problem. Do not restate it in the title - no `[Bug] -` prefix.
+2. **Write a title that names the defect, not the area.** "Importing a std.dsa
+   type is an internal compiler error" beats "import problem".
+3. **Leave the labels alone at filing time.** The template sets the issue
+   **type** and applies `needs triage`; area labels come during triage. Never
+   add a label that restates the type (`bug`, `enhancement`, `documentation`),
+   and never add a priority label - priority lives on the project board only.
+4. **Do not set a milestone.** Planning is the project board.
+5. **Say how it was found and how to reproduce it.** A failing program, the
+   exact diagnostic, and what you expected instead. For a compiler or runtime
+   issue, the smallest program that shows it is worth more than a description
+   of it.
+
+### Triaging one
+
+Set **Priority** and **Status** on
+[Mux Project Tasks](https://github.com/orgs/muxlang/projects/2), apply area
+labels, correct the **type** if the filer picked the wrong form, then remove
+`needs triage`. Exactly one status: Backlog, In
+Progress, or Done.
+
+Issues whose filer has admin or write access enter without `needs triage` - the
+label marks repo-side work that needs a maintainer's judgement, and a filer who
+can edit the repository directly does not need that review.
+
+### Running a PR
+
+1. **One branch per repo, named the same across repos** when the change spans
+   more than one - that is what pairs them in CI (see
+   [Pairing a change that spans repos](#pairing-a-change-that-spans-repos)).
+2. **Link the issue in the description.** There are no PR templates, so the
+   description carries the whole case: what was wrong, why this fixes it, and
+   what was verified. `Closes #N` for the issue it resolves.
+3. **Say what you actually ran.** "Full suite, clippy and rc-leak-check pass" is
+   worth more than a claim that it works, and a reviewer can tell the difference.
+4. **A red check is a claim about your change until you have shown otherwise.**
+   If it is red for a reason outside the diff - a stale run, a coupled change
+   whose other half has not merged - say which in the PR, rather than leaving a
+   reviewer to assume it was checked.
+5. **Merge order for a coupled change**: producer first, then the consumer's
+   pin bump. The pin bump is the gate; see
+   [What gates, and what only reports](#what-gates-and-what-only-reports).
+6. **Changelog entry in the same PR as the change**, under a numbered dated
+   heading - not a rolling `Unreleased` one. See the
+   [release process](release-process.md).
 
 ## Required CI checks (merge gates)
 
@@ -162,3 +252,33 @@ Where one repo consumes an artifact owned by a sibling, CI must verify against
 the sibling's live **source**, not a published or vendored copy. See
 [decision 0003](decisions/0003-verify-consumers-against-source.md) and
 muxlang/mux-context#3 for status.
+
+### Pairing a change that spans repos
+
+Develop it on a **branch of the same name in every repo it touches**. That is
+the whole coordination mechanism: a cross-repo job looks for a branch of the
+current PR's name in the repo it is checking out, and uses `main` if there is
+none.
+
+Nothing to label, create, or clean up. A branch either exists or it does not,
+which also means it works the same on a push, where there is no pull request to
+carry metadata.
+
+This replaced `paired-<repo>:<branch>` labels. They were metadata rather than
+content: they did not travel with the commit, did not appear in the diff, did
+not exist on a push, needed creating before they could be applied, and only took
+effect if you remembered to close and reopen the PR - labelling does not start a
+run, and re-running replays the original payload.
+
+### What gates, and what only reports
+
+A consumer's CI builds the sibling commit its lockfile names. A job that builds
+the sibling's **branch** source instead is therefore a preview of a state that
+does not exist yet, and on a deliberately breaking change its failure is
+expected information rather than a defect. Those jobs report; they do not gate.
+
+The gate is the **pin-bump PR** - the change that moves the consumer's lockfile
+onto the new commit. That is the first build which actually contains the change,
+it runs the consumer's full suite, and it is required there. Merging a coupled
+change means merging the producer, then the pin bump; the second one is where a
+real break surfaces and blocks.
