@@ -141,15 +141,17 @@ and forms set no title prefix. Do not encode the kind in the title (no
 | mux-context | Cross-repo question, ADR proposal |
 
 All templates apply `needs triage` on creation, and the triage workflow removes
-it again when the filer can triage for themselves: the repository owner, or
-anyone the permission API reports as admin or write on that repo - so the label
-would only ask a maintainer to review their own filing.
+it again when the filer has admin or write access to the repository, confirmed
+through the permission API - they can handle every repo-side part of triage
+(labels, closing, reopening) themselves, so the label would only ask a
+maintainer to review their own filing.
 Blank issues are disabled in every repo so contributors always pick a template.
 
 ## Triage workflow
 
 1. Contributor files via a template -> `needs triage` label applied. An issue
-   opened by an org member has it removed automatically (muxlang/mux-context#19).
+   whose filer has admin or write access has it removed automatically
+   (muxlang/mux-context#19).
 2. Maintainer reviews: confirm repo, set project **Priority** and **Status**
    (Backlog), correct the **type** if the filer picked the wrong form, apply
    area labels, remove `needs triage`. Never apply a kind label - see
@@ -188,10 +190,10 @@ labels, correct the **type** if the filer picked the wrong form, then remove
 `needs triage`. Exactly one status: Backlog, In
 Progress, or Done.
 
-Issues whose filer can triage for themselves (see above) are triaged at filing
-time, so they do not carry
+Issues whose filer has admin or write access are triaged at filing time, so
+they do not carry
 `needs triage` - the label marks work that still needs a maintainer's judgement,
-and someone who can set priority directly has already given it.
+and a filer who can edit the repository directly does not need that review.
 
 ### Running a PR
 
