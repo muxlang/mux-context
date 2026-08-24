@@ -62,12 +62,12 @@ sync or retire.
 
 | Group | Label | When to use |
 | --- | --- | --- |
-| Kind | `documentation` | Docs improvements or additions |
-| Kind | `chore` | Cleanup, maintenance, dependency bumps |
-| Kind | `refactor` | Internal restructuring, no behavior change |
-| Kind | `optimization` | Performance or efficiency improvement |
-| Kind | `testing` | Test coverage or test infrastructure |
-| Kind | `enhancement` | Improvement to existing behavior or UX |
+| Kind (legacy) | `documentation` | Do not apply - kind is an issue type now |
+| Kind (legacy) | `chore` | Do not apply - kind is an issue type now |
+| Kind (legacy) | `refactor` | Do not apply - kind is an issue type now |
+| Kind (legacy) | `optimization` | Do not apply - kind is an issue type now |
+| Kind (legacy) | `testing` | Do not apply - kind is an issue type now |
+| Kind (legacy) | `enhancement` | Do not apply - kind is an issue type now |
 | Quality | `inconsistency` | Behaves or looks different across places that should match |
 | Quality | `polish` | Small rough edge; nothing broken, just unrefined |
 | Workflow | `needs triage` | Not yet reviewed (auto-applied by templates) |
@@ -78,6 +78,12 @@ sync or retire.
 | Workflow | `wontfix` | Acknowledged but will not be worked on |
 | Community | `good first issue` | Good for newcomers |
 | Community | `help wanted` | Extra attention needed from contributors |
+
+The Kind group is legacy: it predates issue types and stays in
+[`.github/labels/labels.yml`](https://github.com/muxlang/.github/blob/main/labels/labels.yml)
+and on the issues that already carry it, but nothing new may apply it.
+Retiring it (remove from the YAML, strip the labels from open issues) has not
+happened yet, so `validate-labels.py` still expects the labels to exist.
 
 ### Repo overlays
 
@@ -91,19 +97,11 @@ sync or retire.
 | tree-sitter-mux | `grammar`, `queries`, `syntax-matrix`, `neovim`, `helix`, `emacs` |
 | mux-context | `architecture`, `adr`, `governance` |
 
-### Kind label guide
-
-| Situation | Label or template |
-| --- | --- |
-| Something broken | Bug report template |
-| New capability | Feature request template |
-| Existing behavior improved | `enhancement` |
-| Performance only | `optimization` |
-| Internal code change | `refactor` |
-
 ## Issue types
 
-Kind is an org-level **issue type**, set by the template at filing time:
+Kind is an org-level **issue type**, set by the template at filing time. The
+situation decides the template, and the template decides the type - there is
+no kind label to pick by hand:
 
 | Type | For |
 | --- | --- |
@@ -152,7 +150,9 @@ Blank issues are disabled in every repo so contributors always pick a template.
 1. Contributor files via a template -> `needs triage` label applied. An issue
    opened by an org member has it removed automatically (muxlang/mux-context#19).
 2. Maintainer reviews: confirm repo, set project **Priority** and **Status**
-   (Backlog), apply kind/area labels, remove `needs triage`.
+   (Backlog), correct the **type** if the filer picked the wrong form, apply
+   area labels, remove `needs triage`. Never apply a kind label - see
+   [Issue types](#issue-types).
 3. When work starts: Status -> In Progress.
 4. When closed: Status -> Done.
 
