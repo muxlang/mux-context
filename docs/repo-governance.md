@@ -144,7 +144,10 @@ All templates apply `needs triage` on creation, and the triage workflow removes
 it again when the filer has admin or write access to the repository, confirmed
 through the permission API - they can handle every repo-side part of triage
 (labels, closing, reopening) themselves, so the label would only ask a
-maintainer to review their own filing.
+maintainer to review their own filing. Project **Priority** and **Status** are
+not part of that exchange: they live on the org project, and an exempt issue
+picks them up at the next planning pass like every other issue, so removing
+the label skips no required field.
 Blank issues are disabled in every repo so contributors always pick a template.
 
 ## Triage workflow
@@ -190,10 +193,9 @@ labels, correct the **type** if the filer picked the wrong form, then remove
 `needs triage`. Exactly one status: Backlog, In
 Progress, or Done.
 
-Issues whose filer has admin or write access are triaged at filing time, so
-they do not carry
-`needs triage` - the label marks work that still needs a maintainer's judgement,
-and a filer who can edit the repository directly does not need that review.
+Issues whose filer has admin or write access enter without `needs triage` - the
+label marks repo-side work that needs a maintainer's judgement, and a filer who
+can edit the repository directly does not need that review.
 
 ### Running a PR
 
