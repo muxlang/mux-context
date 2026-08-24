@@ -141,8 +141,9 @@ and forms set no title prefix. Do not encode the kind in the title (no
 | mux-context | Cross-repo question, ADR proposal |
 
 All templates apply `needs triage` on creation, and the triage workflow removes
-it again for issues opened by org members - they can set priority and status
-directly, so the label would only ask a maintainer to review their own filing.
+it again when the filer can triage for themselves: the repository owner, or
+anyone the permission API reports as admin or write on that repo - so the label
+would only ask a maintainer to review their own filing.
 Blank issues are disabled in every repo so contributors always pick a template.
 
 ## Triage workflow
@@ -187,7 +188,8 @@ labels, correct the **type** if the filer picked the wrong form, then remove
 `needs triage`. Exactly one status: Backlog, In
 Progress, or Done.
 
-Issues opened by org members are triaged at filing time, so they do not carry
+Issues whose filer can triage for themselves (see above) are triaged at filing
+time, so they do not carry
 `needs triage` - the label marks work that still needs a maintainer's judgement,
 and someone who can set priority directly has already given it.
 
