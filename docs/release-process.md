@@ -24,14 +24,17 @@ monorepo). The per-repo `AGENTS.md` files link here instead of duplicating this.
 - **Agent boundary:** preparing a release (changelog, version bump, lockfile) is
   agent-safe. Tagging and deploying are **MAINTAINER-ONLY** - the agent prepares
   everything and hands these to the user.
-- **Docs follow the release, never lead it.** `mux-website` deploys `docs/` from
-  `main` on every merge, but the playground runs the *released* compiler pinned
-  in `mux-website-api` (`Dockerfile` `ARG MUX_VERSION`). Docs that teach syntax
-  from an unreleased compiler go live while the playground still rejects them -
-  this shipped once with the `{:}` empty-map literal. When a compiler change adds
-  or alters syntax, hold the docs PR until that release ships, or cut the release
-  first. `mux-website`'s `check:docs-snippets` compiles every docs example against
-  the playground's pinned release to catch the skew.
+- **Docs follow the release and the live playground, never lead them.**
+  `mux-website` deploys `docs/` from `main` on every merge, but the playground
+  runs the *released* compiler pinned in `mux-website-api` (`Dockerfile` `ARG
+  MUX_VERSION`). Docs that teach syntax or diagnostics from an unreleased or
+  undeployed compiler go live while the playground still rejects them. This
+  shipped once with the `{:}` empty-map literal. When a compiler change adds or
+  alters syntax or a public diagnostic code, the compiler release must ship,
+  `mux-website-api` must be pinned to that release and deployed, and only then
+  may the website docs PR merge. `mux-website`'s `check:docs-snippets` compiles
+  every docs example against the playground's pinned release, but it does not
+  replace the deployment gate.
 
 ## mux-compiler
 
@@ -48,8 +51,11 @@ monorepo). The per-repo `AGENTS.md` files link here instead of duplicating this.
 6. *(maintainer)* **Tag** - `git tag -a vX.Y.Z -m "Release vX.Y.Z" && git push origin vX.Y.Z`.
    The `Release` workflow builds the per-platform tarballs `--locked` and
    publishes the GitHub release. There is no `cargo publish` step.
-7. *(maintainer)* **Deploy the playground** - in `mux-website-api`, bump
-   `ARG MUX_VERSION` in the Dockerfile to this release and `fly deploy`.
+7. *(maintainer)* **Deploy the playground before merging dependent docs** - in
+   `mux-website-api`, bump `ARG MUX_VERSION` in the Dockerfile to this release
+   and run `fly deploy` (app `mux-lang-api`). Confirm the deployed playground
+   accepts the release before merging a website PR that documents its syntax or
+   diagnostic codes.
 
 ## mux-runtime
 
