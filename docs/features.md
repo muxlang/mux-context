@@ -17,7 +17,7 @@ relative to the owning repo. User-facing docs for these live at
 | Generics / monomorphization | `codegen/generics.rs` (see [design/monomorphization.md](design/monomorphization.md)) |
 | Static interface dispatch | `codegen/classes.rs`, `codegen/methods.rs` (see [design/object-system.md](design/object-system.md)) |
 | Module/import resolution | `module_resolver.rs` (see [design/modules.md](design/modules.md)) |
-| Diagnostics / error rendering | `diagnostic/` (`emitter.rs`, `files.rs`, `styles.rs`) |
+| Diagnostics / error rendering | `diagnostic/` (`catalog.rs`, `emitter.rs`, `files.rs`, `styles.rs`); cross-repo contract in [design/diagnostics.md](design/diagnostics.md) |
 
 ## Runtime + stdlib (`mux-runtime/src`)
 
