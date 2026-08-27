@@ -13,3 +13,4 @@ Consequences. Keep them short; link to [design notes](../design/) for mechanics.
 - [0003](0003-verify-consumers-against-source.md) - verify consumers against sibling source in CI, not published pins.
 - [0004](0004-runtime-resolved-from-source.md) - resolve `mux-runtime` from source as a git dependency; freeze crates.io. Supersedes 0002's release-time publish ordering.
 - [0005](0005-test-corpus-and-examples-are-separate.md) - the compiler's test corpus and the published examples are separate artifacts; `test_scripts/` does not move.
+- [0006](0006-typed-diagnostics.md) - compiler diagnostics use an explicit stable registry.

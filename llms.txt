@@ -22,6 +22,7 @@ repo owns the facts that span more than one repo.
 - [Collections](https://github.com/muxlang/mux-context/blob/main/docs/design/collections.md): list/map/set, BTree rationale, nesting, empty literals (`{}` is a set, `{:}` is a map)
 - [Error handling](https://github.com/muxlang/mux-context/blob/main/docs/design/error-handling.md): result/optional layout
 - [Runtime panics](https://github.com/muxlang/mux-context/blob/main/docs/design/panics.md): process-terminating failures, the panic format, why no baked source snippet
+- [Diagnostics](https://github.com/muxlang/mux-context/blob/main/docs/design/diagnostics.md): typed compiler codes, recovery, warning policy, and fix-it safety
 - [Modules](https://github.com/muxlang/mux-context/blob/main/docs/design/modules.md): import resolution, name mangling, module init
 
 ## Reference
