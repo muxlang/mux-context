@@ -22,8 +22,11 @@ Codes use four digits and are never reused:
 The registry in `mux-compiler` is the build-time mirror of this policy. A
 change that adds a code must update the website reference, a source example,
 the compiler inventory tests, and the retrieval error corpus when the code is
-user-facing. The website and compiler versions are released together when a
-new public code is introduced.
+user-facing. The repositories keep independent release versions. The compiler
+release that first emits a public code must ship before the website documents
+that code, so the playground's pinned compiler cannot lag behind the docs. The
+context contract may be updated independently, but it must not assign a code
+to a different diagnostic or describe a producer that has not shipped.
 
 ## Recovery
 
