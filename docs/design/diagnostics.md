@@ -15,7 +15,9 @@ Codes use four digits and are never reused:
 - `E03xx` covers semantic analysis.
 - `E04xx` covers module loading.
 - `E09xx` covers compiler failures.
-- `W03xx` covers proven semantic warnings.
+- `W03xx` covers proven semantic warnings. Allocated warning numbers without a
+  producer remain reserved and are not part of the public registry until the
+  compiler can prove their trigger condition.
 
 The registry in `mux-compiler` is the build-time mirror of this policy. A
 change that adds a code must update the website reference, a source example,
@@ -57,3 +59,9 @@ without changing a code.
 `mux explain CODE` reads the compiler's embedded registry and therefore works
 offline. The website indexer extracts codes into vector metadata so an error
 question can retrieve the matching reference section.
+
+Current semantic additions are `E0312` (provable division/modulo by zero) and
+`E0313` (a named nested function capturing an enclosing local). They are
+mirrored in the website reference and compiler registry. `W0300`, `W0301`,
+`W0303`, and `W0304` remain allocated but reserved because their analyses are
+not yet implemented.
