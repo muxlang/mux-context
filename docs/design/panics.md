@@ -11,7 +11,7 @@ one runtime path so the format and exit behavior are identical everywhere.
 A panic writes to **stderr** and exits with status **1**:
 
 ```
-panic: <message>
+panic[E####]: <message>
 --> <file>:<line>:<col>
 ```
 
@@ -20,16 +20,16 @@ present whenever codegen knows the source location. Dynamic detail is folded int
 the message rather than shown as a separate note:
 
 ```
-panic: division by zero
+panic[E0602]: division by zero
 --> math.mux:4:16
 
-panic: list index out of bounds: index 5, length 3
+panic[E0600]: list index out of bounds: index 5, length 3
 --> main.mux:9:14
 
-panic: key not found in map: key bob
+panic[E0601]: key not found in map: key bob
 --> lookup.mux:12:12
 
-panic: assertion failed: expected 2, got 1
+panic[E0603]: assertion failed: expected 2, got 1
 ```
 
 Assertion panics currently omit the `-->` line: the `std.assert` runtime entry
@@ -57,7 +57,7 @@ panicking".
   asserts aborted with SIGABRT/exit 134, and integer division by zero was an
   unguarded hardware trap.)
 - **Reads like a compile error, but is distinct.** The `--> file:line:col`
-  locator matches the diagnostic emitter, while the `panic:` prefix keeps a
+  locator matches the diagnostic emitter, while the `panic[E####]:` prefix keeps a
   runtime failure visually distinguishable from a compile-time `error:`.
 - **No source snippet is baked into the binary.** Rendering the offending line
   with a caret (as compile errors do) would embed a string constant at every
