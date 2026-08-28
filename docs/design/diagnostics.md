@@ -15,9 +15,8 @@ Codes use four digits and are never reused:
 - `E03xx` covers semantic analysis.
 - `E04xx` covers module loading.
 - `E09xx` covers compiler failures.
-- `W03xx` covers proven semantic warnings. Allocated warning numbers without a
-  producer remain reserved and are not part of the public registry until the
-  compiler can prove their trigger condition.
+- `W03xx` covers proven semantic warnings. A warning code enters the public
+  registry only when the compiler has a producer and a source example.
 
 The registry in `mux-compiler` is the build-time mirror of this policy. A
 change that adds a code must update the website reference, a source example,
@@ -55,11 +54,13 @@ such as `MaybeIncorrect` are not converted into automatic edits.
 
 ## Ownership and compatibility
 
-The compiler and runtime may both mention diagnostic codes, but the runtime
-does not emit compiler diagnostics. Runtime panic names and messages are
-maintained separately. Code numbers are stable across patch releases and are
-never assigned to a different diagnostic. English detail text may change
-without changing a code.
+The compiler and runtime maintain separate registries. The compiler emits
+source diagnostics; the runtime emits process-terminating failures using the
+`E06xx` registry (`E0600` index out of bounds, `E0601` missing map key,
+`E0602` division by zero, `E0603` assertion failure, `E0604` where-constraint
+violation, `E0605` integer overflow, and `E0699` internal runtime failure).
+Code numbers are stable across patch releases and are never assigned to a
+different diagnostic. English detail text may change without changing a code.
 
 `mux explain CODE` reads the compiler's embedded registry and therefore works
 offline. The website indexer extracts codes into vector metadata so an error
@@ -67,6 +68,7 @@ question can retrieve the matching reference section.
 
 Current semantic additions are `E0312` (provable division/modulo by zero) and
 `E0313` (a named nested function capturing an enclosing local). They are
-mirrored in the website reference and compiler registry. `W0300`, `W0301`,
-`W0303`, and `W0304` remain allocated but reserved because their analyses are
-not yet implemented.
+mirrored in the website reference and compiler registry. `W0300` (unused
+binding), `W0301` (shadowed binding), and `W0303` (dead assignment) are emitted
+by the validated lexical-use pass. `W0304` remains reserved because a genuine
+uninitialized read is an error (`E0311`), not a warning.
