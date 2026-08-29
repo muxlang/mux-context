@@ -1,0 +1,58 @@
+# Generated artifacts are committed only when a downstream consumer requires
+# them. Every entry names its source, pinned producer, and deterministic drift
+# check. Paths are relative to the repository named in `repository`.
+artifacts:
+  - repository: tree-sitter-mux
+    path: src/parser.c
+    source: grammar.js
+    generator: tree-sitter-cli@0.26.8
+    command: npm install -g tree-sitter-cli@0.26.8 && tree-sitter generate grammar.js
+    check: npm install -g tree-sitter-cli@0.26.8 && tree-sitter generate grammar.js && git diff --exit-code -- src/parser.c src/grammar.json src/node-types.json
+  - repository: tree-sitter-mux
+    path: queries/highlights.scm
+    source: grammar.js
+    generator: hand-authored query reviewed with grammar changes
+    command: npm run check
+    check: npm run check
+  - repository: mux-syntax-highlighting
+    path: editor-support/textmate/mux.tmLanguage.json
+    source: shared/syntax-matrix.json
+    generator: scripts/build-editor-support.js
+    command: node scripts/build-editor-support.js
+    check: node scripts/build-editor-support.js --check
+  - repository: mux-syntax-highlighting
+    path: editor-support/vscode/syntaxes/mux.tmLanguage.json
+    source: shared/syntax-matrix.json
+    generator: scripts/build-editor-support.js
+    command: node scripts/build-editor-support.js
+    check: node scripts/build-editor-support.js --check
+  - repository: mux-syntax-highlighting
+    path: editor-support/vscode/language-configuration.json
+    source: shared/syntax-matrix.json
+    generator: scripts/build-editor-support.js
+    command: node scripts/build-editor-support.js
+    check: node scripts/build-editor-support.js --check
+  - repository: mux-syntax-highlighting
+    path: editor-support/jetbrains/textmate/mux.tmLanguage.json
+    source: shared/syntax-matrix.json
+    generator: scripts/build-editor-support.js
+    command: node scripts/build-editor-support.js
+    check: node scripts/build-editor-support.js --check
+  - repository: mux-syntax-highlighting
+    path: editor-support/sublime/Mux.sublime-syntax
+    source: shared/syntax-matrix.json
+    generator: scripts/build-editor-support.js
+    command: node scripts/build-editor-support.js
+    check: node scripts/build-editor-support.js --check
+  - repository: mux-website
+    path: src/shiki/mux.json
+    source: mux-syntax-highlighting/shared/syntax-matrix.json
+    generator: manual consumer copy; token parity is enforced by check:syntax-parity
+    command: npm run check:syntax-parity
+    check: npm run check:syntax-parity
+  - repository: mux-compiler
+    path: mux-compiler/tests/snapshots/*.snap
+    source: mux-compiler/test_scripts/**/*.mux
+    generator: insta 1.x snapshot harness
+    command: cargo test --workspace
+    check: cargo test --workspace --test parser_integration

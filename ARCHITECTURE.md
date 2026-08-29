@@ -42,6 +42,12 @@ mux-website-api
      |
 mux-website (playground + docs)
 
+mux-examples ----(CI smoke tests)----> mux-compiler + mux-runtime
+     ^
+     | intentional teaching programs with expected output
+
+mux-context ----(cross-repo policy and design records)----> maintainers + agents
+
 mux-syntax-highlighting ----(canonical syntax-matrix.json)----> tree-sitter-mux (vendored copy)
                          \--(generates)--> TextMate grammar, VSCode extension
 ```
@@ -53,8 +59,11 @@ mux-syntax-highlighting ----(canonical syntax-matrix.json)----> tree-sitter-mux 
   deliberately pinned compiler version), not arbitrary `main`.
 - **mux-website -> mux-website-api:** the in-browser playground POSTs source to
   `/api/compile` and renders the output.
+- **mux-examples -> mux-compiler + mux-runtime:** the examples repository owns
+  deterministic teaching programs. Its workflow builds them against the
+  compiler and runtime source; the programs are not compiler fixtures.
 - **mux-syntax-highlighting -> tree-sitter-mux:** the syntax spec
-  (`syntax-matrix.json`) is *canonical* in `mux-syntax-highlighting`;
+  (`shared/syntax-matrix.json`) is *canonical* in `mux-syntax-highlighting`;
   `tree-sitter-mux` vendors a copy that `grammar.js` reads. Keep them in sync.
 
 ## Who owns what (canonical artifacts)
@@ -63,9 +72,10 @@ mux-syntax-highlighting ----(canonical syntax-matrix.json)----> tree-sitter-mux 
 |----------|----------------|-------------|
 | Compiler / "Mux version" | `mux-compiler/Cargo.toml` (`CARGO_PKG_VERSION`) | everything that reports a version |
 | Runtime + stdlib (C-ABI) | `mux-runtime/src` | compiler codegen (FFI), compiled programs |
-| Syntax spec | `mux-syntax-highlighting/syntax-matrix.json` | tree-sitter-mux (vendored), TextMate/VSCode generation |
+| Syntax spec | `mux-syntax-highlighting/shared/syntax-matrix.json` | tree-sitter-mux (vendored), TextMate/VSCode generation |
 | Language reference (user docs) | `mux-website/docs` | mux-lang.dev |
 | Org/cross-repo knowledge | this repo (`context`) | humans + agents |
+| Teaching examples | `mux-examples/examples` | examples CI and learners |
 
 ## Three type representations
 

@@ -1,0 +1,263 @@
+{
+  "version": 1,
+  "repositories": {
+    "mux-runtime": {
+      "ascii_globs": [
+        ".github/**",
+        "scripts/**",
+        "**/*.json",
+        "**/*.lock",
+        "**/*.toml",
+        "**/*.yml",
+        "**/*.yaml",
+        "AGENTS.md",
+        "Dockerfile*",
+        "fly.toml",
+        "llms.txt",
+        "sonar-project.properties"
+      ],
+      "unicode_allowed": [
+        {
+          "glob": "**/*.md",
+          "reason": "User-facing documentation may use natural-language Unicode."
+        },
+        {
+          "glob": "src/net.rs",
+          "reason": "The networking implementation contains an intentional Unicode behavior fixture."
+        },
+        {
+          "glob": "src/refcount.rs",
+          "reason": "The ownership implementation contains an intentional Unicode behavior fixture."
+        },
+        {
+          "glob": "tests/**",
+          "reason": "Runtime tests include intentional Unicode behavior coverage."
+        }
+      ]
+    },
+    "mux-compiler": {
+      "ascii_globs": [
+        ".github/**",
+        "scripts/**",
+        "**/*.json",
+        "**/*.lock",
+        "**/*.toml",
+        "**/*.yml",
+        "**/*.yaml",
+        "AGENTS.md",
+        "Dockerfile*",
+        "llms.txt",
+        "sonar-project.properties"
+      ],
+      "unicode_allowed": [
+        {
+          "glob": "**/*.md",
+          "reason": "User-facing documentation may use natural-language Unicode."
+        },
+        {
+          "glob": "docs/error-corpus/lexer.json",
+          "reason": "The lexer error corpus intentionally uses a section-sign source character."
+        },
+        {
+          "glob": "test_scripts/**",
+          "reason": "Compiler fixtures intentionally exercise Unicode lexing and source widths."
+        },
+        {
+          "glob": "mux-compiler/tests/snapshots/**",
+          "reason": "Snapshots preserve intentional Unicode lexer and diagnostic behavior."
+        }
+      ]
+    },
+    "mux-website-api": {
+      "ascii_globs": [
+        ".github/**",
+        "scripts/**",
+        "**/*.json",
+        "**/*.lock",
+        "**/*.toml",
+        "**/*.yml",
+        "**/*.yaml",
+        "AGENTS.md",
+        "Dockerfile*",
+        "fly.toml",
+        "llms.txt",
+        "sonar-project.properties"
+      ],
+      "unicode_allowed": [
+        {
+          "glob": "**/*.md",
+          "reason": "User-facing documentation may use natural-language Unicode."
+        },
+        {
+          "glob": "tests/**",
+          "reason": "API tests may include Unicode request and diagnostic fixtures."
+        }
+      ]
+    },
+    "mux-website": {
+      "link_mode": "docusaurus",
+      "ascii_globs": [
+        ".github/**",
+        "scripts/**",
+        "tools/**",
+        "workers/**",
+        "**/*.json",
+        "**/*.lock",
+        "**/*.toml",
+        "**/*.yml",
+        "**/*.yaml",
+        "AGENTS.md",
+        "Dockerfile*",
+        "llms.txt",
+        "sonar-project.properties"
+      ],
+      "unicode_allowed": [
+        {
+          "glob": "**/*.md",
+          "reason": "User-facing documentation and blog prose may use natural-language Unicode."
+        },
+        {
+          "glob": "**/*.mdx",
+          "reason": "User-facing documentation components may use natural-language Unicode."
+        },
+        {
+          "glob": "docs/**",
+          "reason": "Language documentation intentionally describes Unicode source behavior."
+        },
+        {
+          "glob": "workers/mux-ai/src/index.ts",
+          "reason": "Worker source contains an intentional typographic comment; executable behavior remains ASCII-safe."
+        },
+        {
+          "glob": "workers/mux-ai/src/index.test.ts",
+          "reason": "Worker test source contains an intentional typographic comment."
+        },
+        {
+          "glob": "workers/mux-ai/src/logger.ts",
+          "reason": "Worker logging source contains an intentional typographic comment."
+        }
+      ]
+    },
+    ".github": {
+      "ascii_globs": [
+        ".github/**",
+        "scripts/**",
+        "templates/**",
+        "labels/**",
+        "**/*.json",
+        "**/*.lock",
+        "**/*.toml",
+        "**/*.yml",
+        "**/*.yaml",
+        "AGENTS.md",
+        "llms.txt",
+        "sonar-project.properties"
+      ],
+      "unicode_allowed": [
+        {
+          "glob": "**/*.md",
+          "reason": "Governance documentation may use natural-language Unicode."
+        }
+      ]
+    },
+    "tree-sitter-mux": {
+      "ascii_globs": [
+        ".github/**",
+        "scripts/**",
+        "editor-support/**",
+        "queries/**",
+        "**/*.json",
+        "**/*.lock",
+        "**/*.toml",
+        "**/*.yml",
+        "**/*.yaml",
+        "AGENTS.md",
+        "llms.txt",
+        "sonar-project.properties"
+      ],
+      "unicode_allowed": [
+        {
+          "glob": "**/*.md",
+          "reason": "User-facing documentation may use natural-language Unicode."
+        },
+        {
+          "glob": "test/**",
+          "reason": "Grammar corpus fixtures may intentionally cover Unicode tokens."
+        }
+      ]
+    },
+    "mux-syntax-highlighting": {
+      "ascii_globs": [
+        ".github/**",
+        "scripts/**",
+        "editor-support/**",
+        "shared/**",
+        "**/*.json",
+        "**/*.lock",
+        "**/*.toml",
+        "**/*.yml",
+        "**/*.yaml",
+        "AGENTS.md",
+        "llms.txt",
+        "sonar-project.properties"
+      ],
+      "unicode_allowed": [
+        {
+          "glob": "**/*.md",
+          "reason": "User-facing documentation may use natural-language Unicode."
+        },
+        {
+          "glob": "test/**",
+          "reason": "Syntax fixtures may intentionally cover Unicode tokens."
+        }
+      ]
+    },
+    "mux-examples": {
+      "ascii_globs": [
+        ".github/**",
+        "scripts/**",
+        "**/*.json",
+        "**/*.lock",
+        "**/*.toml",
+        "**/*.yml",
+        "**/*.yaml",
+        "AGENTS.md",
+        "llms.txt",
+        "sonar-project.properties"
+      ],
+      "unicode_allowed": [
+        {
+          "glob": "**/*.md",
+          "reason": "Teaching documentation may use natural-language Unicode."
+        },
+        {
+          "glob": "**/*.mux",
+          "reason": "Examples intentionally demonstrate Unicode language behavior."
+        }
+      ]
+    },
+    "mux-context": {
+      "ascii_globs": [
+        ".github/**",
+        "scripts/**",
+        "**/*.json",
+        "**/*.lock",
+        "**/*.toml",
+        "**/*.yml",
+        "**/*.yaml",
+        "AGENTS.md",
+        "SKILL.md",
+        "docs/release-process.md",
+        "docs/repo-governance.md",
+        "llms.txt",
+        "sonar-project.properties"
+      ],
+      "unicode_allowed": [
+        {
+          "glob": "**/*.md",
+          "reason": "Architecture and design records may use natural-language Unicode."
+        }
+      ]
+    }
+  }
+}

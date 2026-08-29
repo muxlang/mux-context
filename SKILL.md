@@ -30,7 +30,9 @@ trust memory or anything copied here.
 
 - Read the target repo's `AGENTS.md` first. `mux-compiler`'s owns the testing,
   runtime-linking (`MUX_RUNTIME_LIB`), and list-semantics facts.
-- Branch via PR, no direct pushes to default. ASCII only in files and commits.
+- Branch via PR, no direct pushes to default. Use ASCII for source, config,
+  workflow, policy, and commit-message text. User-facing docs and behavior
+  fixtures may use Unicode when it is intentional and reviewed.
 - A compiled Mux program may hang instead of crashing; wrap fresh runs in
   `timeout N ...`.
 

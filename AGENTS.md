@@ -1,36 +1,31 @@
-# context: AI Agent Guidelines
+# mux-context
 
-The cross-repo knowledge hub for the multi-repo
-[muxlang](https://github.com/muxlang) ecosystem. This repo is documentation only -
-there is no build and no code to compile.
+`mux-context` is the cross-repository knowledge hub for Mux: architecture,
+design decisions, terminology, repository ownership, and release policy. It is
+documentation only.
 
-## What this is
+The canonical organization guidance is [`mux-context/SKILL.md`](SKILL.md).
+Keep it accurate and link to the repository that owns executable or generated
+truth; do not copy implementation details here.
 
-The single home for facts that span more than one code repo: the architecture /
-repo map, design rationale, the feature-to-module map, the glossary, and the
-release process. See [README.md](README.md) and [ARCHITECTURE.md](ARCHITECTURE.md).
+## Invariants
 
-Agent orientation for the whole ecosystem lives in [SKILL.md](SKILL.md) - a
-short "where truth lives" map plus the cross-repo rules. It is the canonical
-copy of the `mux` agent skill; keep it in sync with any local skill copies.
+- Facts must match the current repositories. Update linked context when a
+  cross-repository contract changes.
+- Use relative links for related local documents and keep `llms.txt` in sync
+  when documents move.
+- Preserve intentional Unicode examples; ASCII checks must be scoped to files
+  where ASCII is a real policy.
 
-## Rules
+## Quality gate
 
-- **No special characters** - ASCII only in all files (no em-dashes, emojis, smart
-  quotes), matching the rest of the org.
-- **Own vs link.** This repo owns only things no single code repo owns. If a build
-  step reads it (the canonical `syntax-matrix.json`, generated grammars, rustdoc),
-  it stays in the repo whose tooling needs it and is *linked* from here, not copied.
-- **Keep facts accurate.** When code changes make a doc here stale, update the doc
-  in the same change. Prefer linking to the authoritative source over duplicating.
-- **Link related docs** with relative links so navigation stays intact.
-- **Pre-existing bugs.** A bug uncovered while fixing an issue that directly
-  impacts or is closely related to that issue should be fixed as part of the same
-  work; file unrelated ones as their own issue. Never silently leave an uncovered
-  bug, and do not bundle an unrelated fix into the PR.
-- **Agents:** keep [`llms.txt`](llms.txt) in sync when you add or move a doc.
+Run `python3 scripts/ci/check-docs.py` and
+`python3 -m unittest discover -s scripts/tests -p 'test_*.py'` before
+committing. The scoped encoding contract lives in
+[`docs/encoding-policy.json`](docs/encoding-policy.json). There is no compiler
+or application build in this repository.
 
-## Where to file issues
+## Documentation
 
-Unsure which repo an issue belongs to? Open it here and it will be triaged to the
-right repo. Issues clearly scoped to one repo should go to that repo.
+Start with [`README.md`](README.md), [`ARCHITECTURE.md`](ARCHITECTURE.md), and
+the decisions under `docs/`.
