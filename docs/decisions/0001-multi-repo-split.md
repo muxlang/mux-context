@@ -10,17 +10,21 @@ tracker.
 
 ## Decision
 
-Split into the [muxlang](https://github.com/muxlang) org as independent repos
-(`mux-compiler`, `mux-runtime`, `mux-website`, `mux-website-api`,
-`tree-sitter-mux`, `mux-syntax-highlighting`) plus the org `.github` repo, with
-full git history preserved per component. Cross-repo knowledge lives in this
-`context` repo.
+Split into the [muxlang](https://github.com/muxlang) org as independent repos:
+`mux-compiler`, `mux-runtime`, `mux-website`, `mux-website-api`,
+`tree-sitter-mux`, `mux-syntax-highlighting`, `mux-examples`, `.github`, and
+this `mux-context` repository. The canonical
+[`repositories.txt`](https://github.com/muxlang/.github/blob/main/repositories.txt)
+manifest is the authoritative active list; full git history is preserved per
+component.
 
 ## Consequences
 
 - Each repo has its own CI, SonarCloud project, and release flow.
-- The runtime is published to crates.io independently; the compiler pins a
-  semver range and links it (see [ARCHITECTURE](../../ARCHITECTURE.md)).
+- The runtime is resolved from its git source and pinned by the compiler lockfile
+  (see [ADR 0004](0004-runtime-resolved-from-source.md) and
+  [ARCHITECTURE](../../ARCHITECTURE.md)). Existing crates.io releases are
+  retained, but the channel is frozen.
 - The syntax spec stays canonical in `mux-syntax-highlighting` and is vendored
   into `tree-sitter-mux`.
 - Coordination that used to be implicit (one repo) is now explicit: this repo,

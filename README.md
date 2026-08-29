@@ -21,6 +21,11 @@ canonical syntax spec, generated grammars, rustdoc) stay in the repo whose
 tooling needs them, and are linked from here. The rule: *if a build step reads
 it, this repo does not own it.*
 
+The active organization repository list is maintained by the canonical
+[`.github/repositories.txt`](https://github.com/muxlang/.github/blob/main/repositories.txt)
+manifest. This repository documents cross-repo relationships; it does not
+duplicate that manifest as a second source of truth.
+
 Agents: see [`llms.txt`](llms.txt) for a flat, link-per-line index of everything
 here.
 
@@ -73,6 +78,8 @@ to one repo (e.g. a compiler crash, a website typo), file it there directly.
 | [tree-sitter-mux](https://github.com/muxlang/tree-sitter-mux) | Tree-sitter grammar + highlight queries (Neovim, Helix, Emacs). |
 | [mux-syntax-highlighting](https://github.com/muxlang/mux-syntax-highlighting) | TextMate grammar, VSCode extension, editor configs, and the canonical syntax spec. |
 | [.github](https://github.com/muxlang/.github) | Org profile + shared community-health files (contributing, code of conduct, issue/PR templates). |
+| [mux-examples](https://github.com/muxlang/mux-examples) | Intentional, deterministic teaching programs built by cross-repo CI. |
+| [mux-context](https://github.com/muxlang/mux-context) | Cross-repo architecture, design rationale, governance, and release knowledge. |
 
 ---
 

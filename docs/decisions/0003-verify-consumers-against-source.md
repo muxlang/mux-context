@@ -46,6 +46,7 @@ compiler by design, not `main`.
   source SHA (not its version) or it goes stale.
 - Reverse coupling is also covered: `mux-runtime` CI builds `mux-compiler` `main`
   against the runtime source to catch FFI breaks at their origin.
-- The release-time ordering from [0002](0002-independent-versioning.md) (publish
-  runtime, bump the compiler's range, release the compiler) still applies at
-  release; this record only governs per-change CI.
+- Independent versioning from [0002](0002-independent-versioning.md) still
+  applies, but its publish-and-range-bump ordering is superseded by
+  [0004](0004-runtime-resolved-from-source.md). Releases use the exact runtime
+  commit recorded in the compiler lockfile; this record governs per-change CI.

@@ -29,6 +29,8 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: actionlint + shellcheck
         run: ./scripts/ci/lint-workflows.sh
+      - name: Markdown links and scoped encoding
+        run: python3 scripts/ci/check-docs.py
 
   sonarqube:
     name: SonarQube

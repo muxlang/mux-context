@@ -5,6 +5,12 @@ the policy source of truth. Enforcement (label YAML, template sources, sync
 scripts) lives in the
 [`.github`](https://github.com/muxlang/.github) repo.
 
+The active repository set is the canonical
+[`repositories.txt`](https://github.com/muxlang/.github/blob/main/repositories.txt)
+manifest in `.github`. It contains nine active repositories, including
+`mux-examples` and `mux-context`; sync and validation tooling must reject any
+destination outside that manifest.
+
 ## Architecture
 
 | Layer | Where | What it owns |
@@ -35,7 +41,9 @@ scripts) lives in the
    `mux-syntax-highlighting` and `tree-sitter-mux`.
 8. **No PR templates.** Link issues in the PR description; CI enforces quality
    (see [Required CI checks](#required-ci-checks-merge-gates)).
-9. **ASCII only** in label names and descriptions.
+9. **ASCII in policy data.** Label names and descriptions, issue-form metadata,
+   workflow configuration, and sync-tool policy remain ASCII. User-facing
+   documentation and behavior fixtures may use intentional Unicode.
 
 ## Priority and status
 
@@ -49,7 +57,7 @@ not as issue labels.
 
 ## Labels
 
-Canonical set:
+Canonical set (including legacy kind labels retained for existing issues):
 [`.github/labels/labels.yml`](https://github.com/muxlang/.github/blob/main/labels/labels.yml).
 Repo overlays: `.github/labels/<repo>.yml`.
 
@@ -81,7 +89,10 @@ sync or retire.
 
 The Kind group is legacy: it predates issue types and stays in
 [`.github/labels/labels.yml`](https://github.com/muxlang/.github/blob/main/labels/labels.yml)
-and on the issues that already carry it, but nothing new may apply it.
+and on issues that already carry it, but nothing new may apply it. The sync
+validator still expects those labels because it validates the live canonical
+set; this is compatibility, not permission to apply a kind label to a new
+issue. New issue forms set the GitHub issue type instead.
 Retiring it (remove from the YAML, strip the labels from open issues) has not
 happened yet, so `validate-labels.py` still expects the labels to exist.
 
@@ -139,6 +150,7 @@ and forms set no title prefix. Do not encode the kind in the title (no
 | mux-syntax-highlighting | Bug, Syntax spec change |
 | tree-sitter-mux | Bug, Grammar sync |
 | mux-context | Cross-repo question, ADR proposal |
+| mux-examples | No issue forms; use the repository's configured contact path |
 
 All templates apply `needs triage` on creation, and the triage workflow removes
 it again when the filer has admin or write access to the repository, confirmed
