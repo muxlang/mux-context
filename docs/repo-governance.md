@@ -265,6 +265,11 @@ the sibling's live **source**, not a published or vendored copy. See
 [decision 0003](decisions/0003-verify-consumers-against-source.md) and
 muxlang/mux-context#3 for status.
 
+The machine-readable generated-artifact ownership and regeneration manifest is
+[`docs/generated-artifacts.yml`](generated-artifacts.yml). Changes to a listed
+source must run its recorded command and leave the recorded clean-diff check
+green before the consumer change is proposed.
+
 ### Pairing a change that spans repos
 
 Develop it on a **branch of the same name in every repo it touches**. That is
