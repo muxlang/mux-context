@@ -19,8 +19,11 @@ truth; do not copy implementation details here.
 
 ## Quality gate
 
-Run the repository's link, Markdown, and scoped text checks before committing.
-There is no compiler or application build in this repository.
+Run `python3 scripts/ci/check-docs.py` and
+`python3 -m unittest discover -s scripts/tests -p 'test_*.py'` before
+committing. The scoped encoding contract lives in
+[`docs/encoding-policy.json`](docs/encoding-policy.json). There is no compiler
+or application build in this repository.
 
 ## Documentation
 
