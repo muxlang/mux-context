@@ -4,9 +4,9 @@
 design decisions, terminology, repository ownership, and release policy. It is
 documentation only.
 
-`SKILL.md` is the canonical orientation guide for the organization. Keep it
-accurate and link to the repository that owns executable or generated truth;
-do not copy implementation details here.
+The canonical organization guidance is [`mux-context/SKILL.md`](SKILL.md).
+Keep it accurate and link to the repository that owns executable or generated
+truth; do not copy implementation details here.
 
 ## Invariants
 
