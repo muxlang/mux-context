@@ -44,21 +44,7 @@ def tracked_paths(root: Path) -> list[Path]:
     return [root / item for item in result.stdout.decode().split("\0") if item]
 
 
-def load_policy(path: Path, repository: str) -> dict[str, object]:
-    try:
-        document = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
-        raise ValueError(f"cannot load policy {path}: {error}") from error
-    if not isinstance(document, dict) or document.get("version") != 1:
-        raise ValueError("policy must be an object with version 1")
-    repositories = document.get("repositories")
-    if not isinstance(repositories, dict) or repository not in repositories:
-        raise ValueError(f"policy has no repository entry for {repository!r}")
-    config = repositories[repository]
-    if not isinstance(config, dict):
-        raise ValueError(f"policy entry for {repository!r} must be an object")
-    ascii_globs = config.get("ascii_globs")
-    allowed = config.get("unicode_allowed")
+def _validate_ascii_globs(repository: str, ascii_globs: object) -> list[str]:
     if not isinstance(ascii_globs, list) or not all(
         isinstance(item, str)
         and item
@@ -69,9 +55,13 @@ def load_policy(path: Path, repository: str) -> dict[str, object]:
         raise ValueError(f"{repository}: ascii_globs must contain safe non-empty paths")
     if len(set(ascii_globs)) != len(ascii_globs):
         raise ValueError(f"{repository}: ascii_globs contains duplicates")
+    return ascii_globs
+
+
+def _validate_unicode_allowed(repository: str, allowed: object) -> list[dict[str, object]]:
     if not isinstance(allowed, list):
         raise ValueError(f"{repository}: unicode_allowed must be a list")
-    seen_allowed: set[str] = set()
+    seen: set[str] = set()
     for entry in allowed:
         if not isinstance(entry, dict):
             raise ValueError(f"{repository}: every unicode_allowed entry must be an object")
@@ -86,9 +76,27 @@ def load_policy(path: Path, repository: str) -> dict[str, object]:
             or not reason.strip()
         ):
             raise ValueError(f"{repository}: every Unicode exception needs a safe glob and reason")
-        if glob in seen_allowed:
+        if glob in seen:
             raise ValueError(f"{repository}: unicode_allowed contains duplicate glob {glob!r}")
-        seen_allowed.add(glob)
+        seen.add(glob)
+    return allowed
+
+
+def load_policy(path: Path, repository: str) -> dict[str, object]:
+    try:
+        document = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
+        raise ValueError(f"cannot load policy {path}: {error}") from error
+    if not isinstance(document, dict) or document.get("version") != 1:
+        raise ValueError("policy must be an object with version 1")
+    repositories = document.get("repositories")
+    if not isinstance(repositories, dict) or repository not in repositories:
+        raise ValueError(f"policy has no repository entry for {repository!r}")
+    config = repositories[repository]
+    if not isinstance(config, dict):
+        raise ValueError(f"policy entry for {repository!r} must be an object")
+    _validate_ascii_globs(repository, config.get("ascii_globs"))
+    _validate_unicode_allowed(repository, config.get("unicode_allowed"))
     return config
 
 
@@ -158,15 +166,41 @@ def local_links(path: Path) -> list[str]:
         # Inline code can contain syntax such as `identity[T](value)`, which
         # must not be mistaken for a Markdown link.
         line = re.sub(r"`[^`]*`", "", line)
-        for match in MARKDOWN_LINKED_IMAGE.finditer(line):
-            target = match.group(1).strip("<>")
-            if target and not target.startswith(("https://", "http://", "mailto:")):
-                targets.append(unquote(target.split("#", 1)[0].split("?", 1)[0]))
-        for match in MARKDOWN_LINK.finditer(line):
-            target = match.group(2).strip("<>")
-            if target and not target.startswith(("https://", "http://", "mailto:")):
-                targets.append(unquote(target.split("#", 1)[0].split("?", 1)[0]))
+        targets.extend(_line_links(line))
     return targets
+
+
+def _normalise_target(target: str) -> str | None:
+    target = target.strip("<>")
+    if not target or target.startswith(("https://", "http://", "mailto:")):
+        return None
+    return unquote(target.split("#", 1)[0].split("?", 1)[0])
+
+
+def _line_links(line: str) -> list[str]:
+    targets = []
+    for match in MARKDOWN_LINKED_IMAGE.finditer(line):
+        target = _normalise_target(match.group(1))
+        if target is not None:
+            targets.append(target)
+    for match in MARKDOWN_LINK.finditer(line):
+        target = _normalise_target(match.group(2))
+        if target is not None:
+            targets.append(target)
+    return targets
+
+
+def _check_link_target(path: Path, root: Path, link_mode: object, target: str) -> str | None:
+    if link_mode == "docusaurus" and (target.startswith("/") or Path(target).suffix == ""):
+        return None
+    resolved = (path.parent / target).resolve()
+    try:
+        resolved.relative_to(root)
+    except ValueError:
+        return f"{relative(path, root)}: local link escapes repository: {target}"
+    if not resolved.exists():
+        return f"{relative(path, root)}: missing local link target: {target}"
+    return None
 
 
 def check_links(paths: list[Path], root: Path, config: dict[str, object]) -> list[str]:
@@ -181,20 +215,9 @@ def check_links(paths: list[Path], root: Path, config: dict[str, object]) -> lis
             errors.append(f"{relative(path, root)}: cannot read Markdown as UTF-8 ({error})")
             continue
         for target in targets:
-            if link_mode == "docusaurus" and (
-                target.startswith("/") or Path(target).suffix == ""
-            ):
-                # Docusaurus resolves root-relative and extensionless document
-                # IDs as routes rather than repository files.
-                continue
-            resolved = (path.parent / target).resolve()
-            try:
-                resolved.relative_to(root)
-            except ValueError:
-                errors.append(f"{relative(path, root)}: local link escapes repository: {target}")
-                continue
-            if not resolved.exists():
-                errors.append(f"{relative(path, root)}: missing local link target: {target}")
+            error = _check_link_target(path, root, link_mode, target)
+            if error is not None:
+                errors.append(error)
     return errors
 
 

@@ -12,7 +12,8 @@ from pathlib import Path
 
 SCRIPT = Path(__file__).parents[1] / "ci/check-docs.py"
 SPEC = importlib.util.spec_from_file_location("check_docs", SCRIPT)
-assert SPEC and SPEC.loader
+assert SPEC is not None
+assert SPEC.loader is not None
 CHECK_DOCS = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(CHECK_DOCS)
 
