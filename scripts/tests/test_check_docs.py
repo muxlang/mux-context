@@ -61,6 +61,29 @@ class CheckDocsTests(unittest.TestCase):
         self.assertTrue(CHECK_DOCS.match_pattern("README.md", "**/*.md"))
         self.assertTrue(CHECK_DOCS.match_pattern("docs/guide.md", "**/*.md"))
 
+    def test_ascii_scope_overrides_unicode_exception(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            document = root / "AGENTS.md"
+            document.write_text("caf" + chr(0xE9) + "\n", encoding="utf-8")
+            config = {
+                "ascii_globs": ["AGENTS.md"],
+                "unicode_allowed": [{"glob": "**/*.md", "reason": "test"}],
+            }
+            errors = CHECK_DOCS.check_ascii([document], root, config)
+            self.assertEqual(len(errors), 1)
+
+    def test_linked_image_outer_target_is_checked(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            document = root / "README.md"
+            (root / "badge.svg").write_text("svg", encoding="utf-8")
+            document.write_text("[![badge](badge.svg)](missing.md)\n", encoding="utf-8")
+            self.assertEqual(CHECK_DOCS.local_links(document), ["missing.md", "badge.svg"])
+            config = {"link_mode": "filesystem"}
+            errors = CHECK_DOCS.check_links([document], root, config)
+            self.assertEqual(len(errors), 1)
+
 
 if __name__ == "__main__":
     unittest.main()

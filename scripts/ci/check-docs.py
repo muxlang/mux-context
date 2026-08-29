@@ -21,6 +21,9 @@ from urllib.parse import unquote
 DEFAULT_ROOT = Path(__file__).resolve().parents[2]
 MARKDOWN_SUFFIXES = {".md", ".mdx"}
 MARKDOWN_LINK = re.compile(r"(?<!!)(\[[^\]]*\])\(\s*(<[^>]+>|[^)\s]+)")
+MARKDOWN_LINKED_IMAGE = re.compile(
+    r"\[\s*!\[[^\]]*\]\([^)]*\)\s*\]\(\s*(<[^>]+>|[^)\s]+)"
+)
 
 
 def parse_args() -> argparse.Namespace:
@@ -132,7 +135,7 @@ def check_ascii(paths: list[Path], root: Path, config: dict[str, object]) -> lis
     errors = []
     for path in paths:
         name = relative(path, root)
-        if not matches(name, patterns) or allowed_unicode(name, config):
+        if not matches(name, patterns):
             continue
         data = path.read_bytes()
         if b"\0" in data:
@@ -155,6 +158,10 @@ def local_links(path: Path) -> list[str]:
         # Inline code can contain syntax such as `identity[T](value)`, which
         # must not be mistaken for a Markdown link.
         line = re.sub(r"`[^`]*`", "", line)
+        for match in MARKDOWN_LINKED_IMAGE.finditer(line):
+            target = match.group(1).strip("<>")
+            if target and not target.startswith(("https://", "http://", "mailto:")):
+                targets.append(unquote(target.split("#", 1)[0].split("?", 1)[0]))
         for match in MARKDOWN_LINK.finditer(line):
             target = match.group(2).strip("<>")
             if target and not target.startswith(("https://", "http://", "mailto:")):
