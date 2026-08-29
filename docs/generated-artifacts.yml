@@ -5,9 +5,9 @@ artifacts:
   - repository: tree-sitter-mux
     path: src/parser.c
     source: grammar.js
-    generator: tree-sitter-cli@0.25.3
-    command: npx tree-sitter generate
-    check: npx tree-sitter generate && git diff --exit-code -- src/parser.c src/grammar.json src/node-types.json
+    generator: tree-sitter-cli@0.26.8
+    command: npm install -g tree-sitter-cli@0.26.8 && tree-sitter generate grammar.js
+    check: npm install -g tree-sitter-cli@0.26.8 && tree-sitter generate grammar.js && git diff --exit-code -- src/parser.c src/grammar.json src/node-types.json
   - repository: tree-sitter-mux
     path: queries/highlights.scm
     source: grammar.js
@@ -17,9 +17,9 @@ artifacts:
   - repository: mux-syntax-highlighting
     path: editor-support/textmate/mux.tmLanguage.json
     source: shared/syntax-matrix.json
-    generator: scripts/generate-syntax.js
-    command: node scripts/generate-syntax.js
-    check: node scripts/generate-syntax.js && git diff --exit-code
+    generator: scripts/build-editor-support.js
+    command: node scripts/build-editor-support.js
+    check: node scripts/build-editor-support.js --check
   - repository: mux-website
     path: src/shiki/mux.json
     source: mux-syntax-highlighting/shared/syntax-matrix.json
@@ -28,7 +28,7 @@ artifacts:
     check: npm run check:syntax-parity
   - repository: mux-compiler
     path: mux-compiler/tests/snapshots/*.snap
-    source: mux-compiler/tests/**/*.mux
+    source: mux-compiler/test_scripts/**/*.mux
     generator: insta 1.x snapshot harness
     command: cargo test --workspace
-    check: cargo test --workspace --test parser_snapshot_inventory
+    check: cargo test --workspace --test parser_integration
