@@ -49,7 +49,7 @@ Runtime features: `default = ["full"]`; optional `json`, `csv`, `net`, `sql`,
 
 | Feature | Repo |
 |---------|------|
-| Canonical syntax spec | `mux-syntax-highlighting/syntax-matrix.json` |
+| Canonical syntax spec | `mux-syntax-highlighting/shared/syntax-matrix.json` |
 | Tree-sitter grammar + highlight queries | `tree-sitter-mux` (`grammar.js`, `queries/`) |
 | TextMate grammar + VSCode extension | `mux-syntax-highlighting` |
 | Playground compile/run API | `mux-website-api` (`server.py`) |

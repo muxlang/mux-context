@@ -63,7 +63,7 @@ mux-syntax-highlighting ----(canonical syntax-matrix.json)----> tree-sitter-mux 
   deterministic teaching programs. Its workflow builds them against the
   compiler and runtime source; the programs are not compiler fixtures.
 - **mux-syntax-highlighting -> tree-sitter-mux:** the syntax spec
-  (`syntax-matrix.json`) is *canonical* in `mux-syntax-highlighting`;
+  (`shared/syntax-matrix.json`) is *canonical* in `mux-syntax-highlighting`;
   `tree-sitter-mux` vendors a copy that `grammar.js` reads. Keep them in sync.
 
 ## Who owns what (canonical artifacts)
@@ -72,7 +72,7 @@ mux-syntax-highlighting ----(canonical syntax-matrix.json)----> tree-sitter-mux 
 |----------|----------------|-------------|
 | Compiler / "Mux version" | `mux-compiler/Cargo.toml` (`CARGO_PKG_VERSION`) | everything that reports a version |
 | Runtime + stdlib (C-ABI) | `mux-runtime/src` | compiler codegen (FFI), compiled programs |
-| Syntax spec | `mux-syntax-highlighting/syntax-matrix.json` | tree-sitter-mux (vendored), TextMate/VSCode generation |
+| Syntax spec | `mux-syntax-highlighting/shared/syntax-matrix.json` | tree-sitter-mux (vendored), TextMate/VSCode generation |
 | Language reference (user docs) | `mux-website/docs` | mux-lang.dev |
 | Org/cross-repo knowledge | this repo (`context`) | humans + agents |
 | Teaching examples | `mux-examples/examples` | examples CI and learners |
