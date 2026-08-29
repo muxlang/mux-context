@@ -20,6 +20,30 @@ artifacts:
     generator: scripts/build-editor-support.js
     command: node scripts/build-editor-support.js
     check: node scripts/build-editor-support.js --check
+  - repository: mux-syntax-highlighting
+    path: editor-support/vscode/syntaxes/mux.tmLanguage.json
+    source: shared/syntax-matrix.json
+    generator: scripts/build-editor-support.js
+    command: node scripts/build-editor-support.js
+    check: node scripts/build-editor-support.js --check
+  - repository: mux-syntax-highlighting
+    path: editor-support/vscode/language-configuration.json
+    source: shared/syntax-matrix.json
+    generator: scripts/build-editor-support.js
+    command: node scripts/build-editor-support.js
+    check: node scripts/build-editor-support.js --check
+  - repository: mux-syntax-highlighting
+    path: editor-support/jetbrains/textmate/mux.tmLanguage.json
+    source: shared/syntax-matrix.json
+    generator: scripts/build-editor-support.js
+    command: node scripts/build-editor-support.js
+    check: node scripts/build-editor-support.js --check
+  - repository: mux-syntax-highlighting
+    path: editor-support/sublime/Mux.sublime-syntax
+    source: shared/syntax-matrix.json
+    generator: scripts/build-editor-support.js
+    command: node scripts/build-editor-support.js
+    check: node scripts/build-editor-support.js --check
   - repository: mux-website
     path: src/shiki/mux.json
     source: mux-syntax-highlighting/shared/syntax-matrix.json
