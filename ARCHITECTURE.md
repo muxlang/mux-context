@@ -55,8 +55,10 @@ mux-syntax-highlighting ----(canonical syntax-matrix.json)----> tree-sitter-mux 
 - **mux-compiler -> mux-runtime:** link-time dependency resolved from git and
   pinned to a commit by `Cargo.lock`. `mux version` reports both package
   versions and the locked runtime commit as build metadata. Read the current
-  values from the manifests and lockfile rather than copying a version into
-  this document.
+  values from the [`mux-compiler` manifest](https://github.com/muxlang/mux-compiler/blob/main/mux-compiler/Cargo.toml),
+  [`mux-runtime` manifest](https://github.com/muxlang/mux-runtime/blob/main/Cargo.toml),
+  and [compiler lockfile](https://github.com/muxlang/mux-compiler/blob/main/Cargo.lock)
+  rather than copying a version into this document.
 - **mux-website-api -> mux-compiler:** runs a *released* `mux` binary (a
   deliberately pinned compiler version), not arbitrary `main`.
 - **mux-website -> mux-website-api:** the in-browser playground POSTs source to

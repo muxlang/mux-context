@@ -13,9 +13,11 @@ monorepo). The per-repo `AGENTS.md` files link here instead of duplicating this.
   [ADR 0004](decisions/0004-runtime-resolved-from-source.md)). It is not
   published, and the compiler does not pin a semver range on it. `mux version`
   reports both package versions, with the locked runtime commit as build
-  metadata. Read the current values from the compiler and runtime manifests
-  and the compiler lockfile; this document intentionally does not duplicate
-  version numbers that change on every release.
+  metadata. Read the current values from the [`mux-compiler` manifest](https://github.com/muxlang/mux-compiler/blob/main/mux-compiler/Cargo.toml),
+  [`mux-runtime` manifest](https://github.com/muxlang/mux-runtime/blob/main/Cargo.toml),
+  and [compiler lockfile](https://github.com/muxlang/mux-compiler/blob/main/Cargo.lock).
+  This document intentionally does not duplicate version numbers that change
+  on every release.
 - **A release needs no publish handshake.** Whatever commit `Cargo.lock` names at
   the tag is what ships. The pin moves when someone runs
   `cargo update -p mux-runtime` - because a change needs it, or deliberately as
