@@ -23,7 +23,7 @@ live in the [docs](https://mux-lang.dev); this is the cross-repo/internal vocabu
   type at compile time. See [design/monomorphization.md](design/monomorphization.md).
 - **`mux-runtime`** - the link-time runtime + stdlib; plain Rust, no LLVM.
 - **`Mux version`** - the `mux-compiler` package version (`CARGO_PKG_VERSION`);
-  the runtime is versioned independently.
+  the runtime is identified by the exact Git commit in the compiler lockfile.
 - **ObjectRef** - the runtime representation of a class instance (shared ownership
   + `TypeId`). See [design/object-system.md](design/object-system.md).
 - **Program-exit teardown** - top-level (global) variables survive module init so
