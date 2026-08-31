@@ -105,15 +105,25 @@ metadata and is not a public release number.
 
 ## Release manifest
 
-Every compiler release records the exact inputs that shipped:
+The manifest is assembled in two phases because deployment identities do not
+exist when the compiler tag is created.
+
+At the compiler tag, record the immutable build inputs:
 
 ```text
 compiler: vX.Y.Z
 runtime: <Cargo.lock Git SHA>
-playground: <compiler pin>, <container image digest>
+```
+
+After the playground and website deployments complete, append their immutable
+inputs and the versions of any published editor packages:
+
+```text
+playground: <compiler pin>, <container image digest>, <deployment ID>
 website: <deployment SHA>
 published editor packages: <package name>@<version>
 ```
 
-Repositories with no changed artifact are absent from the manifest. This keeps
-the release reproducible without inventing synchronized or empty versions.
+The release is complete only after this deployment addendum is recorded. A
+repository with no changed artifact is absent from the manifest. This keeps the
+release reproducible without inventing synchronized or empty versions.
