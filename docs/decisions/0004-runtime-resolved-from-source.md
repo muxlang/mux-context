@@ -65,8 +65,9 @@ crates.io channel.
 **This supersedes the release-time ordering in
 [0002](0002-independent-versioning.md)**: there is no longer a "publish the
 runtime, then bump the compiler's range" step, because there is no range.
-Independent versioning otherwise stands - the repos still carry their own
-version fields, and the compiler version is still the canonical Mux version.
+Artifact-based versioning is defined by [0007](0007-artifact-versioning.md).
+The compiler version remains the canonical Mux version; the runtime's Cargo
+version is technical metadata for the source dependency.
 
 ## Consequences
 

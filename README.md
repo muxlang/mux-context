@@ -37,7 +37,7 @@ here.
 - [Glossary](docs/glossary.md) - terminology used across the project.
 - [Feature map](docs/features.md) - language/stdlib features to the modules that
   implement them.
-- [Release process](docs/release-process.md) - how each repo is versioned and shipped.
+- [Release process](docs/release-process.md) - how distributable artifacts are versioned and shipped.
 - [Repo governance](docs/repo-governance.md) - labels, issue templates, and project board rules.
 - [Design notes](docs/design/) - why the compiler and runtime work the way they do.
 - [Decisions](docs/decisions/) - architecture decision records.
