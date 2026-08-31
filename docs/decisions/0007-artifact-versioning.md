@@ -22,7 +22,10 @@ Use SemVer only for an artifact that external users install or depend on.
   digest, or workflow artifact instead of inventing SemVer releases.
 - A compiler release includes a release manifest with the compiler version,
   runtime commit, deployment inputs, and versions of any published editor
-  packages. Unchanged repositories are not bumped.
+  packages. The manifest is the GitHub Release body for that compiler tag. The
+  release workflow writes the build inputs, and a maintainer appends deployment
+  inputs after those deployments complete. Unchanged repositories are not
+  bumped.
 
 ## Consequences
 

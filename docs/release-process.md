@@ -108,6 +108,13 @@ metadata and is not a public release number.
 The manifest is assembled in two phases because deployment identities do not
 exist when the compiler tag is created.
 
+The canonical manifest lives in the GitHub Release body for the compiler tag.
+The release workflow writes the build section when it publishes the release. A
+maintainer appends the deployment section to that same release body after the
+playground and website deploy, using `gh release edit vX.Y.Z` so the inputs stay
+attached to the tagged artifact. The context repository stores the procedure,
+not a second copy of each release's values.
+
 At the compiler tag, record the immutable build inputs:
 
 ```text
