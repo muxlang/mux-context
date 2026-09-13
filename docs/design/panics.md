@@ -29,12 +29,12 @@ panic[E0600]: list index out of bounds: index 5, length 3
 panic[E0601]: key not found in map: key bob
 --> lookup.mux:12:12
 
-panic[E0603]: assertion failed: expected 2, got 1
+panic[E0603]: assertion failed: values must match
 ```
 
-Assertion panics currently omit the `-->` line: the `std.assert` runtime entry
-points are not yet passed their call site, so no source location is available at
-the panic. This is a known limitation, not a design choice.
+Assertion panics currently omit the `-->` line: the built-in `assert` runtime
+entry point is not yet passed its call site, so no source location is available
+at the panic. This is a known limitation, not a design choice.
 
 ## What panics
 
@@ -43,7 +43,7 @@ the panic. This is a known limitation, not a design choice.
 - **List index out of bounds** - reports the offending index (the one the user
   wrote, before negative-index normalization) and the list length.
 - **Map key not found** - reports the key.
-- **`std.assert` failures** - route through the same path.
+- **Built-in `assert` failures** - route through the same path.
 
 Panics are not catchable; there is no try/catch. Recoverable conditions should
 use `result`/`optional` and be handled with `match` - "prefer `result` over
@@ -64,5 +64,5 @@ panicking".
   panic site - and division, indexing, and map access are common operations, so
   that cost is paid broadly. The exact panic output is instead verified from the
   compiler side by the `executable_integration` snapshots. A richer runtime story
-  (an opt-in backtrace, e.g. `MUX_BACKTRACE`) is the higher-leverage follow-up and
+  (an opt-in backtrace, e.g. `MUX_BACKTRACE`) is the more useful follow-up and
   is deliberately deferred.
