@@ -26,8 +26,10 @@ literal/comment contents, and at most one blank line between constructs.
 
 Line wrapping may only introduce newlines where the grammar permits them.
 Parenthesized calls and bracketed collections can wrap at element boundaries.
-An unbreakable expression may exceed the width target. Reformatting output
-must produce exactly the same bytes.
+An unbreakable expression may exceed the width target. Whitespace outside
+literals and comments may change. Literal spellings and comment contents stay
+byte-for-byte identical. Formatted output must parse to the same program
+structure.
 
 ```mux
 func add(int left, int right) returns int {
