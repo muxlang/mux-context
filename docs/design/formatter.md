@@ -1,35 +1,39 @@
 # Formatter
 
-Status: implementation contract for the frontend rewrite. This document does
-not imply that the formatter has shipped.
+The compiler formatter uses the shared syntax frontend and requires valid Mux
+syntax. It does not require imports to resolve, types to check, or LLVM to run.
+Lexical or syntax errors prevent rewriting a file.
 
-Mux formatting uses the compiler's shared syntax frontend. Formatting requires
-valid syntax but does not require imports to resolve, types to check, or LLVM
-to run. Lexical or syntax errors prevent rewriting a file.
+## Configuration and style
 
-## Defaults
+The CLI reads `mux-project.json` from its working directory or nearest parent,
+up to the nearest Git worktree root. A single invocation uses one config for
+all selected paths. Library path formatting remains config-free.
 
-Use four spaces for indentation and an 80-column target. Expose these values
-as formatter options so a future configuration loader can supply them. The
-initial implementation does not define or read a configuration file.
+The config has a `format` object. Its defaults are four spaces, an 80-column
+target, same-line block braces, `where` clauses on their own line, one blank
+line between top-level declarations, no blank line between ordinary members,
+one blank line before function members, and trailing commas on multiline
+lists, maps, and match arms. Tabs default to one tab per indentation level.
+Blank-line counts accept nonnegative integers. Invalid JSON uses all defaults;
+invalid fields use their own defaults and produce stderr warnings.
 
-Keep original literal spellings, declaration order, import order, and comment
-contents. Comments remain associated with their surrounding syntax. In
-particular, `// mux:test` annotations stay immediately above their test.
-Comment text and literal contents can exceed the width target.
+The formatter keeps original literal spellings, declaration order, import
+order, and comment contents. Comments remain associated with their surrounding
+syntax. In particular, `// mux:test` annotations stay immediately above their
+test. Comment text and literal contents can exceed the width target.
+
+Binary expressions may continue after an operator, never before one. The
+formatter may use these breaks when wrapping long expressions. Assignment
+operators do not permit a line break before the right-hand side. Other layout
+breaks are selected from grammar-safe positions; expressions without a safe
+break may exceed the target. Formatted output must parse to the same program
+structure, except for permitted trailing-comma policy changes.
 
 Use spaces around binary operators, after commas, and between a control-flow
 keyword and its condition. Unary operators, member access, and generic type
-arguments follow their grammatical roles. Use LF for generated line breaks,
-one final newline for nonempty output, no trailing spaces outside preserved
-literal/comment contents, and at most one blank line between constructs.
-
-Line wrapping may only introduce newlines where the grammar permits them.
-Parenthesized calls and bracketed collections can wrap at element boundaries.
-An unbreakable expression may exceed the width target. Whitespace outside
-literals and comments may change. Literal spellings and comment contents stay
-byte-for-byte identical. Formatted output must parse to the same program
-structure.
+arguments follow their grammatical roles. Generated structural line breaks
+use LF. Literal spellings and comment contents stay byte-for-byte identical.
 
 ```mux
 func add(int left, int right) returns int {
