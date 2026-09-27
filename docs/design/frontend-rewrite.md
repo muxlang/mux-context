@@ -176,7 +176,7 @@ and deterministic. Before enabling writes, specify exclusions, symlink handling
 and cycle prevention, duplicate paths, missing paths, non-Mux files, and empty
 matches. The existing discovery scaffold is not the completed policy.
 
-Proposed exit codes: 0 for success or an already formatted check, 1 for a
+Implemented formatter exit codes: 0 for success or an already formatted check, 1 for a
 check that finds differences, and 2 for input, parse, or I/O errors. Check mode
 never writes. Stage all formatting results before writes so parse failures do
 not cause partial formatting. Replace each changed file atomically, preserve

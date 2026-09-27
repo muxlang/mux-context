@@ -8,7 +8,7 @@ Lexical or syntax errors prevent rewriting a file.
 
 The CLI reads `mux-project.json` from its working directory or nearest parent,
 up to the nearest Git worktree root. A single invocation uses one config for
-all selected paths. Library path formatting remains config-free.
+all selected paths. Library path formatting remains config-free. See the [compiler formatter documentation](https://github.com/muxlang/mux-compiler/blob/main/docs/formatter.md) and [config loader](https://github.com/muxlang/mux-compiler/blob/main/mux-compiler/src/format_config.rs) for the implementation.
 
 The config has a `format` object. Its defaults are four spaces, an 80-column
 target, same-line block braces, `where` clauses on their own line, one blank
@@ -35,9 +35,21 @@ keyword and its condition. Unary operators, member access, and generic type
 arguments follow their grammatical roles. Generated structural line breaks
 use LF. Literal spellings and comment contents stay byte-for-byte identical.
 
+For example, with `"line_width": 40`, a long expression wraps after a binary
+operator:
+
 ```mux
-func add(int left, int right) returns int {
-    return left + right
+func total(int first, int second, int third) returns int {
+    return first + second + third
+}
+```
+
+becomes:
+
+```mux
+func total(int first, int second, int third) returns int {
+    return first + second +
+        third
 }
 ```
 
