@@ -18,9 +18,9 @@ pass against grammar fixtures and Neovim's Tree-sitter runtime, the VSIX archive
 verifier passes, and VSCode client tests cover both successful startup and an
 actionable missing/old-server install prompt. Website build, tests, parity, and
 documentation snippet checks pass. Installed Neovim v0.12.5 leaves `.mux`
-unrecognized. A core filetype patch and functional test are drafted, but the
-patch has not been applied to an upstream checkout or run through Neovim's
-functional test suite.
+unrecognized. The core filetype patch applies cleanly to a fresh Neovim `main`
+checkout at `4e18828`, and Neovim's targeted functional filetype suite passes
+all 20 tests. The patch remains local and has not been submitted upstream.
 
 The compiler implementation is in [mux-compiler PR #462](https://github.com/muxlang/mux-compiler/pull/462).
 The VSCode cleanup and package work is in [mux-syntax-highlighting PR #32](https://github.com/muxlang/mux-syntax-highlighting/pull/32),

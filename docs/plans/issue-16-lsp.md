@@ -6,8 +6,12 @@ Companion: [editor distribution plan](issue-22-editor-distribution.md).
 
 ## Local implementation status
 
-The implementation is committed as `1c302ed` on `codex/issue-16-lsp`, with
+The implementation is committed on `codex/issue-16-lsp`, with
 [mux-compiler PR #462](https://github.com/muxlang/mux-compiler/pull/462) open.
+Commit `786d6b9` addresses review findings in fix validation, standard-library
+completions, recovery scopes, editor-only semantic references, poisoned lock
+handling, and protocol-loop structure. The full all-feature suite and strict
+Clippy pass on that commit.
 It includes the stdio server, snapshot analysis API, open-buffer overlays,
 UTF-16 positions, diagnostics, formatting, safe code actions, symbols,
 definitions, hover, signature help, and completion for visible names, explicit
