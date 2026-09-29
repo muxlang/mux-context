@@ -25,8 +25,10 @@ functional test suite.
 The compiler implementation is in [mux-compiler PR #462](https://github.com/muxlang/mux-compiler/pull/462).
 The VSCode cleanup and package work is in [mux-syntax-highlighting PR #32](https://github.com/muxlang/mux-syntax-highlighting/pull/32),
 and the shared editor queries and setup guidance are in [tree-sitter-mux PR #35](https://github.com/muxlang/tree-sitter-mux/pull/35).
-Website and context documentation changes remain local. Helix's native Cargo
-check, query check, doc generation, and `hx --health mux` pass with the local
+Website setup guidance is in
+[mux-website PR #104](https://github.com/muxlang/mux-website/pull/104), and
+these plans are in [mux-context PR #65](https://github.com/muxlang/mux-context/pull/65).
+Helix's native Cargo check, query check, doc generation, and `hx --health mux` pass with the local
 compiler on `PATH`; its parser and highlight queries load. Neovim v0.12.5 still
 leaves `.mux` unrecognized, and the drafted core patch has not been run against
 an upstream checkout. No PRs have been opened in third-party repositories. The
