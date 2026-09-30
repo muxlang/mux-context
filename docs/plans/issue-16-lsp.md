@@ -57,9 +57,10 @@ diagnostics, workspace-folder changes, untitled formatting, generic-bound
 completion, and watched-import refresh without `MUX_RUNTIME_LIB`.
 Windows/macOS install verification and a larger external project corpus remain.
 The packaged-install CI matrix now checks LSP initialize/shutdown and
-advertised capabilities without `MUX_RUNTIME_LIB` on Linux, macOS, and Windows;
-only the Linux leg has been run locally so far. Cross-platform CI and review
-remain pending.
+advertised capabilities without `MUX_RUNTIME_LIB` on Linux, macOS, and Windows.
+All PR checks, including all three package targets, Windows packaging, strict
+Rustdoc, SonarQube, and Greptile review, pass at commit `4a0aa1e`. Merge,
+release, and post-release installer verification remain pending.
 
 Ship a `mux lsp` command in the existing compiler release. The normal Mux
 installer will then install the compiler, formatter, fix tooling, and language

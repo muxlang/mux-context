@@ -31,6 +31,14 @@ these plans are in [mux-context PR #65](https://github.com/muxlang/mux-context/p
 Website PR #104's audit currently depends on the separate dependency fix in
 [mux-website PR #103](https://github.com/muxlang/mux-website/pull/103); merge
 that fix before expecting the editor-docs checks to pass.
+The syntax-highlighting PR also adds a manual, tag-driven publishing workflow
+for Marketplace and Open VSX. It builds and verifies one VSIX, records its
+digest, and publishes only to destinations selected at dispatch. Publishing
+uses Microsoft Entra federation and Open VSX trusted publishing, without
+long-lived registry tokens. The workflow is linted and its build/package steps
+pass locally. Its new GitHub checks are running. Account access, Open VSX
+namespace ownership, and GitHub environment/OIDC setup still need maintainer
+provisioning.
 Helix's native Cargo check, query check, doc generation, and `hx --health mux` pass with the local
 compiler on `PATH`; its parser and highlight queries load. Neovim v0.12.5 still
 leaves `.mux` unrecognized. The drafted core patch was run against a fresh
@@ -87,17 +95,19 @@ do not treat that historical inventory as a fresh availability check.
 
 2. Make the VSIX reproducible and test it as an artifact.
 
-   Add root package scripts with locked `vsce`/`ovsx` tooling. Build from a clean
-   checkout, generate the grammar, and package the maintained extension. Inspect
-   the archive for its manifest, grammar, language configuration, license, and
-   referenced assets. Exclude development-only files. Preserve existing syntax
-   parity and sample tests, and fail on missing generated assets.
+   Keep the locked `@vscode/vsce` dependency for packaging and publication. Do
+   not add `ovsx` to normal development dependencies; invoke its pinned CLI only
+   in the Open VSX publishing job. Build from a clean checkout, generate the
+   grammar, and package the maintained extension. Inspect the archive for its
+   manifest, grammar, language configuration, license, and referenced assets.
+   Exclude development-only files. Preserve existing syntax parity and sample
+   tests, and fail on missing generated assets.
 
    Add a CI artifact job and install its VSIX into a fresh editor profile.
    Verify `.mux` recognition, highlighting, brackets, comments, and indentation.
    This gives a reviewable, installable artifact before any publication.
 
-3. Provision publishers and publish one artifact to both registries.
+3. Provision publisher identities and add a gated, tag-based publish path.
 
    Verify control of the `mux-lang` Marketplace publisher and Open VSX namespace.
    Configure release credentials through repository secrets and protected
@@ -110,11 +120,12 @@ do not treat that historical inventory as a fresh availability check.
    Verify the supported automated authentication mechanism at implementation
    time rather than embedding a soon-to-expire credential recipe in this plan.
 
-   Add a release workflow using the existing extension version contract. Build
-   once and publish the exact same VSIX to Marketplace, Open VSX, and a GitHub
-   release asset. Record artifact hashes and per-registry success. A retry after
-   one registry fails must reuse the artifact and verify any already-published
-   version instead of rebuilding or blindly incrementing versions.
+   The workflow builds from a `v<version>` tag, checks the version against the
+   manifest, uploads a digest-checked VSIX, and publishes that artifact to either
+   or both registries only when selected. A `none` run builds an artifact for
+   inspection without publishing. Keep retries pinned to the same immutable tag
+   and select only the registry that needs a retry. Uploading a GitHub release
+   asset remains a separate follow-up.
 
 4. Prepare tree-sitter for upstream consumers.
 
