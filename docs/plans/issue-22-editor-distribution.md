@@ -39,10 +39,13 @@ and is installed with scripts disabled, so it does not enlarge the root
 developer install. PR #32's CI, static analysis, Sonar, and Greptile checks all
 pass after fixing the reviewed digest path and requiring a real version tag.
 PRs #35 and #36 passed all checks and are merged. The publisher reliability
-follow-up is in [mux-syntax-highlighting PR #33](https://github.com/muxlang/mux-syntax-highlighting/pull/33);
-its required checks are passing except for the pending Greptile review. Compiler
-release metadata is under review in [mux-compiler PR #463](https://github.com/muxlang/mux-compiler/pull/463),
-with CI still running.
+fix in [mux-syntax-highlighting PR #33](https://github.com/muxlang/mux-syntax-highlighting/pull/33)
+is merged. It keeps the VSIX and provenance metadata on a GitHub Release for
+retries, verifies that metadata against the version tag, handles concurrent
+dispatches, and rejects unverified legacy assets. CI, workflow lint, static
+analysis, Sonar, and Greptile all passed. Version 0.13.0 release metadata
+merged in [mux-compiler PR #463](https://github.com/muxlang/mux-compiler/pull/463);
+its tag has not been created.
 Account access, Open VSX namespace ownership, and GitHub environment/OIDC setup
 still need maintainer provisioning.
 Helix's native Cargo check, query check, doc generation, and `hx --health mux` pass with the local
