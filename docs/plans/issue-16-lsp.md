@@ -8,9 +8,9 @@ Companion: [editor distribution plan](issue-22-editor-distribution.md).
 
 The implementation merged in
 [mux-compiler PR #462](https://github.com/muxlang/mux-compiler/pull/462) as
-`4807f48`. Release metadata is prepared in
-[mux-compiler PR #463](https://github.com/muxlang/mux-compiler/pull/463); its
-required checks are still running.
+`4807f48`. Version 0.13.0 release metadata merged in
+[mux-compiler PR #463](https://github.com/muxlang/mux-compiler/pull/463) as
+`e5fd76f`. The version bump is on `main`; the release tag has not been created.
 The merged implementation includes fixes for validating edits near existing
 errors, standard-library completions, recovery scopes, editor-only semantic
 references, poisoned lock handling, and protocol-loop structure. It also
@@ -62,9 +62,9 @@ Post-release installer verification and a larger external project corpus remain.
 The packaged-install CI matrix now checks LSP initialize/shutdown and
 advertised capabilities without `MUX_RUNTIME_LIB` on Linux, macOS, and Windows.
 All checks, including all three package targets, Windows packaging, strict
-Rustdoc, SonarQube, and Greptile review, passed before PR #462 merged. Release
-metadata is under review in PR #463. The release tag and post-release installer
-verification remain pending.
+Rustdoc, SonarQube, and Greptile review, passed before PR #462 merged. PR #463's
+release checks also passed before it merged. The release tag and post-release
+installer verification remain pending.
 
 Ship a `mux lsp` command in the existing compiler release. The normal Mux
 installer will then install the compiler, formatter, fix tooling, and language
