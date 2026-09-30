@@ -20,9 +20,9 @@ Marketplace and Open VSX publishing to trusted OIDC. The Open VSX CLI is locked
 and isolated from normal development dependencies. [PR #35](https://github.com/muxlang/mux-syntax-highlighting/pull/35)
 merged on 2026-09-30 as `44428b6`; all listed checks passed. It aligns the
 extension and its lockfiles with compiler version 0.13.0 and adds release notes
-to the packaged VSIX. A local build produced a verified 120 KB VSIX containing
-11 files. The syntax-highlighting repository still has no `v0.13.0` tag or
-release, and the extension has not been published.
+to the packaged VSIX. A fresh local build produced a verified 120 KB VSIX
+containing 10 files. The syntax-highlighting repository still has no `v0.13.0`
+tag or release, and the extension has not been published.
 
 The Tree-sitter editor-query and setup work merged in
 [tree-sitter-mux PR #35](https://github.com/muxlang/tree-sitter-mux/pull/35);
