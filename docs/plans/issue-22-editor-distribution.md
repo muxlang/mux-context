@@ -125,12 +125,17 @@ do not treat that historical inventory as a fresh availability check.
    Verify the supported automated authentication mechanism at implementation
    time rather than embedding a soon-to-expire credential recipe in this plan.
 
-   The workflow builds from a `v<version>` tag, checks the version against the
-   manifest, uploads a digest-checked VSIX, and publishes that artifact to either
-   or both registries only when selected. A `none` run builds an artifact for
-   inspection without publishing. Keep retries pinned to the same immutable tag
-   and select only the registry that needs a retry. Uploading a GitHub release
-   asset remains a separate follow-up.
+   Build the VSIX once for each `v<version>` tag, check its version against the
+   manifest, and store the package with its SHA-256 digest. Publish only the
+   registries selected for that release. A `none` run builds an artifact for
+   inspection without publishing.
+
+   A retry must download the original artifact from its recorded workflow run
+   and verify its digest before publishing. Do not rebuild the VSIX for a retry,
+   even when the tag is unchanged. Record the source run ID and digest with the
+   release so either registry can be retried with the exact same bytes. Keep the
+   existing run artifact or upload the VSIX and digest to the GitHub Release;
+   choose one immutable storage path and test the retry flow before publishing.
 
 4. Prepare tree-sitter for upstream consumers.
 
