@@ -59,9 +59,12 @@ publisher, still need maintainer provisioning. The `vscode-marketplace` and
 neither environment has required reviewers configured.
 Helix's cached `xtask query-check mux`, `xtask docgen`, and `hx --health mux`
 pass with the local compiler on `PATH`; its parser and highlight queries load.
-The Marketplace item URL and Open VSX API both returned 404 on 2026-09-30,
-and `mux-syntax-highlighting` has no GitHub Release yet. Registry publisher and
-namespace setup therefore still need maintainer verification before publishing.
+The maintained Marketplace listing at
+`https://marketplace.visualstudio.com/items?itemName=mux-lang.language-mux` and
+the Open VSX API record at `https://open-vsx.org/api/mux-lang/language-mux` both
+returned 404 on 2026-09-30. `mux-syntax-highlighting` has no GitHub Release yet.
+Registry publisher and namespace setup still need maintainer verification
+before publishing.
 Neovim v0.12.5 still leaves `.mux` unrecognized; the corrected core patch's
 headless smoke test passes, but its full functional suite has not been rerun.
 No PRs have been opened in third-party repositories. The
