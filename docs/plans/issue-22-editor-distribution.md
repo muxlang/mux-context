@@ -130,12 +130,13 @@ do not treat that historical inventory as a fresh availability check.
    registries selected for that release. A `none` run builds an artifact for
    inspection without publishing.
 
-   A retry must download the original artifact from its recorded workflow run
-   and verify its digest before publishing. Do not rebuild the VSIX for a retry,
-   even when the tag is unchanged. Record the source run ID and digest with the
-   release so either registry can be retried with the exact same bytes. Keep the
-   existing run artifact or upload the VSIX and digest to the GitHub Release;
-   choose one immutable storage path and test the retry flow before publishing.
+   Upload the VSIX and its SHA-256 digest to the GitHub Release as durable
+   assets. A retry must download that exact asset and verify its digest before
+   publishing. Do not rebuild the VSIX for a retry, even when the tag is
+   unchanged. Record the source workflow run ID and digest with the release.
+   The workflow-run artifact can support initial inspection, but retries must
+   use the release asset so its shorter retention period cannot lose the only
+   copy. Test the retry flow before publishing.
 
 4. Prepare tree-sitter for upstream consumers.
 
