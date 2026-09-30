@@ -4,14 +4,15 @@ Plan and implementation status, researched 2026-09-28 and updated
 2026-09-30. Issue: [#16](https://github.com/muxlang/mux-context/issues/16).
 Companion: [editor distribution plan](issue-22-editor-distribution.md).
 
-## Local implementation status
+## Implementation status
 
 The implementation merged in
 [mux-compiler PR #462](https://github.com/muxlang/mux-compiler/pull/462) as
 `4807f48`. Version 0.13.0 release metadata merged in
 [mux-compiler PR #463](https://github.com/muxlang/mux-compiler/pull/463) as
-`e5fd76f`. The version bump is on `main`; creating the `v0.13.0` tag is
-waiting for maintainer approval.
+`e5fd76f`. The compiler's `v0.13.0` tag and release are published at
+[GitHub Releases](https://github.com/muxlang/mux-compiler/releases/tag/v0.13.0),
+with binary archives and checksums for Linux, macOS, and Windows.
 The merged implementation includes fixes for validating edits near existing
 errors, standard-library completions, recovery scopes, editor-only semantic
 references, poisoned lock handling, and protocol-loop structure. It also
@@ -59,25 +60,24 @@ smoke and 12-seed generated-program campaign pass, including normal
 compiled-program execution. Release LSP smokes cover `mux lsp` startup,
 diagnostics, workspace-folder changes, untitled formatting, generic-bound
 completion, and watched-import refresh without `MUX_RUNTIME_LIB`.
-Post-release installer verification and a larger external project corpus remain.
+The release tag is published; a larger external project corpus remains useful
+follow-up validation.
 The packaged-install CI matrix now checks LSP initialize/shutdown and
 advertised capabilities without `MUX_RUNTIME_LIB` on Linux, macOS, and Windows.
 All checks, including all three package targets, Windows packaging, strict
 Rustdoc, SonarQube, and Greptile review, passed before PR #462 merged. PR #463's
-release checks also passed before it merged. The release tag and post-release
-installer verification remain pending.
+release checks also passed before it merged.
 
-Ship a `mux lsp` command in the existing compiler release. The normal Mux
-installer will then install the compiler, formatter, fix tooling, and language
-server together. Keep the server in `mux-compiler` so semantic behavior and
-editor behavior change in the same PR and release. Keep the VSCode client in
-the one maintained extension in `mux-syntax-highlighting`.
+The server ships as `mux lsp` in compiler v0.13.0. The normal Mux installer
+provides the compiler, formatter, fix tooling, and language server together.
+Keeping the server in `mux-compiler` lets semantic and editor behavior change
+in the same repository release; the VSCode client remains in the one maintained
+extension in `mux-syntax-highlighting`.
 
-The proposed first complete release includes live diagnostics, formatting,
-safe quick fixes, hover, go-to-definition, document symbols, scoped completion,
-and signature help. Deliver diagnostics and formatting as an earlier milestone.
-Workspace references, rename, semantic tokens, inlay hints, and debugging are
-follow-ups. Publishing highlighting under #22 does not depend on this work.
+The first release includes live diagnostics, formatting, safe quick fixes,
+hover, go-to-definition, document symbols, scoped completion, and signature
+help. Workspace references, rename, semantic tokens, inlay hints, and debugging
+remain follow-ups. Editor package distribution is tracked under issue #22.
 
 ## What the code already provides
 

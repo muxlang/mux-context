@@ -4,91 +4,73 @@ Proposed plan, researched 2026-09-28 and updated 2026-09-30. This describes futu
 availability. Issue: [#22](https://github.com/muxlang/mux-context/issues/22).
 Companion: [LSP implementation plan](issue-16-lsp.md).
 
-## Local implementation status
+## Implementation status
 
-The agreed implementation order is #16 first, then #22. The work is technically
-independent, but we will finish and verify the compiler LSP and its minimal
-development tooling before packaging or submitting editor distribution changes.
+The agreed sequence was to complete issue #16 before issue #22. The compiler
+LSP merged in [mux-compiler PR #462](https://github.com/muxlang/mux-compiler/pull/462)
+and shipped with the `v0.13.0` compiler release. Its normal install includes
+`mux lsp`, formatter, and quick-fix tooling.
 
-As of 2026-09-30, local work consolidates VSCode extension ownership, builds
-and verifies a VSIX, adds a CI artifact job, updates installation guidance,
-and prepares Tree-sitter, nvim-treesitter, Helix, and website changes. The
-Tree-sitter grammar tests pass (46 corpus cases), both editor highlight queries
-pass against grammar fixtures and Neovim's Tree-sitter runtime, the VSIX archive
-verifier passes, and VSCode client tests cover both successful startup and an
-actionable missing/old-server install prompt. Website build, tests, parity, and
-documentation snippet checks pass. Installed Neovim v0.12.5 leaves `.mux`
-unrecognized. The core filetype patch adds `.mux` recognition and a functional
-test; it applies cleanly to a current upstream source snapshot, and a headless
-smoke test confirms `main.mux` returns the `mux` filetype. The full functional
-suite has not been rerun for this corrected patch. It remains local and has not
-been submitted upstream.
+Mux-owned extension preparation is merged. [mux-syntax-highlighting PR #32](https://github.com/muxlang/mux-syntax-highlighting/pull/32)
+removed the duplicate VSCode package, kept the stable `mux-lang.language-mux`
+identity, added the LSP client, and added reproducible VSIX packaging and
+verification. PR #33 made the release artifact reusable for publish retries,
+and [PR #34](https://github.com/muxlang/mux-syntax-highlighting/pull/34) moved
+Marketplace and Open VSX publishing to trusted OIDC. The Open VSX CLI is locked
+and isolated from normal development dependencies. [PR #35](https://github.com/muxlang/mux-syntax-highlighting/pull/35)
+merged on 2026-09-30 as `44428b6`; all listed checks passed. It aligns the
+extension and its lockfiles with compiler version 0.13.0 and adds release notes
+to the packaged VSIX. A local build produced a verified 120 KB VSIX containing
+11 files. The syntax-highlighting repository still has no `v0.13.0` tag or
+release, and the extension has not been published.
 
-The compiler implementation merged in [mux-compiler PR #462](https://github.com/muxlang/mux-compiler/pull/462).
-The VSCode cleanup and package work merged in [mux-syntax-highlighting PR #32](https://github.com/muxlang/mux-syntax-highlighting/pull/32).
-The editor queries and setup guidance merged in [tree-sitter-mux PR #35](https://github.com/muxlang/tree-sitter-mux/pull/35),
-and the examples now use the landed grammar revision in [PR #36](https://github.com/muxlang/tree-sitter-mux/pull/36).
-Website setup guidance in [mux-website PR #104](https://github.com/muxlang/mux-website/pull/104)
-and its dependency fix in [PR #103](https://github.com/muxlang/mux-website/pull/103)
-are merged. These plans merged in [mux-context PR #65](https://github.com/muxlang/mux-context/pull/65).
-The syntax-highlighting PR also adds a manual, tag-driven publishing workflow
-for Marketplace and Open VSX. It builds and verifies one VSIX, records its
-digest, and publishes only to destinations selected at dispatch. Publishing
-uses VSCE's GitHub OIDC trusted publishing and Open VSX trusted publishing,
-without long-lived registry tokens or Azure credentials. The workflow requires
-the selected workflow ref to match its release-tag input. PR
-[#34](https://github.com/muxlang/mux-syntax-highlighting/pull/34) replaced the
-Azure credential flow, documented both trusted-publisher setups, and added an
-actionable mismatch error. Its required checks passed before merging as
-`a2a70be`. The workflow is linted and its build/package steps pass locally.
-The Open VSX CLI has a separate lockfile under `.github/ovsx-cli`
-and is installed with scripts disabled, so it does not enlarge the root
-developer install. PR #32's CI, static analysis, Sonar, and Greptile checks all
-pass after fixing the reviewed digest path and requiring a real version tag.
-PRs #35 and #36 passed all checks and are merged. The publisher reliability
-fix in [mux-syntax-highlighting PR #33](https://github.com/muxlang/mux-syntax-highlighting/pull/33)
-is merged. It keeps the VSIX and provenance metadata on a GitHub Release for
-retries, verifies that metadata against the version tag, handles concurrent
-dispatches, and rejects unverified legacy assets. CI, workflow lint, static
-analysis, Sonar, and Greptile all passed. Version 0.13.0 release metadata
-merged in [mux-compiler PR #463](https://github.com/muxlang/mux-compiler/pull/463);
-creating its tag is pending maintainer approval. Marketplace publisher control
-and its OIDC trust policy, plus Open VSX namespace ownership and its trusted
-publisher, still need maintainer provisioning. The `vscode-marketplace` and
-`open-vsx` GitHub Actions environments now restrict deployments to `v*` tags;
-neither environment has required reviewers configured.
-Helix's cached `xtask query-check mux`, `xtask docgen`, and `hx --health mux`
-pass with the local compiler on `PATH`; its parser and highlight queries load.
-The maintained Marketplace listing at
-`https://marketplace.visualstudio.com/items?itemName=mux-lang.language-mux` and
-the Open VSX API record at `https://open-vsx.org/api/mux-lang/language-mux` both
-returned 404 on 2026-09-30. `mux-syntax-highlighting` has no GitHub Release yet.
-Registry publisher and namespace setup still need maintainer verification
-before publishing.
-Neovim v0.12.5 still leaves `.mux` unrecognized; the corrected core patch's
-headless smoke test passes, but its full functional suite has not been rerun.
-No PRs have been opened in third-party repositories. The
-maintainer has authorized PRs in Mux-owned repositories only; hold Neovim,
-nvim-treesitter, and Helix submissions for separate approval. Registry
-publication and released native-editor verification remain outstanding.
+The Tree-sitter editor-query and setup work merged in
+[tree-sitter-mux PR #35](https://github.com/muxlang/tree-sitter-mux/pull/35);
+PRs #36 and #37 also merged, with #37 adding upstream parser and query checks.
+Local branches are prepared for Vim (`2d1b2f1`), Neovim (`2343ed7`),
+nvim-treesitter (`4ea0883`), and Helix (`4b86f5c2`). Vim and Neovim add `.mux`
+filetype detection and regression coverage. The nvim-treesitter entry pins the
+validated Mux parser. Helix adds grammar, highlights, `mux lsp`, and generated
+docs. Focused Vim and Neovim filetype checks pass; nvim-treesitter parser
+installation and focused query/highlight checks pass; Helix query and highlight
+checks pass with 37 assertions. Full Helix workspace tests and a built-editor
+installation check have not been run because of the existing build's resource
+footprint. None of the four branches has been submitted upstream. The Vim core
+change must land before Neovim's filetype change, and Neovim support must land
+before nvim-treesitter can meet its filetype prerequisite.
 
-The prepared nvim-treesitter registry entry and Helix language definition pin
-`9d89fb021c15b70b967ef8574c7e28d640d2b705`, the merged tree-sitter commit that
-contains the highlight-query fix. A clean Git fetch by that SHA succeeds. No
-third-party PRs have been opened.
+The VSCode Marketplace listing and Open VSX API record for
+`mux-lang.language-mux` returned 404 on 2026-09-30. GitHub contains the
+`vscode-marketplace` and `open-vsx` deployment environments, but that does not
+prove the external publisher accounts trust this repository's workflows. The
+maintainer has not confirmed access to either publisher account. Check access
+and trusted-publisher setup before creating the syntax-highlighting `v0.13.0`
+tag or dispatching a publish workflow.
 
-The agreed order is to finish #16 before publishing #22. The compiler PR
-provides `mux lsp`; the VSCode client is prepared in PR #32. Publish the VSIX
-after the compiler release includes the server. Keep one VSCode extension
-identity so the client arrives through a normal extension update. A tree-sitter
-grammar install does not install a language server; document those two
-installation responsibilities accurately.
+Neovim support should eventually include both Tree-sitter parsing and a convenient
+LSP install. No Mux config exists in nvim-lspconfig and no Mux package exists in
+Mason. The latest eligibility research found 7 stars on the Mux compiler repo,
+below the listed direct-admission criteria: nvim-lspconfig asks for 100 stars
+or evidence of an active server user base; Mason requires 100 stars, 5,000
+Marketplace downloads, an accepted nvim-lspconfig config, or an official
+recommendation from a reputable organization. For now, document `mux lsp` from
+PATH and a small Neovim LSP configuration. Revisit nvim-lspconfig when Mux has
+qualifying adoption evidence, then submit a Mason package after that config is
+accepted. See the current [nvim-lspconfig contribution guide](https://github.com/neovim/nvim-lspconfig/blob/master/CONTRIBUTING.md)
+and [Mason registry contribution guide](https://github.com/mason-org/mason-registry/blob/main/CONTRIBUTING.md).
 
-## Research findings
+Third-party PRs remain held for the maintainer's explicit approval. Publication,
+upstream editor integration, and post-publication installation checks remain.
 
-| Area | Current repository evidence |
+## Baseline when the issue was reviewed
+
+These findings capture the initial 2026-09-28 repository survey. The current
+state is summarized above; the historical values below explain the cleanup that
+followed.
+
+| Area | Repository evidence at issue filing |
 | --- | --- |
-| Maintained extension | `mux-syntax-highlighting/textmate-mux/vscode-language-mux/package.json` is version 0.6.0 with identity `mux-lang.language-mux`. The issue's 0.5.0 is historical. |
+| Maintained extension | `mux-syntax-highlighting/textmate-mux/vscode-language-mux/package.json` was version 0.6.0 with identity `mux-lang.language-mux`. The issue's 0.5.0 was historical. |
 | Duplicate extension | `mux-syntax-highlighting/editor-support/vscode/package.json` defines `mux-lang.mux-syntax` at 0.1.0. |
 | Duplicate generation | `scripts/generate-syntax.js` and `scripts/build-editor-support.js` in syntax-highlighting independently build TextMate grammars. |
 | Packaging | Generated extension grammars are ignored files. A clean checkout must generate them before packaging. Neither editor repository currently has a publishing workflow. |
@@ -103,10 +85,13 @@ do not treat that historical inventory as a fresh availability check.
 
 1. Consolidate extension ownership and generated output.
 
+   **Status: complete.** Mux-syntax-highlighting PR #32 removed the duplicate
+   package and retained the stable extension identity.
+
    Keep `textmate-mux/vscode-language-mux` and its `mux-lang.language-mux`
-   identity. Remove `editor-support/vscode` and every generator output, package
-   task, test reference, and documentation link that exists solely for it.
-   Document uninstalling the old locally installed extension to avoid duplicate
+   identity. PR #32 removed `editor-support/vscode` and its package-only
+   generated output, scripts, tests, and documentation references. Installation
+   guidance explains how to remove the old extension to avoid duplicate
    language contributions.
 
    Add behavior fixtures before consolidating the two TextMate builders into a
@@ -118,26 +103,29 @@ do not treat that historical inventory as a fresh availability check.
 
 2. Make the VSIX reproducible and test it as an artifact.
 
-   Keep the locked `@vscode/vsce` dependency for packaging and publication. Do
-   not add `ovsx` to normal development dependencies; invoke its isolated,
-   locked CLI only in the Open VSX publishing job. Build from a clean checkout,
-   generate the grammar, and package the maintained extension. Inspect the
-   archive for its manifest, grammar, language configuration, license, and
-   referenced assets.
-   Exclude development-only files. Preserve existing syntax parity and sample
-   tests, and fail on missing generated assets.
+   **Status: complete.** PRs #32, #33, #34, and #35 provide packaging,
+   verification, durable artifact reuse, and trusted publishing.
 
-   Add a CI artifact job and install its VSIX into a fresh editor profile.
-   Verify `.mux` recognition, highlighting, brackets, comments, and indentation.
-   This gives a reviewable, installable artifact before any publication.
+   The merged workflow uses locked `@vscode/vsce` for packaging and publication
+   and an isolated, locked Open VSX CLI only in its publishing job. It builds
+   from generated grammar output, verifies the VSIX manifest and required
+   assets, excludes development-only files, and preserves syntax parity and
+   sample checks.
 
-3. Provision publisher identities and add a gated, tag-based publish path.
+   CI builds and retains the VSIX artifact for review, and the package verifier
+   checks its included grammar, language configuration, license, and assets.
+
+3. Provision publisher identities and publish the verified package.
+
+   **Status: prepared; maintainer setup remains.** The manual tagged workflow is
+   merged. Confirm access to both publisher accounts and their trusted-publisher
+   configuration before creating the syntax-highlighting `v0.13.0` tag or
+   dispatching publication.
 
    Verify control of the `mux-lang` Marketplace publisher and Open VSX namespace.
-   Configure release credentials through repository secrets and protected
-   release settings. Account creation, agreements, and namespace ownership are
-   maintainer provisioning steps. Prepare the package and workflow first; obtain
-   any missing account access when ready to publish.
+   Complete publisher agreements, namespace ownership, and trusted-publisher
+   setup as needed. Keep account provisioning in the publisher services and
+   GitHub environment protection settings rather than adding long-lived tokens.
 
    Follow the current [Marketplace publishing guide](https://code.visualstudio.com/api/working-with-extensions/publishing-extension)
    and [Open VSX publishing guide](https://github.com/eclipse-openvsx/openvsx/wiki/Publishing-Extensions).
@@ -159,17 +147,24 @@ do not treat that historical inventory as a fresh availability check.
 
 4. Prepare tree-sitter for upstream consumers.
 
+   **Status: complete.** `tree-sitter-mux` PR #37 added upstream parser and
+   query checks; its required checks passed before merge.
+
    In `tree-sitter-mux`, keep the committed parser drift check, corpus tests,
-   compiler-fixture parsing, and canonical syntax-matrix synchronization. Add
-   upstream-required parser/query validation before requesting registry inclusion.
-   Validate captures against Neovim and Helix separately; share compatible query
-   content, but keep explicit editor variants where capture names differ.
+   compiler-fixture parsing, and canonical syntax-matrix synchronization. PR #37
+   adds upstream-required parser and query validation. Query fixtures cover
+   Neovim and Helix while preserving editor-specific captures where needed.
    Do not rewrite the grammar merely to distribute it.
 
-5. Submit Neovim integration in dependency order.
+5. Submit Vim and Neovim integration in dependency order.
 
-   Check current Neovim nightly `.mux` filetype detection. If missing, prepare a
-   Neovim core filetype PR and its detection test first. Current
+   **Status: prepared locally; upstream submission needs explicit maintainer
+   approval.** Submit the Vim filetype-detection change first, then the Neovim
+   core mapping and regression test. Add nvim-treesitter after Neovim recognizes
+   `.mux`.
+
+   Neovim v0.12.5 leaves `.mux` unrecognized. The prepared Vim and Neovim core
+   branches add `.mux` filetype detection and tests. Current
    [nvim-treesitter contribution rules](https://github.com/nvim-treesitter/nvim-treesitter/blob/main/CONTRIBUTING.md)
    require that recognition, parser CI, query validation with `ts_query_ls`, and
    a current parser ABI. Verify the exact requirements again at submission time.
@@ -181,7 +176,23 @@ do not treat that historical inventory as a fresh availability check.
    Use the install API supported by the target nvim-treesitter branch; do not
    promise the issue's historical `:TSInstall mux` command on every version.
 
+   Neovim's parser entry does not install the Mux executable. Use `mux lsp` from
+   PATH and document a minimal native LSP setup now. Later, when Mux meets their
+   admission criteria, add the server config to
+   [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig/blob/master/CONTRIBUTING.md)
+   and then a binary package to
+   [Mason](https://github.com/mason-org/mason-registry/blob/main/CONTRIBUTING.md).
+   Current rules ask nvim-lspconfig for at least 100 stars or other evidence of
+   an active user base. Mason lists 100 stars, 5,000 Marketplace downloads, an
+   accepted nvim-lspconfig config, or an official recommendation from a
+   reputable organization. Mux currently has 7 compiler-repository stars and no
+   Marketplace listing, so revisit these submissions after adoption grows.
+
 6. Submit Helix integration independently.
+
+   **Status: prepared locally; upstream submission needs explicit maintainer
+   approval.** Focused query and highlight checks pass; full workspace and
+   built-editor installation tests remain to be run when practical.
 
    Add language detection and a grammar entry pinned to a reviewed
    `tree-sitter-mux` commit in Helix's `languages.toml`. Add validated highlights
@@ -212,17 +223,17 @@ do not treat that historical inventory as a fresh availability check.
 
 ## Joining up with issue 16
 
-The default compiler installer should bring `mux lsp`, formatting, and fix
-tooling together without a second language-server download. The extension will
-discover Mux on PATH or through an explicit executable setting. This avoids a
-second compiler/runtime installation managed privately by the extension.
+The `v0.13.0` compiler install includes `mux lsp`, formatting, and quick-fix
+tooling. The VSCode extension starts `mux lsp` from PATH, with an explicit
+executable setting for nonstandard installs. Neovim can use the same command
+through a small native LSP configuration; the prepared Helix integration
+declares it directly. This keeps compiler installation and editor packages
+independently usable.
 
-After #16 ships, update this same extension with its LSP client and add the
-server command to editor integrations. If a combined installer option is added,
-make editor selection explicit, such as an opt-in VSCode extension install;
-never guess which editor configurations to overwrite. Do not block initial
-publication on that convenience option. Extension installation and compiler
-installation remain separately usable.
+A combined installer option remains optional. If added, editor selection must
+be explicit, such as an opt-in VSCode extension install; it must not guess which
+editor configurations to overwrite. Publication does not depend on that
+convenience option.
 
 ## Verification, completion, and worktrees
 
@@ -232,15 +243,15 @@ and VSIX installation smoke tests. Run website/context documentation checks for
 their changes. No tests need to compile Mux programs just to package a grammar.
 
 Completion requires both registry listings to install successfully and upstream
-Neovim/nvim-treesitter and Helix integration to land, with release availability
-documented accurately. A ready PR is a delivery milestone, not evidence that
-users already have the integration. Upstream review timing is outside Mux's
-control and must not delay the VSCode/Open VSX release.
+Vim, Neovim/nvim-treesitter, and Helix integration to land, with release
+availability documented accurately. A ready PR is a delivery milestone, not
+evidence that users already have the integration. Upstream review timing is
+outside Mux's control and must not delay the VSCode/Open VSX release.
 
 Use one syntax-highlighting worktree for cleanup, packaging, and publishing
 workflow changes; a tree-sitter worktree for consumer validation; and separate
 fork worktrees for each upstream editor PR. Keep website/context docs in their
-own repositories. The compiler LSP and VSCode client PRs are open. Publish the
-extension only after the compiler release includes `mux lsp`. Third-party editor
-PRs and registry publication remain future actions requiring the maintainer's
-approval.
+own repositories. The compiler LSP and VSCode client are merged and compiler
+v0.13.0 is released. The VSCode 0.13.0 package preparation is merged; tag-based
+publication and third-party editor submissions remain pending maintainer setup
+and approval, respectively.
