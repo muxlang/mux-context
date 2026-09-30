@@ -18,9 +18,11 @@ pass against grammar fixtures and Neovim's Tree-sitter runtime, the VSIX archive
 verifier passes, and VSCode client tests cover both successful startup and an
 actionable missing/old-server install prompt. Website build, tests, parity, and
 documentation snippet checks pass. Installed Neovim v0.12.5 leaves `.mux`
-unrecognized. The core filetype patch applies cleanly to a fresh Neovim `main`
-checkout at `4e18828`, and Neovim's targeted functional filetype suite passes
-all 20 tests. The patch remains local and has not been submitted upstream.
+unrecognized. The core filetype patch adds `.mux` recognition and a functional
+test; it applies cleanly to a current upstream source snapshot, and a headless
+smoke test confirms `main.mux` returns the `mux` filetype. The full functional
+suite has not been rerun for this corrected patch. It remains local and has not
+been submitted upstream.
 
 The compiler implementation merged in [mux-compiler PR #462](https://github.com/muxlang/mux-compiler/pull/462).
 The VSCode cleanup and package work merged in [mux-syntax-highlighting PR #32](https://github.com/muxlang/mux-syntax-highlighting/pull/32).
@@ -55,11 +57,17 @@ and its OIDC trust policy, plus Open VSX namespace ownership and its trusted
 publisher, still need maintainer provisioning. The `vscode-marketplace` and
 `open-vsx` GitHub Actions environments now restrict deployments to `v*` tags;
 neither environment has required reviewers configured.
-Helix's native Cargo check, query check, doc generation, and `hx --health mux` pass with the local
-compiler on `PATH`; its parser and highlight queries load. Neovim v0.12.5 still
-leaves `.mux` unrecognized. The drafted core patch was run against a fresh
-upstream checkout and its targeted functional filetype suite passed all 20
-tests; the patch remains local. No PRs have been opened in third-party repositories. The
+Helix's cached `xtask query-check mux`, `xtask docgen`, and `hx --health mux`
+pass with the local compiler on `PATH`; its parser and highlight queries load.
+The maintained Marketplace listing at
+`https://marketplace.visualstudio.com/items?itemName=mux-lang.language-mux` and
+the Open VSX API record at `https://open-vsx.org/api/mux-lang/language-mux` both
+returned 404 on 2026-09-30. `mux-syntax-highlighting` has no GitHub Release yet.
+Registry publisher and namespace setup still need maintainer verification
+before publishing.
+Neovim v0.12.5 still leaves `.mux` unrecognized; the corrected core patch's
+headless smoke test passes, but its full functional suite has not been rerun.
+No PRs have been opened in third-party repositories. The
 maintainer has authorized PRs in Mux-owned repositories only; hold Neovim,
 nvim-treesitter, and Helix submissions for separate approval. Registry
 publication and released native-editor verification remain outstanding.
