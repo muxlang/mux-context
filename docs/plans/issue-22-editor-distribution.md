@@ -38,8 +38,9 @@ uses Microsoft Entra federation and Open VSX trusted publishing, without
 long-lived registry tokens. The workflow is linted and its build/package steps
 pass locally. The Open VSX CLI has a separate lockfile under `.github/ovsx-cli`
 and is installed with scripts disabled, so it does not enlarge the root
-developer install. PR #32's CI and Sonar checks pass; Greptile is pending. PR
-#35's checks all pass. PR #65's CI and Sonar checks pass; Greptile is pending.
+developer install. PR #32's CI, static analysis, Sonar, and Greptile checks all
+pass after fixing the reviewed digest path and requiring a real version tag.
+PR #35 and PR #65 also pass all checks, including Greptile.
 Account access, Open VSX namespace ownership, and GitHub environment/OIDC setup
 still need maintainer provisioning.
 Helix's native Cargo check, query check, doc generation, and `hx --health mux` pass with the local
