@@ -36,7 +36,9 @@ for Marketplace and Open VSX. It builds and verifies one VSIX, records its
 digest, and publishes only to destinations selected at dispatch. Publishing
 uses Microsoft Entra federation and Open VSX trusted publishing, without
 long-lived registry tokens. The workflow is linted and its build/package steps
-pass locally. Its new GitHub checks are running. Account access, Open VSX
+pass locally. The Open VSX CLI has a separate lockfile under `.github/ovsx-cli`
+and is installed with scripts disabled, so it does not enlarge the root
+developer install. Its latest GitHub checks are running. Account access, Open VSX
 namespace ownership, and GitHub environment/OIDC setup still need maintainer
 provisioning.
 Helix's native Cargo check, query check, doc generation, and `hx --health mux` pass with the local
@@ -96,10 +98,11 @@ do not treat that historical inventory as a fresh availability check.
 2. Make the VSIX reproducible and test it as an artifact.
 
    Keep the locked `@vscode/vsce` dependency for packaging and publication. Do
-   not add `ovsx` to normal development dependencies; invoke its pinned CLI only
-   in the Open VSX publishing job. Build from a clean checkout, generate the
-   grammar, and package the maintained extension. Inspect the archive for its
-   manifest, grammar, language configuration, license, and referenced assets.
+   not add `ovsx` to normal development dependencies; invoke its isolated,
+   locked CLI only in the Open VSX publishing job. Build from a clean checkout,
+   generate the grammar, and package the maintained extension. Inspect the
+   archive for its manifest, grammar, language configuration, license, and
+   referenced assets.
    Exclude development-only files. Preserve existing syntax parity and sample
    tests, and fail on missing generated assets.
 
