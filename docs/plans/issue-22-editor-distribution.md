@@ -50,10 +50,11 @@ retries, verifies that metadata against the version tag, handles concurrent
 dispatches, and rejects unverified legacy assets. CI, workflow lint, static
 analysis, Sonar, and Greptile all passed. Version 0.13.0 release metadata
 merged in [mux-compiler PR #463](https://github.com/muxlang/mux-compiler/pull/463);
-creating its tag is pending maintainer approval. Account access, Open VSX
-namespace ownership, and GitHub environment/OIDC setup still need maintainer
-provisioning. The extension repository currently has no
-`vscode-marketplace` or `open-vsx` GitHub Actions environments configured.
+creating its tag is pending maintainer approval. Marketplace publisher control
+and its OIDC trust policy, plus Open VSX namespace ownership and its trusted
+publisher, still need maintainer provisioning. The `vscode-marketplace` and
+`open-vsx` GitHub Actions environments now restrict deployments to `v*` tags;
+neither environment has required reviewers configured.
 Helix's native Cargo check, query check, doc generation, and `hx --health mux` pass with the local
 compiler on `PATH`; its parser and highlight queries load. Neovim v0.12.5 still
 leaves `.mux` unrecognized. The drafted core patch was run against a fresh
