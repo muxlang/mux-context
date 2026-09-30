@@ -1,6 +1,6 @@
 # Implementation plan for issue 22: editor distribution
 
-Proposed plan, researched 2026-09-28. This describes future work, not current
+Proposed plan, researched 2026-09-28 and updated 2026-09-30. This describes future
 availability. Issue: [#22](https://github.com/muxlang/mux-context/issues/22).
 Companion: [LSP implementation plan](issue-16-lsp.md).
 
@@ -10,7 +10,7 @@ The agreed implementation order is #16 first, then #22. The work is technically
 independent, but we will finish and verify the compiler LSP and its minimal
 development tooling before packaging or submitting editor distribution changes.
 
-As of 2026-09-29, local work consolidates VSCode extension ownership, builds
+As of 2026-09-30, local work consolidates VSCode extension ownership, builds
 and verifies a VSIX, adds a CI artifact job, updates installation guidance,
 and prepares Tree-sitter, nvim-treesitter, Helix, and website changes. The
 Tree-sitter grammar tests pass (46 corpus cases), both editor highlight queries
@@ -32,9 +32,14 @@ are merged. These plans merged in [mux-context PR #65](https://github.com/muxlan
 The syntax-highlighting PR also adds a manual, tag-driven publishing workflow
 for Marketplace and Open VSX. It builds and verifies one VSIX, records its
 digest, and publishes only to destinations selected at dispatch. Publishing
-uses Microsoft Entra federation and Open VSX trusted publishing, without
-long-lived registry tokens. The workflow is linted and its build/package steps
-pass locally. The Open VSX CLI has a separate lockfile under `.github/ovsx-cli`
+uses VSCE's GitHub OIDC trusted publishing and Open VSX trusted publishing,
+without long-lived registry tokens or Azure credentials. The workflow requires
+the selected workflow ref to match its release-tag input. PR
+[#34](https://github.com/muxlang/mux-syntax-highlighting/pull/34) replaced the
+Azure credential flow, documented both trusted-publisher setups, and added an
+actionable mismatch error. Its required checks passed before merging as
+`a2a70be`. The workflow is linted and its build/package steps pass locally.
+The Open VSX CLI has a separate lockfile under `.github/ovsx-cli`
 and is installed with scripts disabled, so it does not enlarge the root
 developer install. PR #32's CI, static analysis, Sonar, and Greptile checks all
 pass after fixing the reviewed digest path and requiring a real version tag.
@@ -45,9 +50,11 @@ retries, verifies that metadata against the version tag, handles concurrent
 dispatches, and rejects unverified legacy assets. CI, workflow lint, static
 analysis, Sonar, and Greptile all passed. Version 0.13.0 release metadata
 merged in [mux-compiler PR #463](https://github.com/muxlang/mux-compiler/pull/463);
-its tag has not been created.
-Account access, Open VSX namespace ownership, and GitHub environment/OIDC setup
-still need maintainer provisioning.
+creating its tag is pending maintainer approval. Marketplace publisher control
+and its OIDC trust policy, plus Open VSX namespace ownership and its trusted
+publisher, still need maintainer provisioning. The `vscode-marketplace` and
+`open-vsx` GitHub Actions environments now restrict deployments to `v*` tags;
+neither environment has required reviewers configured.
 Helix's native Cargo check, query check, doc generation, and `hx --health mux` pass with the local
 compiler on `PATH`; its parser and highlight queries load. Neovim v0.12.5 still
 leaves `.mux` unrecognized. The drafted core patch was run against a fresh

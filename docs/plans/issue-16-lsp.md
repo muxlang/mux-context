@@ -1,7 +1,7 @@
 # Implementation plan for issue 16: LSP support
 
 Plan and implementation status, researched 2026-09-28 and updated
-2026-09-29. Issue: [#16](https://github.com/muxlang/mux-context/issues/16).
+2026-09-30. Issue: [#16](https://github.com/muxlang/mux-context/issues/16).
 Companion: [editor distribution plan](issue-22-editor-distribution.md).
 
 ## Local implementation status
@@ -10,7 +10,8 @@ The implementation merged in
 [mux-compiler PR #462](https://github.com/muxlang/mux-compiler/pull/462) as
 `4807f48`. Version 0.13.0 release metadata merged in
 [mux-compiler PR #463](https://github.com/muxlang/mux-compiler/pull/463) as
-`e5fd76f`. The version bump is on `main`; the release tag has not been created.
+`e5fd76f`. The version bump is on `main`; creating the `v0.13.0` tag is
+waiting for maintainer approval.
 The merged implementation includes fixes for validating edits near existing
 errors, standard-library completions, recovery scopes, editor-only semantic
 references, poisoned lock handling, and protocol-loop structure. It also
