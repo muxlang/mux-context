@@ -103,8 +103,9 @@ do not treat that historical inventory as a fresh availability check.
 
 2. Make the VSIX reproducible and test it as an artifact.
 
-   **Status: complete.** PRs #32, #33, #34, and #35 provide packaging,
-   verification, durable artifact reuse, and trusted publishing.
+   **Status: packaging is complete; fresh-profile install verification remains.**
+   PRs #32, #33, #34, and #35 provide packaging, archive verification, durable
+   artifact reuse, and trusted publishing.
 
    The merged workflow uses locked `@vscode/vsce` for packaging and publication
    and an isolated, locked Open VSX CLI only in its publishing job. It builds
@@ -114,6 +115,9 @@ do not treat that historical inventory as a fresh availability check.
 
    CI builds and retains the VSIX artifact for review, and the package verifier
    checks its included grammar, language configuration, license, and assets.
+   Before publication, install that VSIX into a fresh VSCode profile and verify
+   `.mux` recognition, highlighting, brackets, comments, and indentation. This
+   local-editor check has not yet been run.
 
 3. Provision publisher identities and publish the verified package.
 

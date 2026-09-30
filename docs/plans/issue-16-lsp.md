@@ -60,7 +60,9 @@ smoke and 12-seed generated-program campaign pass, including normal
 compiled-program execution. Release LSP smokes cover `mux lsp` startup,
 diagnostics, workspace-folder changes, untitled formatting, generic-bound
 completion, and watched-import refresh without `MUX_RUNTIME_LIB`.
-The release tag is published; a larger external project corpus remains useful
+The release tag is published. The CI package smoke ran before publication;
+installing the published archives and rerunning the initialize/shutdown smoke
+is still outstanding. A larger external project corpus remains useful
 follow-up validation.
 The packaged-install CI matrix now checks LSP initialize/shutdown and
 advertised capabilities without `MUX_RUNTIME_LIB` on Linux, macOS, and Windows.
