@@ -6,12 +6,14 @@ Companion: [editor distribution plan](issue-22-editor-distribution.md).
 
 ## Local implementation status
 
-The implementation is committed on `codex/issue-16-lsp`, with
+The implementation is on `codex/issue-16-lsp`, with
 [mux-compiler PR #462](https://github.com/muxlang/mux-compiler/pull/462) open.
-Commit `786d6b9` addresses review findings in fix validation, standard-library
-completions, recovery scopes, editor-only semantic references, poisoned lock
-handling, and protocol-loop structure. The full all-feature suite and strict
-Clippy pass on that commit.
+The branch includes fixes for validation of edits near existing errors,
+standard-library completions, recovery scopes, editor-only semantic references,
+poisoned lock handling, and protocol-loop structure. The current local changes
+also identify diagnostics by source span when validating fixes, account for
+offset shifts caused by edits before existing errors, and return a JSON-RPC
+method-not-found response for an unexpected worker request.
 It includes the stdio server, snapshot analysis API, open-buffer overlays,
 UTF-16 positions, diagnostics, formatting, safe code actions, symbols,
 definitions, hover, signature help, and completion for visible names, explicit
@@ -30,8 +32,10 @@ rechecks open documents against the current disk imports. A process test covers
 creating and deleting a previously missing imported module.
 The all-feature compiler tests pass with `MUX_RUNTIME_LIB` pointing to the
 archive in the custom `dev-cargo` target directory, as do strict Clippy,
-formatting, strict rustdoc, and the 12-seed generated-program campaign. Website
-setup and compiled documentation examples also pass. A debug-build LSP smoke
+formatting, and strict rustdoc. The packaged Linux install smoke completes
+LSP initialization, checks sync and hover capabilities, shuts down cleanly,
+and runs without `MUX_RUNTIME_LIB`. Website setup and compiled documentation
+examples also pass. A debug-build LSP smoke
 measurement reached diagnostics for a generated 48 KB module with 1,000
 functions in 61 ms on this machine; this is an initial baseline, not a
 cross-platform release benchmark. A release-server pass over 193 top-level

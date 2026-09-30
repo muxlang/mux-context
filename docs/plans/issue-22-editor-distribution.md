@@ -28,13 +28,23 @@ and the shared editor queries and setup guidance are in [tree-sitter-mux PR #35]
 Website setup guidance is in
 [mux-website PR #104](https://github.com/muxlang/mux-website/pull/104), and
 these plans are in [mux-context PR #65](https://github.com/muxlang/mux-context/pull/65).
+Website PR #104's audit currently depends on the separate dependency fix in
+[mux-website PR #103](https://github.com/muxlang/mux-website/pull/103); merge
+that fix before expecting the editor-docs checks to pass.
 Helix's native Cargo check, query check, doc generation, and `hx --health mux` pass with the local
 compiler on `PATH`; its parser and highlight queries load. Neovim v0.12.5 still
-leaves `.mux` unrecognized, and the drafted core patch has not been run against
-an upstream checkout. No PRs have been opened in third-party repositories. The
+leaves `.mux` unrecognized. The drafted core patch was run against a fresh
+upstream checkout and its targeted functional filetype suite passed all 20
+tests; the patch remains local. No PRs have been opened in third-party repositories. The
 maintainer has authorized PRs in Mux-owned repositories only; hold Neovim,
 nvim-treesitter, and Helix submissions for separate approval. Registry
 publication and released native-editor verification remain outstanding.
+
+The prepared nvim-treesitter registry entry and Helix language definition pin
+`11a2d40da5680b61520dc5e0170a124add809617`, verified reachable from the public
+`tree-sitter-mux` `origin/main`. The Mux-owned tree-sitter PR changes the
+highlight query; after that PR lands, refresh both editor pins to the landed
+revision before preparing upstream submissions.
 
 The agreed order is to finish #16 before publishing #22. The compiler PR
 provides `mux lsp`; the VSCode client is prepared in PR #32. Publish the VSIX
@@ -147,8 +157,11 @@ do not treat that historical inventory as a fresh availability check.
    Install the Marketplace extension by its stable identity in a fresh profile
    and install the Open VSX version in a compatible editor. Verify matching
    versions and content. Verify upstream grammar installations against the
-   versions that actually contain the integrations. Distinguish submitted PRs,
-   merged changes, and released availability in status reports.
+   versions that actually contain the integrations. Add each published editor
+   package's name and version to the compiler GitHub Release body, the canonical
+   cross-repository release manifest. Record the VSIX hash and registry
+   publication results. Distinguish submitted PRs, merged changes, and released
+   availability in status reports.
 
    Update syntax-highlighting installation docs, tree-sitter docs, website setup,
    and context release ownership. Document one-command extension installation

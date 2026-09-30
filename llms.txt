@@ -27,8 +27,8 @@ repo owns the facts that span more than one repo.
 
 ## Reference
 
-- [Issue 16 implementation plan](https://github.com/muxlang/mux-context/blob/main/docs/plans/issue-16-lsp.md): proposed compiler-backed language server, editor features, and release integration
-- [Issue 22 implementation plan](https://github.com/muxlang/mux-context/blob/main/docs/plans/issue-22-editor-distribution.md): proposed extension publication and upstream grammar distribution
+- [Issue 16 implementation plan](docs/plans/issue-16-lsp.md): proposed compiler-backed language server, editor features, and release integration
+- [Issue 22 implementation plan](docs/plans/issue-22-editor-distribution.md): proposed extension publication and upstream grammar distribution
 
 - [Feature map](https://github.com/muxlang/mux-context/blob/main/docs/features.md): language/stdlib features to implementing modules
 - [Glossary](https://github.com/muxlang/mux-context/blob/main/docs/glossary.md): cross-repo terminology
