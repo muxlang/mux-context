@@ -6,13 +6,16 @@ Companion: [editor distribution plan](issue-22-editor-distribution.md).
 
 ## Local implementation status
 
-The implementation is on `codex/issue-16-lsp`, with
-[mux-compiler PR #462](https://github.com/muxlang/mux-compiler/pull/462) open.
-The branch includes fixes for validation of edits near existing errors,
-standard-library completions, recovery scopes, editor-only semantic references,
-poisoned lock handling, and protocol-loop structure. The current local changes
-also identify diagnostics by source span when validating fixes, account for
-offset shifts caused by edits before existing errors, and return a JSON-RPC
+The implementation merged in
+[mux-compiler PR #462](https://github.com/muxlang/mux-compiler/pull/462) as
+`4807f48`. Release metadata is prepared in
+[mux-compiler PR #463](https://github.com/muxlang/mux-compiler/pull/463); its
+required checks are still running.
+The merged implementation includes fixes for validating edits near existing
+errors, standard-library completions, recovery scopes, editor-only semantic
+references, poisoned lock handling, and protocol-loop structure. It also
+identifies diagnostics by source span when validating fixes, accounts for
+offset shifts caused by edits before existing errors, and returns a JSON-RPC
 method-not-found response for an unexpected worker request.
 It includes the stdio server, snapshot analysis API, open-buffer overlays,
 UTF-16 positions, diagnostics, formatting, safe code actions, symbols,
@@ -44,7 +47,7 @@ cross-platform release benchmark. A release-server pass over 193 top-level
 excluded `MUX_RUNTIME_LIB`; it is a local baseline, not a cross-platform
 benchmark.
 
-This branch is still in progress. Diagnostics and LSP requests use one serial
+Diagnostics and LSP requests use one serial
 worker while the protocol loop continues to read messages. Queued diagnostics
 from superseded snapshots are skipped, and completed stale results are
 discarded. Cancellation responds immediately and skips queued requests, but it
@@ -55,12 +58,13 @@ smoke and 12-seed generated-program campaign pass, including normal
 compiled-program execution. Release LSP smokes cover `mux lsp` startup,
 diagnostics, workspace-folder changes, untitled formatting, generic-bound
 completion, and watched-import refresh without `MUX_RUNTIME_LIB`.
-Windows/macOS install verification and a larger external project corpus remain.
+Post-release installer verification and a larger external project corpus remain.
 The packaged-install CI matrix now checks LSP initialize/shutdown and
 advertised capabilities without `MUX_RUNTIME_LIB` on Linux, macOS, and Windows.
-All PR checks, including all three package targets, Windows packaging, strict
-Rustdoc, SonarQube, and Greptile review, pass at commit `4a0aa1e`. Merge,
-release, and post-release installer verification remain pending.
+All checks, including all three package targets, Windows packaging, strict
+Rustdoc, SonarQube, and Greptile review, passed before PR #462 merged. Release
+metadata is under review in PR #463. The release tag and post-release installer
+verification remain pending.
 
 Ship a `mux lsp` command in the existing compiler release. The normal Mux
 installer will then install the compiler, formatter, fix tooling, and language

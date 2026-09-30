@@ -22,15 +22,13 @@ unrecognized. The core filetype patch applies cleanly to a fresh Neovim `main`
 checkout at `4e18828`, and Neovim's targeted functional filetype suite passes
 all 20 tests. The patch remains local and has not been submitted upstream.
 
-The compiler implementation is in [mux-compiler PR #462](https://github.com/muxlang/mux-compiler/pull/462).
-The VSCode cleanup and package work is in [mux-syntax-highlighting PR #32](https://github.com/muxlang/mux-syntax-highlighting/pull/32),
-and the shared editor queries and setup guidance are in [tree-sitter-mux PR #35](https://github.com/muxlang/tree-sitter-mux/pull/35).
-Website setup guidance is in
-[mux-website PR #104](https://github.com/muxlang/mux-website/pull/104), and
-these plans are in [mux-context PR #65](https://github.com/muxlang/mux-context/pull/65).
-Website PR #104's audit currently depends on the separate dependency fix in
-[mux-website PR #103](https://github.com/muxlang/mux-website/pull/103); merge
-that fix before expecting the editor-docs checks to pass.
+The compiler implementation merged in [mux-compiler PR #462](https://github.com/muxlang/mux-compiler/pull/462).
+The VSCode cleanup and package work merged in [mux-syntax-highlighting PR #32](https://github.com/muxlang/mux-syntax-highlighting/pull/32).
+The editor queries and setup guidance merged in [tree-sitter-mux PR #35](https://github.com/muxlang/tree-sitter-mux/pull/35),
+and the examples now use the landed grammar revision in [PR #36](https://github.com/muxlang/tree-sitter-mux/pull/36).
+Website setup guidance in [mux-website PR #104](https://github.com/muxlang/mux-website/pull/104)
+and its dependency fix in [PR #103](https://github.com/muxlang/mux-website/pull/103)
+are merged. These plans merged in [mux-context PR #65](https://github.com/muxlang/mux-context/pull/65).
 The syntax-highlighting PR also adds a manual, tag-driven publishing workflow
 for Marketplace and Open VSX. It builds and verifies one VSIX, records its
 digest, and publishes only to destinations selected at dispatch. Publishing
@@ -40,7 +38,11 @@ pass locally. The Open VSX CLI has a separate lockfile under `.github/ovsx-cli`
 and is installed with scripts disabled, so it does not enlarge the root
 developer install. PR #32's CI, static analysis, Sonar, and Greptile checks all
 pass after fixing the reviewed digest path and requiring a real version tag.
-PR #35 and PR #65 also pass all checks, including Greptile.
+PRs #35 and #36 passed all checks and are merged. The publisher reliability
+follow-up is in [mux-syntax-highlighting PR #33](https://github.com/muxlang/mux-syntax-highlighting/pull/33);
+its required checks are passing except for the pending Greptile review. Compiler
+release metadata is under review in [mux-compiler PR #463](https://github.com/muxlang/mux-compiler/pull/463),
+with CI still running.
 Account access, Open VSX namespace ownership, and GitHub environment/OIDC setup
 still need maintainer provisioning.
 Helix's native Cargo check, query check, doc generation, and `hx --health mux` pass with the local
@@ -53,10 +55,9 @@ nvim-treesitter, and Helix submissions for separate approval. Registry
 publication and released native-editor verification remain outstanding.
 
 The prepared nvim-treesitter registry entry and Helix language definition pin
-`11a2d40da5680b61520dc5e0170a124add809617`, verified reachable from the public
-`tree-sitter-mux` `origin/main`. The Mux-owned tree-sitter PR changes the
-highlight query; after that PR lands, refresh both editor pins to the landed
-revision before preparing upstream submissions.
+`9d89fb021c15b70b967ef8574c7e28d640d2b705`, the merged tree-sitter commit that
+contains the highlight-query fix. A clean Git fetch by that SHA succeeds. No
+third-party PRs have been opened.
 
 The agreed order is to finish #16 before publishing #22. The compiler PR
 provides `mux lsp`; the VSCode client is prepared in PR #32. Publish the VSIX
