@@ -60,10 +60,14 @@ smoke and 12-seed generated-program campaign pass, including normal
 compiled-program execution. Release LSP smokes cover `mux lsp` startup,
 diagnostics, workspace-folder changes, untitled formatting, generic-bound
 completion, and watched-import refresh without `MUX_RUNTIME_LIB`.
-The release tag is published. The CI package smoke ran before publication;
-installing the published archives and rerunning the initialize/shutdown smoke
-is still outstanding. A larger external project corpus remains useful
-follow-up validation.
+Post-release Linux installer verification is complete. I downloaded the
+published Linux archive, verified it against the digest in the GitHub release
+metadata, and ran `scripts/install.sh` against a local file mirror into a
+temporary install directory. `mux doctor` passed. The installed `mux lsp`
+accepted initialize, advertised text-document sync, handled shutdown, and
+exited cleanly with `MUX_RUNTIME_LIB` unset. This verifies the published Linux
+archive only; published macOS and Windows installer runs remain outstanding.
+A larger external project corpus remains useful follow-up validation.
 The packaged-install CI matrix now checks LSP initialize/shutdown and
 advertised capabilities without `MUX_RUNTIME_LIB` on Linux, macOS, and Windows.
 All checks, including all three package targets, Windows packaging, strict
