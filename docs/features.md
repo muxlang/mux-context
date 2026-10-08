@@ -78,7 +78,7 @@ members; imports do not select Cargo features.
 | Feature | Repo |
 |---------|------|
 | Canonical syntax spec | `mux-syntax-highlighting/shared/syntax-matrix.json` |
-| Neovim plugin, Tree-sitter grammar + highlight queries | `tree-sitter-mux` (`lua/mux/`, `grammar.js`, `queries/`) |
+| Neovim plugin (under review in PR #40), Tree-sitter grammar + highlight queries | `tree-sitter-mux` (`grammar.js`, `queries/`); plugin code is not yet merged into `main` |
 | TextMate grammar + VSCode extension | `mux-syntax-highlighting` |
 | Playground compile/run API | `mux-website-api` (`server.py`) |
 | Docs site + AI assistant | `mux-website` |

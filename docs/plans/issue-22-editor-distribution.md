@@ -16,14 +16,17 @@ v0.13.0.
   2026-10-08. The `vscode-marketplace` and `open-vsx` GitHub environments exist.
   Publisher ownership and trusted-publisher configuration still need a
   maintainer to verify.
-- Neovim support is being kept inside Mux. The prepared `tree-sitter-mux`
-  branch adds a plugin that detects `.mux`, builds the committed parser,
-  configures Tree-sitter highlighting, and starts `mux lsp`. It requires
-  Neovim 0.11 or newer, a C compiler, and Mux 0.13.0 or newer. No Neovim core
-  or nvim-treesitter PR is required for this install path.
-- The Neovim plugin branch passes its headless integration test on Neovim
-  0.12.5, all 46 Tree-sitter corpus tests, package lint/format/sample checks,
-  and workflow lint. The branch is local and has not been submitted.
+- Neovim support is being kept inside Mux. The proposed `tree-sitter-mux`
+  plugin is under review in [PR #40](https://github.com/muxlang/tree-sitter-mux/pull/40)
+  and is not yet merged into `main` or available as a released install. It adds
+  `.mux` detection, builds the committed parser, configures Tree-sitter
+  highlighting, and starts `mux lsp`. It requires Neovim 0.11 or newer, a C
+  compiler, and Mux 0.13.0 or newer. No Neovim core or nvim-treesitter PR is
+  required for this install path.
+- The Neovim plugin PR passes its headless integration test on Neovim 0.12.5,
+  all 46 Tree-sitter corpus tests, package lint/format/sample checks, and
+  workflow lint. CI now covers both the minimum supported Neovim 0.11.7 and
+  Neovim 0.12.5. Create the plugin release only after PR #40 merges.
 - The first maintained-editor release covers VS Code and Neovim. Helix,
   Emacs, Sublime Text, and JetBrains remain manual or later integrations.
 
@@ -39,9 +42,13 @@ control of when they merge:
 
 Seven PRs remain red and are not queued for merging. Runtime PRs `#139-143`
 have failed tests, clippy, Greptile, or cancelled checks. Website PRs
-`#107-108` fail Website Checks because `npm audit` reports 30 high-severity
-vulnerabilities. Resolve the underlying failures and rerun the required checks;
-do not bypass them. `.github` and `mux-examples` have no open PRs.
+`#107-108` and the editor docs PR are blocked by existing dependency audit
+failures: the docs PR's 2026-10-08 CI run reports 48 frontend advisories
+(13 moderate, 18 high, 17 critical) and 3 high-severity Worker advisories.
+The available automatic fixes include breaking Docusaurus and Wrangler
+upgrades, so address those in a dedicated dependency change. Resolve the
+underlying failures and rerun the required checks; do not bypass them.
+`.github` and `mux-examples` have no open PRs.
 
 ## Release sequence
 
@@ -72,10 +79,11 @@ do not bypass them. `.github` and `mux-examples` have no open PRs.
   VSX. Open a `.mux` file and verify highlighting, diagnostics, completion,
   hover, signature help, document symbols, go-to-definition, formatting, and
   safe code actions.
-- **Neovim:** install `muxlang/tree-sitter-mux` with the documented plugin
-  manager specification. Confirm parser build, `.mux` detection, highlighting,
-  and automatic `mux lsp` startup. Verify custom compiler path and LSP opt-out
-  settings. Formatting runs only when the editor requests it.
+- **Neovim (after PR #40 merges and the plugin release is tagged):** install
+  `muxlang/tree-sitter-mux` with the documented plugin manager specification.
+  Confirm parser build, `.mux` detection, highlighting, and automatic `mux lsp`
+  startup. Verify custom compiler path and LSP opt-out settings. Formatting runs
+  only when the editor requests it.
 - In both editors, confirm that the installed compiler is v0.13.0 or newer.
   Keep syntax highlighting usable when the language server is unavailable.
 

@@ -42,7 +42,7 @@ repo owns the facts that span more than one repo.
 - [mux-runtime](https://github.com/muxlang/mux-runtime): runtime + stdlib for compiled programs; plain Rust, no LLVM; consumed from git source by the compiler and pinned by `Cargo.lock`
 - [mux-website](https://github.com/muxlang/mux-website): docs site (mux-lang.dev) + docs AI assistant
 - [mux-website-api](https://github.com/muxlang/mux-website-api): Fly.io compile/run API behind the playground
-- [tree-sitter-mux](https://github.com/muxlang/tree-sitter-mux): Mux-maintained Neovim plugin, tree-sitter grammar + highlight queries
+- [tree-sitter-mux](https://github.com/muxlang/tree-sitter-mux): Tree-sitter grammar + highlight queries; Neovim plugin under review in [PR #40](https://github.com/muxlang/tree-sitter-mux/pull/40), not yet merged
 - [mux-syntax-highlighting](https://github.com/muxlang/mux-syntax-highlighting): TextMate grammar, VSCode extension, canonical syntax spec
 - [mux-examples](https://github.com/muxlang/mux-examples): deterministic teaching programs with expected output, verified by cross-repo CI
 - [mux-context](https://github.com/muxlang/mux-context): cross-repo architecture, design rationale, governance, and release knowledge
