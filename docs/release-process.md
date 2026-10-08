@@ -99,9 +99,12 @@ SemVer bump when the compiler changes elsewhere.
 
 Published editor packages and extensions get their own SemVer because users
 install them as artifacts. Bump only the package that changed. The source-only
-grammar and highlighting repositories are identified by commit unless and until
-they publish a package. A private workspace `package.json` version is technical
-metadata and is not a public release number.
+grammar and highlighting sources are identified by commit. `tree-sitter-mux`
+also contains the Mux-maintained Neovim plugin. Version that installable plugin
+with the `tree-sitter.json` metadata and a matching Git tag; its release does
+not require a separate repository or an nvim-treesitter registry entry. A
+private workspace `package.json` version is technical metadata and is not a
+public release number.
 
 ## Release manifest
 
@@ -128,7 +131,7 @@ inputs and the versions of any published editor packages:
 ```text
 playground: <compiler pin>, <container image digest>, <deployment ID>
 website: <deployment SHA>
-published editor packages: <package name>@<version>
+published editor artifacts: <package name>@<version>
 ```
 
 The release is complete only after this deployment addendum is recorded. A
