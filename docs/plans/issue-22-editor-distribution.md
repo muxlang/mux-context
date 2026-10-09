@@ -16,17 +16,16 @@ v0.13.0.
   2026-10-08. The `vscode-marketplace` and `open-vsx` GitHub environments exist.
   Publisher ownership and trusted-publisher configuration still need a
   maintainer to verify.
-- Neovim support is being kept inside Mux. The proposed `tree-sitter-mux`
-  plugin is under review in [PR #40](https://github.com/muxlang/tree-sitter-mux/pull/40)
-  and is not yet merged into `main` or available as a released install. It adds
+- Neovim support is being kept inside Mux. The `tree-sitter-mux` plugin is
+  merged into `main`; its stable release tag is pending. It adds
   `.mux` detection, builds the committed parser, configures Tree-sitter
   highlighting, and starts `mux lsp`. It requires Neovim 0.11 or newer, a C
   compiler, and Mux 0.13.0 or newer. No Neovim core or nvim-treesitter PR is
   required for this install path.
-- The Neovim plugin PR passes its headless integration test on Neovim 0.12.5,
+- The merged Neovim plugin passed its headless integration test on Neovim 0.12.5,
   all 46 Tree-sitter corpus tests, package lint/format/sample checks, and
   workflow lint. CI now covers both the minimum supported Neovim 0.11.7 and
-  Neovim 0.12.5. Create the plugin release only after PR #40 merges.
+  Neovim 0.12.5. Create the plugin release as a separate, approved release step.
 - The first maintained-editor release covers VS Code and Neovim. Helix,
   Emacs, Sublime Text, and JetBrains remain manual or later integrations.
 
@@ -79,7 +78,7 @@ underlying failures and rerun the required checks; do not bypass them.
   VSX. Open a `.mux` file and verify highlighting, diagnostics, completion,
   hover, signature help, document symbols, go-to-definition, formatting, and
   safe code actions.
-- **Neovim (after PR #40 merges and the plugin release is tagged):** install
+- **Neovim (after the plugin release is tagged):** install
   `muxlang/tree-sitter-mux` with the documented plugin manager specification.
   Confirm parser build, `.mux` detection, highlighting, and automatic `mux lsp`
   startup. Verify custom compiler path and LSP opt-out settings. Formatting runs

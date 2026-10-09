@@ -75,7 +75,7 @@ to one repo (e.g. a compiler crash, a website typo), file it there directly.
 | [mux-runtime](https://github.com/muxlang/mux-runtime) | Runtime + standard library for compiled programs. Plain stable Rust, no LLVM. Consumed by the compiler as a git dependency pinned by `Cargo.lock`. |
 | [mux-website](https://github.com/muxlang/mux-website) | The documentation site (mux-lang.dev) + the docs AI assistant + indexing tools. |
 | [mux-website-api](https://github.com/muxlang/mux-website-api) | The Fly.io compile/run API behind the playground. |
-| [tree-sitter-mux](https://github.com/muxlang/tree-sitter-mux) | Tree-sitter grammar + highlight queries; Neovim plugin is under review in [PR #40](https://github.com/muxlang/tree-sitter-mux/pull/40) and is not yet merged. |
+| [tree-sitter-mux](https://github.com/muxlang/tree-sitter-mux) | Tree-sitter grammar + highlight queries; Mux-maintained Neovim plugin merged, release tag pending. |
 | [mux-syntax-highlighting](https://github.com/muxlang/mux-syntax-highlighting) | TextMate grammar, VSCode extension, editor configs, and the canonical syntax spec. |
 | [.github](https://github.com/muxlang/.github) | Org profile + shared community-health files (contributing, code of conduct, issue/PR templates). |
 | [mux-examples](https://github.com/muxlang/mux-examples) | Intentional, deterministic teaching programs built by cross-repo CI. |
