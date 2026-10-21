@@ -16,21 +16,14 @@ documented for ad-hoc use.
 
 In `mux-compiler`, the pre-commit hook runs formatting, strict Clippy, and the
 Rust tests except `test_executable_all_mux_files_in_dir`, which executes the
-full Mux fixture corpus and takes several minutes. The corpus compiles and
-runs up to two non-network fixtures at once. Network fixtures run serially, and
-snapshots are checked in sorted order. Set `MUX_EXECUTABLE_TEST_JOBS` to raise
-the worker count on a larger machine. The required Rust CI check runs the full
-test and rejects unreferenced snapshots. CI also runs the executable corpus
-with the leak-check runtime. To run the full local suite:
+full Mux fixture corpus and takes several minutes. The required Rust CI check
+runs the full test and rejects unreferenced snapshots. CI also runs the
+executable corpus with the leak-check runtime. See the compiler repository's
+[contributor guide](https://github.com/muxlang/mux-compiler/blob/main/CONTRIBUTING.md)
+for the fixture test's worker settings and commands. To run the full local suite:
 
 ```bash
 ./scripts/run-checks.sh --reject-unreferenced-snapshots
-```
-
-To run just the executable fixture test:
-
-```bash
-./scripts/dev-cargo.sh test -p mux-lang --test executable_integration
 ```
 
 The runtime pre-commit hook keeps its all-feature Rust tests. They exercise the
