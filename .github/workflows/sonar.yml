@@ -31,6 +31,8 @@ jobs:
         run: ./scripts/ci/lint-workflows.sh
       - name: Markdown links and scoped encoding
         run: python3 scripts/ci/check-docs.py
+      - name: Documentation checker unit tests
+        run: python3 -m unittest discover -s scripts/tests -p 'test_*.py'
 
   sonarqube:
     name: SonarQube

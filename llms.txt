@@ -34,6 +34,7 @@ repo owns the facts that span more than one repo.
 - [Glossary](https://github.com/muxlang/mux-context/blob/main/docs/glossary.md): cross-repo terminology
 - [Release process](https://github.com/muxlang/mux-context/blob/main/docs/release-process.md): artifact versioning and shipping
 - [Repo governance](https://github.com/muxlang/mux-context/blob/main/docs/repo-governance.md): canonical labels, issue templates, and project board rules
+- [Testing policy](https://github.com/muxlang/mux-context/blob/main/docs/testing-policy.md): test ownership, commit hooks, and required CI checks across repos
 - [Decisions](https://github.com/muxlang/mux-context/blob/main/docs/decisions/README.md): architecture decision records
 
 ## Repos

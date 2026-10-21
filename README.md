@@ -39,6 +39,7 @@ here.
   implement them.
 - [Release process](docs/release-process.md) - how distributable artifacts are versioned and shipped.
 - [Repo governance](docs/repo-governance.md) - labels, issue templates, and project board rules.
+- [Testing policy](docs/testing-policy.md) - how local hooks and full CI checks divide the work across repos.
 - [Design notes](docs/design/) - why the compiler and runtime work the way they do.
 - [Decisions](docs/decisions/) - architecture decision records.
 
