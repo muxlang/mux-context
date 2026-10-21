@@ -24,6 +24,7 @@ trust memory or anything copied here.
 | Language docs: reference, guide, tour, examples | `mux-website/docs/` (reference, language-guide, tour, examples) and the `mux-examples` repo |
 | Compiler and runtime internals, design rationale | `mux-context/docs/design/` and `ARCHITECTURE.md` |
 | Cross-repo process: release, governance, where to file | `mux-context/docs/release-process.md`, `docs/repo-governance.md`, and `llms.txt` |
+| Test ownership and local-vs-CI policy | `mux-context/docs/testing-policy.md` and each repo's current `AGENTS.md` / workflow |
 | Per-repo workflow and hard-won facts | each repo's `AGENTS.md`, read it before working there |
 
 ## Read before you act

@@ -11,7 +11,8 @@ truth; do not copy implementation details here.
 ## Invariants
 
 - Facts must match the current repositories. Update linked context when a
-  cross-repository contract changes.
+  cross-repository contract changes, including the testing policy when local
+  hooks or required CI suites change.
 - Use relative links for related local documents and keep `llms.txt` in sync
   when documents move.
 - Preserve intentional Unicode examples; ASCII checks must be scoped to files
@@ -27,5 +28,5 @@ or application build in this repository.
 
 ## Documentation
 
-Start with [`README.md`](README.md), [`ARCHITECTURE.md`](ARCHITECTURE.md), and
-the decisions under `docs/`.
+Start with [`README.md`](README.md), [`ARCHITECTURE.md`](ARCHITECTURE.md), the
+[testing policy](docs/testing-policy.md), and the decisions under `docs/`.
