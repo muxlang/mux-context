@@ -32,6 +32,12 @@ multi-minute Mux fixture corpus. Other repositories keep their existing
 focused hooks; check each repository's `AGENTS.md` and workflow for the current
 commands.
 
+Compiler checks also run the shared updater and Windows launcher unit tests.
+Packaged artifact checks exercise installation and an update against a local
+release server before compiling smoke programs. These checks cover every
+published target, including both macOS architectures. Windows checks prove
+that the launcher reports the final installation result before returning.
+
 The website and syntax-highlighting repositories each generate coverage once
 in a dedicated CI job and upload the LCOV report for SonarQube. Their existing
 required check names aggregate the parallel quality and test jobs, so the

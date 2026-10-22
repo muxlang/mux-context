@@ -48,6 +48,20 @@ The per-repo `AGENTS.md` files link here instead of duplicating this policy.
 
 ## mux-compiler
 
+Release bundles contain the compiler and its matching runtime and support
+libraries. `mux update` replaces that complete bundle from a stable GitHub
+release and returns only after installation succeeds or fails. The installer
+records the owned files and custom destinations in an installation receipt.
+Source builds do not install updates, but can check availability with
+`mux update --check`.
+
+Windows bundles provide a DLL-independent `mux.exe` launcher and a
+`mux-driver.exe` compiler. The launcher handles updates without loading the
+libraries it must replace, and waits for normal compiler commands to finish.
+The launcher crate's package version is internal metadata; the compiler
+package still owns the public Mux version. Packaging and update tests live in
+[mux-compiler](https://github.com/muxlang/mux-compiler).
+
 1. **Gather changes** since the last tag (`git log <last-tag>..HEAD`); read PR/issue
    bodies, not just commit subjects.
 2. **Update `CHANGELOG.md`** - new `## [X.Y.Z] - YYYY-MM-DD` section grouped into
