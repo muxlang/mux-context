@@ -4173,10 +4173,10 @@
           "path": "mux-update/src/cancellation.rs",
           "line": 11,
           "source": "ctrlc::set_handler(|| CANCELLED.store(true, Ordering::SeqCst))",
-          "url": "https://github.com/muxlang/mux-compiler/blob/35e350e96aa4d05543f529b33d1e1ac92a933411/mux-update/src/cancellation.rs#L11"
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/cancellation.rs#L11"
         }
       ],
-      "reviewed_commit": "35e350e96aa4d05543f529b33d1e1ac92a933411"
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
     },
     {
       "repository": "mux-compiler",
@@ -4191,10 +4191,10 @@
           "path": "mux-update/src/download.rs",
           "line": 2,
           "source": "use flate2::read::GzDecoder;",
-          "url": "https://github.com/muxlang/mux-compiler/blob/35e350e96aa4d05543f529b33d1e1ac92a933411/mux-update/src/download.rs#L2"
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/download.rs#L2"
         }
       ],
-      "reviewed_commit": "35e350e96aa4d05543f529b33d1e1ac92a933411"
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
     },
     {
       "repository": "mux-compiler",
@@ -4209,10 +4209,10 @@
           "path": "mux-update/src/receipt.rs",
           "line": 38,
           "source": "if let Err(error) = fs2::FileExt::unlock(&self._file) {",
-          "url": "https://github.com/muxlang/mux-compiler/blob/35e350e96aa4d05543f529b33d1e1ac92a933411/mux-update/src/receipt.rs#L38"
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/receipt.rs#L38"
         }
       ],
-      "reviewed_commit": "35e350e96aa4d05543f529b33d1e1ac92a933411"
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
     },
     {
       "repository": "mux-compiler",
@@ -4227,16 +4227,16 @@
           "path": "mux-update/src/lib.rs",
           "line": 11,
           "source": "use semver::Version;",
-          "url": "https://github.com/muxlang/mux-compiler/blob/35e350e96aa4d05543f529b33d1e1ac92a933411/mux-update/src/lib.rs#L11"
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/lib.rs#L11"
         },
         {
           "path": "mux-update/src/receipt.rs",
           "line": 108,
           "source": "semver::Version::parse(&receipt.version).context(\"Invalid receipt version\")?;",
-          "url": "https://github.com/muxlang/mux-compiler/blob/35e350e96aa4d05543f529b33d1e1ac92a933411/mux-update/src/receipt.rs#L108"
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/receipt.rs#L108"
         }
       ],
-      "reviewed_commit": "35e350e96aa4d05543f529b33d1e1ac92a933411"
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
     },
     {
       "repository": "mux-compiler",
@@ -4256,16 +4256,16 @@
           "path": "mux-update/src/receipt.rs",
           "line": 2,
           "source": "use serde::{Deserialize, Serialize};",
-          "url": "https://github.com/muxlang/mux-compiler/blob/35e350e96aa4d05543f529b33d1e1ac92a933411/mux-update/src/receipt.rs#L2"
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/receipt.rs#L2"
         },
         {
           "path": "mux-update/src/download.rs",
           "line": 4,
           "source": "use serde::Deserialize;",
-          "url": "https://github.com/muxlang/mux-compiler/blob/35e350e96aa4d05543f529b33d1e1ac92a933411/mux-update/src/download.rs#L4"
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/download.rs#L4"
         }
       ],
-      "reviewed_commit": "35e350e96aa4d05543f529b33d1e1ac92a933411"
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
     },
     {
       "repository": "mux-compiler",
@@ -4280,16 +4280,16 @@
           "path": "mux-update/src/receipt.rs",
           "line": 95,
           "source": "serde_json::from_slice(&bytes).context(\"Invalid installation receipt\")?;",
-          "url": "https://github.com/muxlang/mux-compiler/blob/35e350e96aa4d05543f529b33d1e1ac92a933411/mux-update/src/receipt.rs#L95"
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/receipt.rs#L95"
         },
         {
           "path": "mux-update/src/download.rs",
           "line": 211,
           "source": "serde_json::from_slice(bytes).context(\"Invalid GitHub release metadata\")?;",
-          "url": "https://github.com/muxlang/mux-compiler/blob/35e350e96aa4d05543f529b33d1e1ac92a933411/mux-update/src/download.rs#L211"
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/download.rs#L211"
         }
       ],
-      "reviewed_commit": "35e350e96aa4d05543f529b33d1e1ac92a933411"
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
     },
     {
       "repository": "mux-compiler",
@@ -4304,10 +4304,10 @@
           "path": "mux-update/src/download.rs",
           "line": 5,
           "source": "use sha2::{Digest, Sha256};",
-          "url": "https://github.com/muxlang/mux-compiler/blob/35e350e96aa4d05543f529b33d1e1ac92a933411/mux-update/src/download.rs#L5"
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/download.rs#L5"
         }
       ],
-      "reviewed_commit": "35e350e96aa4d05543f529b33d1e1ac92a933411"
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
     },
     {
       "repository": "mux-compiler",
@@ -4322,10 +4322,10 @@
           "path": "mux-update/src/download.rs",
           "line": 310,
           "source": "let mut archive = tar::Archive::new(Interruptible(GzDecoder::new(bytes)));",
-          "url": "https://github.com/muxlang/mux-compiler/blob/35e350e96aa4d05543f529b33d1e1ac92a933411/mux-update/src/download.rs#L310"
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/download.rs#L310"
         }
       ],
-      "reviewed_commit": "35e350e96aa4d05543f529b33d1e1ac92a933411"
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
     },
     {
       "repository": "mux-compiler",
@@ -4340,16 +4340,16 @@
           "path": "mux-update/src/lib.rs",
           "line": 86,
           "source": "let stage = tempfile::tempdir().context(\"Create update staging directory\")?;",
-          "url": "https://github.com/muxlang/mux-compiler/blob/35e350e96aa4d05543f529b33d1e1ac92a933411/mux-update/src/lib.rs#L86"
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/lib.rs#L86"
         },
         {
           "path": "mux-update/src/receipt.rs",
           "line": 283,
           "source": "fn fixture() -> (tempfile::TempDir, PathBuf) {",
-          "url": "https://github.com/muxlang/mux-compiler/blob/35e350e96aa4d05543f529b33d1e1ac92a933411/mux-update/src/receipt.rs#L283"
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/receipt.rs#L283"
         }
       ],
-      "reviewed_commit": "35e350e96aa4d05543f529b33d1e1ac92a933411"
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
     },
     {
       "repository": "mux-compiler",
@@ -4364,10 +4364,10 @@
           "path": "mux-update/src/download.rs",
           "line": 35,
           "source": "let uri: ureq::http::Uri = url.parse().context(\"Invalid release URL\")?;",
-          "url": "https://github.com/muxlang/mux-compiler/blob/35e350e96aa4d05543f529b33d1e1ac92a933411/mux-update/src/download.rs#L35"
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/download.rs#L35"
         }
       ],
-      "reviewed_commit": "35e350e96aa4d05543f529b33d1e1ac92a933411"
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
     },
     {
       "repository": "mux-compiler",
@@ -4388,10 +4388,10 @@
           "path": "mux-update/src/download.rs",
           "line": 341,
           "source": "let mut archive = zip::ZipArchive::new(Cursor::new(bytes)).context(\"Read ZIP archive\")?;",
-          "url": "https://github.com/muxlang/mux-compiler/blob/35e350e96aa4d05543f529b33d1e1ac92a933411/mux-update/src/download.rs#L341"
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/download.rs#L341"
         }
       ],
-      "reviewed_commit": "35e350e96aa4d05543f529b33d1e1ac92a933411"
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
     },
     {
       "repository": "mux-compiler",
@@ -4411,10 +4411,10 @@
           "path": "mux-windows-launcher/src/main.rs",
           "line": 8,
           "source": "use clap::{Args, Parser, Subcommand};",
-          "url": "https://github.com/muxlang/mux-compiler/blob/35e350e96aa4d05543f529b33d1e1ac92a933411/mux-windows-launcher/src/main.rs#L8"
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-windows-launcher/src/main.rs#L8"
         }
       ],
-      "reviewed_commit": "35e350e96aa4d05543f529b33d1e1ac92a933411"
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
     },
     {
       "repository": "mux-compiler",
@@ -4432,10 +4432,10 @@
           "path": "mux-windows-launcher/src/main.rs",
           "line": 49,
           "source": "if let Some(result) = mux_update::run_download_worker(&arguments) {",
-          "url": "https://github.com/muxlang/mux-compiler/blob/35e350e96aa4d05543f529b33d1e1ac92a933411/mux-windows-launcher/src/main.rs#L49"
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-windows-launcher/src/main.rs#L49"
         }
       ],
-      "reviewed_commit": "35e350e96aa4d05543f529b33d1e1ac92a933411"
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
     },
     {
       "repository": "mux-compiler",
@@ -4455,10 +4455,10 @@
           "path": "mux-windows-launcher/src/main.rs",
           "line": 141,
           "source": "use windows_sys::Win32::System::Console::{",
-          "url": "https://github.com/muxlang/mux-compiler/blob/35e350e96aa4d05543f529b33d1e1ac92a933411/mux-windows-launcher/src/main.rs#L141"
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-windows-launcher/src/main.rs#L141"
         }
       ],
-      "reviewed_commit": "35e350e96aa4d05543f529b33d1e1ac92a933411"
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
     },
     {
       "repository": "mux-compiler",
@@ -4474,10 +4474,10 @@
         {
           "path": "mux-compiler/src/main.rs",
           "source": "mux_update::run_cli invocation in update command dispatch.",
-          "url": "https://github.com/muxlang/mux-compiler/blob/35e350e96aa4d05543f529b33d1e1ac92a933411/mux-compiler/src/main.rs"
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-compiler/src/main.rs"
         }
       ],
-      "reviewed_commit": "35e350e96aa4d05543f529b33d1e1ac92a933411"
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
     }
   ],
   "audit_additions": [

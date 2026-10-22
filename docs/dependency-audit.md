@@ -295,7 +295,7 @@ The evidence links below point to baseline source lines. A remove row links the 
 
 ### Compiler updater additions
 
-These 15 declarations are reviewed at compiler commit [35e350e](https://github.com/muxlang/mux-compiler/commit/35e350e96aa4d05543f529b33d1e1ac92a933411) rather than main. Source and feature details are recorded separately in the inventory. The compiler, updater library and Windows launcher share transactional update behavior; internal path dependencies need versions for cargo package's rewritten manifests even when the helper packages are unpublished.
+These 15 declarations were checked against compiler commit [83446fc](https://github.com/muxlang/mux-compiler/commit/83446fc75d70181380aff9ca4569e57c9771e119). The inventory links to source at that commit rather than `main`. The cited production files did not change after the initial review. The later commit normalizes a Windows path assertion in a launcher test and formats the packaging-script tests. The compiler, updater library and Windows launcher share the update transaction. Internal path dependencies still need versions because `cargo package` rewrites their manifests, even when the helper crates are unpublished.
 
 | Scope | Dependency | Role | Purpose | Verdict |
 | --- | --- | --- | --- | --- |
