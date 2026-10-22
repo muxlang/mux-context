@@ -209,7 +209,7 @@ The evidence links below point to baseline source lines. A remove row links the 
 | `eslint-plugin-react-hooks` | devDependencies | React hooks lint rules. | retain | [eslint.config.mjs:2](https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/eslint.config.mjs#L2) |
 | `jsdom` | devDependencies | Configured Vitest browser DOM environment. | retain | [vitest.config.mts:34](https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/vitest.config.mts#L34) |
 | `prettier` | devDependencies | Repository formatting CLI and check script. | retain | [scripts/check-format.mjs:37](https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/scripts/check-format.mjs#L37) |
-| `typescript` | devDependencies | tsc typecheck CLI and shared compiler types. | retain | [eslint.config.mjs:1](https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/eslint.config.mjs#L1) |
+| `typescript` | devDependencies | Provides the tsc executable used by the website typecheck script. | retain | [package.json:19](https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/package.json#L19) |
 | `typescript-eslint` | devDependencies | Typed ESLint configuration and rules. | retain | [eslint.config.mjs:1](https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/eslint.config.mjs#L1) |
 | `vitest` | devDependencies | Site/search unit and browser tests. | upgrade | [test/setup.ts:1](https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/test/setup.ts#L1) |
 
@@ -295,7 +295,7 @@ The evidence links below point to baseline source lines. A remove row links the 
 
 ### Compiler updater additions
 
-These 15 declarations are reviewed on feat/self-update rather than main. Source and feature details are recorded separately in the inventory. The compiler, updater library and Windows launcher share transactional update behavior; internal path dependencies need versions for cargo package's rewritten manifests even when the helper packages are unpublished.
+These 15 declarations are reviewed at compiler commit [35e350e](https://github.com/muxlang/mux-compiler/commit/35e350e96aa4d05543f529b33d1e1ac92a933411) rather than main. Source and feature details are recorded separately in the inventory. The compiler, updater library and Windows launcher share transactional update behavior; internal path dependencies need versions for cargo package's rewritten manifests even when the helper packages are unpublished.
 
 | Scope | Dependency | Role | Purpose | Verdict |
 | --- | --- | --- | --- | --- |
