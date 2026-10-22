@@ -1,0 +1,5337 @@
+{
+  "schema": 1,
+  "baseline_policy": "origin/main; immutable commits recorded below. Updater additions reviewed separately in report.",
+  "baselines": [
+    {
+      "repo": "mux-runtime",
+      "sha": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a"
+    },
+    {
+      "repo": "mux-compiler",
+      "sha": "f958098a6d56d1c9c7a830cb119b79ff020ff029"
+    },
+    {
+      "repo": "mux-website-api",
+      "sha": "f21cdddb18b38eb9b734848ee847aa36bc200a21"
+    },
+    {
+      "repo": "mux-website",
+      "sha": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187"
+    },
+    {
+      "repo": ".github",
+      "sha": "c549d6ce47d32ef5b90407b0d91fccef2a850725"
+    },
+    {
+      "repo": "tree-sitter-mux",
+      "sha": "d3443282b978adcced99dd2ff33d27f850d94cf0"
+    },
+    {
+      "repo": "mux-syntax-highlighting",
+      "sha": "c16ccb5face1582b5fcc6803f6dcefbffa8eb151"
+    },
+    {
+      "repo": "mux-examples",
+      "sha": "34698ff5af8279a71148dd87388a74df66449ef7"
+    },
+    {
+      "repo": "mux-context",
+      "sha": "be2adc3f31e387f30c61316167253613fdb2b71d"
+    }
+  ],
+  "manifests": [
+    {
+      "repository": "mux-runtime",
+      "path": "Cargo.toml"
+    },
+    {
+      "repository": "mux-compiler",
+      "path": "Cargo.toml"
+    },
+    {
+      "repository": "mux-compiler",
+      "path": "mux-compiler/Cargo.toml"
+    },
+    {
+      "repository": "mux-website-api",
+      "path": "pyproject.toml"
+    },
+    {
+      "repository": "mux-website-api",
+      "path": "requirements-dev.txt"
+    },
+    {
+      "repository": "mux-website-api",
+      "path": "requirements.txt"
+    },
+    {
+      "repository": "mux-website",
+      "path": "package.json"
+    },
+    {
+      "repository": "mux-website",
+      "path": "plugins/mux-search-local/package.json"
+    },
+    {
+      "repository": "mux-website",
+      "path": "tools/docs-indexer/package.json"
+    },
+    {
+      "repository": "mux-website",
+      "path": "tools/retrieval-test/package.json"
+    },
+    {
+      "repository": "mux-website",
+      "path": "workers/mux-ai/package.json"
+    },
+    {
+      "repository": "tree-sitter-mux",
+      "path": "package.json"
+    },
+    {
+      "repository": "mux-syntax-highlighting",
+      "path": ".github/ovsx-cli/package.json"
+    },
+    {
+      "repository": "mux-syntax-highlighting",
+      "path": "package.json"
+    },
+    {
+      "repository": "mux-syntax-highlighting",
+      "path": "textmate-mux/vscode-language-mux/package.json"
+    }
+  ],
+  "dependencies": [
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "ordered-float",
+      "role": "dependencies",
+      "specification": "5.5",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "src/bool.rs",
+          "line": 66,
+          "source": "mux_rc_alloc(Value::Float(ordered_float::OrderedFloat(",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/bool.rs#L66"
+        },
+        {
+          "path": "src/bytes.rs",
+          "line": 728,
+          "source": "ok(Value::Float(ordered_float::OrderedFloat(f64::from_bits(",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/bytes.rs#L728"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Hashable and comparable floating-point values; integration-test Value construction.",
+      "purpose": "Hashable and comparable floating-point values; integration-test Value construction."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "hashbrown",
+      "role": "dependencies",
+      "specification": "0.17",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "src/ordered.rs",
+          "line": 15,
+          "source": "//! per key. `hashbrown::HashTable` stores those indices and takes the hash from",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/ordered.rs#L15"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Insertion-ordered collection backing hash table.",
+      "purpose": "Insertion-ordered collection backing hash table."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "libc",
+      "role": "dependencies",
+      "specification": "0.2",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "src/closure.rs",
+          "line": 86,
+          "source": "let base = libc::malloc(std::mem::size_of::<i64>() + std::mem::size_of::<*mut Value>());",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/closure.rs#L86"
+        },
+        {
+          "path": "src/coverage.rs",
+          "line": 66,
+          "source": "if unsafe { libc::atexit(finish_coverage) } != 0 {",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/coverage.rs#L66"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Platform system calls, allocation and synchronization; FFI tests.",
+      "purpose": "Platform system calls, allocation and synchronization; FFI tests."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "chrono",
+      "role": "dependencies",
+      "specification": "0.4",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "src/datetime.rs",
+          "line": 3,
+          "source": "use chrono::{DateTime, Datelike, Local, NaiveDateTime, SecondsFormat, Timelike, Utc};",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/datetime.rs#L3"
+        },
+        {
+          "path": "src/datetime_types.rs",
+          "line": 14,
+          "source": "use chrono::{",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/datetime_types.rs#L14"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Datetime parsing, formatting and arithmetic.",
+      "purpose": "Datetime parsing, formatting and arithmetic."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "serde_json",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "1.0",
+        "optional": true
+      },
+      "enabled_by": [
+        "json"
+      ],
+      "evidence": [
+        {
+          "path": "src/json.rs",
+          "line": 191,
+          "source": "let mut deserializer = serde_json::Deserializer::from_str(input);",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/json.rs#L191"
+        },
+        {
+          "path": "src/net.rs",
+          "line": 7181,
+          "source": "let document: serde_json::Value = serde_json::from_slice(&body)",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/net.rs#L7181"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "JSON encoding/decoding and LSP JSON transport.",
+      "purpose": "JSON encoding/decoding and LSP JSON transport."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "serde",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "1.0",
+        "optional": true
+      },
+      "enabled_by": [
+        "json"
+      ],
+      "evidence": [
+        {
+          "path": "src/json.rs",
+          "line": 7,
+          "source": "use serde::de::{DeserializeSeed, MapAccess, SeqAccess, Visitor};",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/json.rs#L7"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Custom JSON deserialization and updater release metadata.",
+      "purpose": "Custom JSON deserialization and updater release metadata."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "indexmap",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "2",
+        "optional": true
+      },
+      "enabled_by": [
+        "json"
+      ],
+      "evidence": [
+        {
+          "path": "src/json.rs",
+          "line": 6,
+          "source": "use indexmap::IndexMap;",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/json.rs#L6"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Preserve JSON object insertion order.",
+      "purpose": "Preserve JSON object insertion order."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "csv",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "1",
+        "optional": true
+      },
+      "enabled_by": [
+        "csv",
+        "full"
+      ],
+      "evidence": [
+        {
+          "path": "src/data.rs",
+          "line": 44,
+          "source": "fn record_to_value_list(record: &csv::StringRecord) -> Value {",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/data.rs#L44"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Public CSV readers and writers.",
+      "purpose": "Public CSV readers and writers."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "ureq",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "3.4",
+        "optional": true
+      },
+      "enabled_by": [
+        "net"
+      ],
+      "evidence": [
+        {
+          "path": "src/net.rs",
+          "line": 4616,
+          "source": "response: ureq::http::Response<ureq::Body>,",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/net.rs#L4616"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Blocking HTTP client and updater HTTPS downloads.",
+      "purpose": "Blocking HTTP client and updater HTTPS downloads."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "httparse",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "1.10",
+        "optional": true
+      },
+      "enabled_by": [
+        "net"
+      ],
+      "evidence": [
+        {
+          "path": "src/net.rs",
+          "line": 4965,
+          "source": "let mut parsed_headers = vec![httparse::EMPTY_HEADER; max_headers];",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/net.rs#L4965"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "HTTP request/response header parsing.",
+      "purpose": "HTTP request/response header parsing."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "mio",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "1.2.1",
+        "optional": true,
+        "features": [
+          "net",
+          "os-poll"
+        ]
+      },
+      "enabled_by": [
+        "net"
+      ],
+      "evidence": [
+        {
+          "path": "src/poller.rs",
+          "line": 9,
+          "source": "use mio::net::{TcpListener, TcpStream, UdpSocket};",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/poller.rs#L9"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "OS network readiness polling.",
+      "purpose": "OS network readiness polling."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "socket2",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "0.6.1",
+        "optional": true
+      },
+      "enabled_by": [
+        "net"
+      ],
+      "evidence": [
+        {
+          "path": "src/net.rs",
+          "line": 30,
+          "source": "use socket2::SockRef;",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/net.rs#L30"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Socket options and transport configuration.",
+      "purpose": "Socket options and transport configuration."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "regex",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "1.12",
+        "optional": true
+      },
+      "enabled_by": [
+        "regex",
+        "full"
+      ],
+      "evidence": [
+        {
+          "path": "src/regex.rs",
+          "line": 17,
+          "source": "type RustRegex = ::regex::Regex;",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/regex.rs#L17"
+        },
+        {
+          "path": "tests/regex_unit.rs",
+          "line": 5,
+          "source": "use mux_runtime::regex::*;",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/tests/regex_unit.rs#L5"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Public regex operations; compiler test-output normalization.",
+      "purpose": "Public regex operations; compiler test-output normalization."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "regex-syntax",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "0.8",
+        "optional": true
+      },
+      "enabled_by": [
+        "regex"
+      ],
+      "evidence": [
+        {
+          "path": "src/regex.rs",
+          "line": 207,
+          "source": "let mut parser = ::regex_syntax::ParserBuilder::new();",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/regex.rs#L207"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Parse regex structure for bounded-pattern policy.",
+      "purpose": "Parse regex structure for bounded-pattern policy."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "url",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "2.5.8",
+        "optional": true
+      },
+      "enabled_by": [
+        "net",
+        "url",
+        "sql"
+      ],
+      "evidence": [
+        {
+          "path": "src/net.rs",
+          "line": 1038,
+          "source": "let url = url::Url::parse(&format!(\"https://{authority}\")).map_err(|error| {",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/net.rs#L1038"
+        },
+        {
+          "path": "src/sql.rs",
+          "line": 37,
+          "source": "use url::Url;",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/sql.rs#L37"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "URL parsing and LSP file URI conversion.",
+      "purpose": "URL parsing and LSP file URI conversion."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "idna",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "1.1",
+        "optional": true
+      },
+      "enabled_by": [
+        "url"
+      ],
+      "evidence": [
+        {
+          "path": "src/url.rs",
+          "line": 285,
+          "source": "idna::domain_to_ascii(host).map_err(|error| format!(\"invalid IDNA host: {error:?}\"))",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/url.rs#L285"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Internationalized hostname normalization.",
+      "purpose": "Internationalized hostname normalization."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "uuid",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "1.23.4",
+        "default-features": false,
+        "features": [
+          "std",
+          "rng",
+          "v4",
+          "v7",
+          "v8"
+        ],
+        "optional": true
+      },
+      "enabled_by": [
+        "uuid",
+        "sql",
+        "full"
+      ],
+      "evidence": [
+        {
+          "path": "src/sql.rs",
+          "line": 3207,
+          "source": "crate::uuid::sql_uuid_value(&text)",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/sql.rs#L3207"
+        },
+        {
+          "path": "src/uuid.rs",
+          "line": 19,
+          "source": "type RustUuid = ::uuid::Uuid;",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/uuid.rs#L19"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "UUID creation/parsing and SQL UUID representation.",
+      "purpose": "UUID creation/parsing and SQL UUID representation."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "md-5",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "0.11",
+        "optional": true
+      },
+      "enabled_by": [
+        "uuid"
+      ],
+      "evidence": [
+        {
+          "path": "src/uuid.rs",
+          "line": 11,
+          "source": "use md5::{Digest as Md5Digest, Md5};",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/uuid.rs#L11"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "UUID version 3 compatibility.",
+      "purpose": "UUID version 3 compatibility."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "sha1",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "0.11.0",
+        "optional": true
+      },
+      "enabled_by": [
+        "net",
+        "uuid"
+      ],
+      "evidence": [
+        {
+          "path": "src/net.rs",
+          "line": 29,
+          "source": "use sha1::{Digest as Sha1Digest, Sha1};",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/net.rs#L29"
+        },
+        {
+          "path": "src/uuid.rs",
+          "line": 17,
+          "source": "use sha1::Sha1;",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/uuid.rs#L17"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "UUID version 5 and WebSocket handshake protocol.",
+      "purpose": "UUID version 5 and WebSocket handshake protocol."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "ring",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "0.17",
+        "optional": true
+      },
+      "enabled_by": [
+        "net"
+      ],
+      "evidence": [
+        {
+          "path": "src/net.rs",
+          "line": 23,
+          "source": "use ring::digest::{digest, SHA256};",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/net.rs#L23"
+        },
+        {
+          "path": "src/tls.rs",
+          "line": 1182,
+          "source": "ClientConfig::builder_with_provider(Arc::new(rustls::crypto::ring::default_provider()))",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/tls.rs#L1182"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "TLS certificate fingerprint hashing.",
+      "purpose": "TLS certificate fingerprint hashing."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "sha2",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "0.11",
+        "optional": true
+      },
+      "enabled_by": [
+        "crypto",
+        "sql"
+      ],
+      "evidence": [
+        {
+          "path": "src/crypto.rs",
+          "line": 15,
+          "source": "use sha2::Digest as Sha2Digest;",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/crypto.rs#L15"
+        },
+        {
+          "path": "src/sql.rs",
+          "line": 19,
+          "source": "use sha2::{Digest, Sha256};",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/sql.rs#L19"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "SHA-2 digests, SQL authentication and updater archive integrity.",
+      "purpose": "SHA-2 digests, SQL authentication and updater archive integrity."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "sha3",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "0.12",
+        "optional": true
+      },
+      "enabled_by": [
+        "crypto"
+      ],
+      "evidence": [
+        {
+          "path": "src/crypto.rs",
+          "line": 99,
+          "source": "|input| <sha3::Sha3_256 as sha3::Digest>::digest(&input).to_vec(),",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/crypto.rs#L99"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Public SHA-3 digest functions.",
+      "purpose": "Public SHA-3 digest functions."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "blake3",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "1",
+        "optional": true
+      },
+      "enabled_by": [
+        "crypto"
+      ],
+      "evidence": [
+        {
+          "path": "src/crypto.rs",
+          "line": 115,
+          "source": "|input| blake3::hash(&input).as_bytes().to_vec(),",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/crypto.rs#L115"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Public BLAKE3 digest functions.",
+      "purpose": "Public BLAKE3 digest functions."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "hmac",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "0.13",
+        "optional": true
+      },
+      "enabled_by": [
+        "crypto"
+      ],
+      "evidence": [
+        {
+          "path": "src/crypto.rs",
+          "line": 14,
+          "source": "use hmac::Mac;",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/crypto.rs#L14"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Public keyed HMAC operations.",
+      "purpose": "Public keyed HMAC operations."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "aes-gcm",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "0.11",
+        "optional": true
+      },
+      "enabled_by": [
+        "crypto"
+      ],
+      "evidence": [
+        {
+          "path": "src/crypto.rs",
+          "line": 12,
+          "source": "use aes_gcm::aead::{Aead, KeyInit, Payload};",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/crypto.rs#L12"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Public authenticated AES encryption.",
+      "purpose": "Public authenticated AES encryption."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "chacha20poly1305",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "0.11",
+        "optional": true
+      },
+      "enabled_by": [
+        "crypto"
+      ],
+      "evidence": [
+        {
+          "path": "src/crypto.rs",
+          "line": 217,
+          "source": "let chacha_nonce = chacha20poly1305::Nonce::from(*nonce);",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/crypto.rs#L217"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Public authenticated ChaCha encryption.",
+      "purpose": "Public authenticated ChaCha encryption."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "getrandom",
+      "role": "dependencies",
+      "specification": "0.4",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "src/crypto.rs",
+          "line": 160,
+          "source": "getrandom::fill(&mut value)",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/crypto.rs#L160"
+        },
+        {
+          "path": "src/net.rs",
+          "line": 3524,
+          "source": "getrandom::fill(&mut key)",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/net.rs#L3524"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "OS entropy for random/crypto/network identifiers.",
+      "purpose": "OS entropy for random/crypto/network identifiers."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "base64",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "0.23",
+        "optional": true
+      },
+      "enabled_by": [
+        "net",
+        "crypto"
+      ],
+      "evidence": [
+        {
+          "path": "src/crypto.rs",
+          "line": 13,
+          "source": "use base64::{engine::general_purpose::URL_SAFE_NO_PAD, Engine as _};",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/crypto.rs#L13"
+        },
+        {
+          "path": "src/net.rs",
+          "line": 13,
+          "source": "use base64::{",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/net.rs#L13"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Network and crypto binary/text encoding.",
+      "purpose": "Network and crypto binary/text encoding."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "h2",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "0.4.15",
+        "optional": true
+      },
+      "enabled_by": [
+        "http2"
+      ],
+      "evidence": [
+        {
+          "path": "src/net.rs",
+          "line": 7799,
+          "source": "sender: h2::client::SendRequest<Bytes>,",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/net.rs#L7799"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "HTTP/2 framing and streams.",
+      "purpose": "HTTP/2 framing and streams."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "tokio",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "1",
+        "default-features": false,
+        "features": [
+          "macros",
+          "net",
+          "rt",
+          "rt-multi-thread",
+          "sync",
+          "time"
+        ],
+        "optional": true
+      },
+      "enabled_by": [
+        "http2",
+        "http3",
+        "sql"
+      ],
+      "evidence": [
+        {
+          "path": "src/net.rs",
+          "line": 55,
+          "source": "use tokio::io::{AsyncRead, AsyncWrite, ReadBuf};",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/net.rs#L55"
+        },
+        {
+          "path": "src/sql.rs",
+          "line": 270,
+          "source": "type SqlServerClient = TdsClient<Compat<tokio::net::TcpStream>>;",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/sql.rs#L270"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "HTTP and SQL asynchronous transport execution.",
+      "purpose": "HTTP and SQL asynchronous transport execution."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "tokio-util",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "0.7",
+        "default-features": false,
+        "features": [
+          "compat"
+        ],
+        "optional": true
+      },
+      "enabled_by": [
+        "sql"
+      ],
+      "evidence": [
+        {
+          "path": "src/sql.rs",
+          "line": 36,
+          "source": "use tokio_util::compat::{Compat, TokioAsyncWriteCompatExt};",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/sql.rs#L36"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Adapt Tokio SQL streams to futures I/O.",
+      "purpose": "Adapt Tokio SQL streams to futures I/O."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "bytes",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "1",
+        "optional": true
+      },
+      "enabled_by": [
+        "http2",
+        "http3"
+      ],
+      "evidence": [
+        {
+          "path": "src/net.rs",
+          "line": 18,
+          "source": "use bytes::{Buf, Bytes};",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/net.rs#L18"
+        },
+        {
+          "path": "tests/bytes_unit.rs",
+          "line": 3,
+          "source": "use mux_runtime::bytes::*;",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/tests/bytes_unit.rs#L3"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "HTTP/2 and HTTP/3 byte buffers.",
+      "purpose": "HTTP/2 and HTTP/3 byte buffers."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "cap-std",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "4.0.2",
+        "optional": true
+      },
+      "enabled_by": [
+        "net"
+      ],
+      "evidence": [
+        {
+          "path": "src/net.rs",
+          "line": 19,
+          "source": "use cap_std::ambient_authority;",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/net.rs#L19"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Directory capability boundary for network static-file serving.",
+      "purpose": "Directory capability boundary for network static-file serving."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "http",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "1.1",
+        "optional": true
+      },
+      "enabled_by": [
+        "http2",
+        "http3"
+      ],
+      "evidence": [
+        {
+          "path": "src/net.rs",
+          "line": 222,
+          "source": "request: http::Request<()>,",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/net.rs#L222"
+        },
+        {
+          "path": "tests/net_unit.rs",
+          "line": 55,
+          "source": "use http::{HeaderValue, Request, Response};",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/tests/net_unit.rs#L55"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Typed HTTP request/response structures.",
+      "purpose": "Typed HTTP request/response structures."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "h3",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "0.0.8",
+        "optional": true
+      },
+      "enabled_by": [
+        "http3"
+      ],
+      "evidence": [
+        {
+          "path": "src/net.rs",
+          "line": 485,
+          "source": "let (mut driver, sender) = h3::client::builder()",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/net.rs#L485"
+        },
+        {
+          "path": "tests/net_unit.rs",
+          "line": 345,
+          "source": "let mut connection = h3::server::builder()",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/tests/net_unit.rs#L345"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "HTTP/3 framing and QPACK.",
+      "purpose": "HTTP/3 framing and QPACK."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "h3-quinn",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "0.0.10",
+        "optional": true
+      },
+      "enabled_by": [
+        "http3"
+      ],
+      "evidence": [
+        {
+          "path": "src/net.rs",
+          "line": 484,
+          "source": "let quic = h3_quinn::Connection::new(connection);",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/net.rs#L484"
+        },
+        {
+          "path": "tests/net_unit.rs",
+          "line": 344,
+          "source": "let quic = h3_quinn::Connection::new(connection);",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/tests/net_unit.rs#L344"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Bridge HTTP/3 to Quinn QUIC.",
+      "purpose": "Bridge HTTP/3 to Quinn QUIC."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "quinn",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "=0.11.12",
+        "default-features": false,
+        "features": [
+          "runtime-tokio",
+          "rustls-ring"
+        ],
+        "optional": true
+      },
+      "enabled_by": [
+        "http3"
+      ],
+      "evidence": [
+        {
+          "path": "src/net.rs",
+          "line": 457,
+          "source": "let mut endpoint = quinn::Endpoint::client(",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/net.rs#L457"
+        },
+        {
+          "path": "tests/net_unit.rs",
+          "line": 301,
+          "source": "use quinn::crypto::rustls::QuicServerConfig;",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/tests/net_unit.rs#L301"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "QUIC transport for public HTTP/3 APIs.",
+      "purpose": "QUIC transport for public HTTP/3 APIs."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "rusqlite",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "0.40",
+        "features": [
+          "bundled",
+          "hooks"
+        ],
+        "optional": true
+      },
+      "enabled_by": [
+        "sql"
+      ],
+      "evidence": [
+        {
+          "path": "src/sql.rs",
+          "line": 17,
+          "source": "use rusqlite::types::{Value as SqliteValue, ValueRef};",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/sql.rs#L17"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "SQLite driver; bundled SQLite and query interruption hooks.",
+      "purpose": "SQLite driver; bundled SQLite and query interruption hooks."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "postgres",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "0.19",
+        "optional": true
+      },
+      "enabled_by": [
+        "sql"
+      ],
+      "evidence": [
+        {
+          "path": "src/sql.rs",
+          "line": 15,
+          "source": "use postgres::types::{ToSql, Type as PgType};",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/sql.rs#L15"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "PostgreSQL SQL backend.",
+      "purpose": "PostgreSQL SQL backend."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "mysql",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "28",
+        "optional": true
+      },
+      "enabled_by": [
+        "sql"
+      ],
+      "evidence": [
+        {
+          "path": "src/sql.rs",
+          "line": 10,
+          "source": "use mysql::prelude::Queryable;",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/sql.rs#L10"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "MySQL SQL backend.",
+      "purpose": "MySQL SQL backend."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "tiberius",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "0.13.0",
+        "default-features": false,
+        "features": [
+          "rustls",
+          "tds73",
+          "tokio"
+        ],
+        "optional": true
+      },
+      "enabled_by": [
+        "sql"
+      ],
+      "evidence": [
+        {
+          "path": "src/sql.rs",
+          "line": 31,
+          "source": "use tiberius::{",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/sql.rs#L31"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "SQL Server backend.",
+      "purpose": "SQL Server backend."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "futures-util",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "0.3",
+        "default-features": false,
+        "features": [
+          "io",
+          "sink"
+        ],
+        "optional": true
+      },
+      "enabled_by": [
+        "sql"
+      ],
+      "evidence": [
+        {
+          "path": "src/sql.rs",
+          "line": 9,
+          "source": "use futures_util::TryStreamExt;",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/sql.rs#L9"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "SQL stream adapters and result collection.",
+      "purpose": "SQL stream adapters and result collection."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "rustls",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "0.23",
+        "optional": true
+      },
+      "enabled_by": [
+        "http2",
+        "http3",
+        "tls"
+      ],
+      "evidence": [
+        {
+          "path": "src/net.rs",
+          "line": 26,
+          "source": "use rustls::pki_types::ServerName;",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/net.rs#L26"
+        },
+        {
+          "path": "src/tls.rs",
+          "line": 10,
+          "source": "use rustls::pki_types::{CertificateDer, PrivateKeyDer, PrivatePkcs8KeyDer, ServerName};",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/tls.rs#L10"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "TLS transport and certificate validation.",
+      "purpose": "TLS transport and certificate validation."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "webpki-roots",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "1",
+        "optional": true
+      },
+      "enabled_by": [
+        "http2",
+        "http3",
+        "tls"
+      ],
+      "evidence": [
+        {
+          "path": "src/net.rs",
+          "line": 1086,
+          "source": "rustls::RootCertStore::from_iter(webpki_roots::TLS_SERVER_ROOTS.iter().cloned())",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/net.rs#L1086"
+        },
+        {
+          "path": "src/tls.rs",
+          "line": 502,
+          "source": "roots.extend(webpki_roots::TLS_SERVER_ROOTS.iter().cloned());",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/tls.rs#L502"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Public trust roots for TLS verification.",
+      "purpose": "Public trust roots for TLS verification."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "chrono-tz",
+      "role": "dependencies/optional",
+      "specification": {
+        "version": "0.10",
+        "optional": true
+      },
+      "enabled_by": [
+        "full",
+        "chrono-tz"
+      ],
+      "evidence": [
+        {
+          "path": "src/datetime_types.rs",
+          "line": 21,
+          "source": "use chrono_tz::Tz;",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/datetime_types.rs#L21"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Named IANA time-zone support.",
+      "purpose": "Named IANA time-zone support."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "ordered-float",
+      "role": "dev-dependencies",
+      "specification": "5.5",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "tests/extern_extras_unit.rs",
+          "line": 12,
+          "source": "use ordered_float::OrderedFloat;",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/tests/extern_extras_unit.rs#L12"
+        },
+        {
+          "path": "tests/json_convert_unit.rs",
+          "line": 23,
+          "source": "value_to_json(&Value::Float(ordered_float::OrderedFloat(1.5))).unwrap(),",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/tests/json_convert_unit.rs#L23"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Hashable and comparable floating-point values; integration-test Value construction.",
+      "purpose": "Hashable and comparable floating-point values; integration-test Value construction."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "libc",
+      "role": "dev-dependencies",
+      "specification": "0.2",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "tests/closure_unit.rs",
+          "line": 29,
+          "source": "/// itself is `libc::malloc`'d so `mux_closure_release` can `libc::free` it.",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/tests/closure_unit.rs#L29"
+        },
+        {
+          "path": "tests/sync_unit.rs",
+          "line": 28,
+          "source": "/// `libc::malloc` because `mux_closure_release` frees it with `libc::free` once",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/tests/sync_unit.rs#L28"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Platform system calls, allocation and synchronization; FFI tests.",
+      "purpose": "Platform system calls, allocation and synchronization; FFI tests."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "criterion",
+      "role": "dev-dependencies",
+      "specification": {
+        "version": "0.8",
+        "features": [
+          "html_reports"
+        ]
+      },
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "benches/hot_paths.rs",
+          "line": 41,
+          "source": "use criterion::{criterion_group, criterion_main, Criterion};",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/benches/hot_paths.rs#L41"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Manual performance benchmarks, including HTML reports.",
+      "purpose": "Manual performance benchmarks, including HTML reports."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "windows-sys",
+      "role": "dependencies",
+      "specification": {
+        "version": "0.61",
+        "features": [
+          "Win32_Foundation",
+          "Win32_System_Kernel",
+          "Win32_System_Threading",
+          "Win32_Storage_FileSystem"
+        ]
+      },
+      "enabled_by": [],
+      "target": "cfg(windows)",
+      "evidence": [
+        {
+          "path": "src/crypto.rs",
+          "line": 500,
+          "source": "windows_sys::Win32::Storage::FileSystem::MoveFileExW(",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/crypto.rs#L500"
+        },
+        {
+          "path": "src/io.rs",
+          "line": 1119,
+          "source": "windows_sys::Win32::Storage::FileSystem::MoveFileExW(",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/io.rs#L1119"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Windows file replacement, console or synchronization APIs.",
+      "purpose": "Windows file replacement, console or synchronization APIs."
+    },
+    {
+      "repository": "mux-runtime",
+      "baseline": "12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a",
+      "manifest": "Cargo.toml",
+      "scope": ".",
+      "dependency": "named_pipe",
+      "role": "dependencies",
+      "specification": "0.4.1",
+      "enabled_by": [],
+      "target": "cfg(windows)",
+      "evidence": [
+        {
+          "path": "src/net.rs",
+          "line": 22,
+          "source": "use named_pipe::{ConnectingServer, PipeClient, PipeOptions, PipeServer};",
+          "url": "https://github.com/muxlang/mux-runtime/blob/12ffff9308fd20df0e9c0c0161f61fa58ed4ba5a/src/net.rs#L22"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Windows named-pipe IPC transport.",
+      "purpose": "Windows named-pipe IPC transport."
+    },
+    {
+      "repository": "mux-compiler",
+      "baseline": "f958098a6d56d1c9c7a830cb119b79ff020ff029",
+      "manifest": "mux-compiler/Cargo.toml",
+      "scope": "mux-compiler",
+      "dependency": "anstream",
+      "role": "dependencies",
+      "specification": "1",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "mux-compiler/src/diagnostic/emitter.rs",
+          "line": 7,
+          "source": "use anstream::eprintln;",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/src/diagnostic/emitter.rs#L7"
+        },
+        {
+          "path": "mux-compiler/src/main.rs",
+          "line": 10,
+          "source": "use anstream::{eprintln, println};",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/src/main.rs#L10"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Terminal-aware diagnostic output.",
+      "purpose": "Terminal-aware diagnostic output."
+    },
+    {
+      "repository": "mux-compiler",
+      "baseline": "f958098a6d56d1c9c7a830cb119b79ff020ff029",
+      "manifest": "mux-compiler/Cargo.toml",
+      "scope": "mux-compiler",
+      "dependency": "anstyle",
+      "role": "dependencies",
+      "specification": "1",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "mux-compiler/src/diagnostic/styles.rs",
+          "line": 7,
+          "source": "use anstyle::{AnsiColor, Color, RgbColor, Style};",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/src/diagnostic/styles.rs#L7"
+        },
+        {
+          "path": "mux-compiler/src/main.rs",
+          "line": 11,
+          "source": "use anstyle::AnsiColor;",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/src/main.rs#L11"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Diagnostic ANSI styles.",
+      "purpose": "Diagnostic ANSI styles."
+    },
+    {
+      "repository": "mux-compiler",
+      "baseline": "f958098a6d56d1c9c7a830cb119b79ff020ff029",
+      "manifest": "mux-compiler/Cargo.toml",
+      "scope": "mux-compiler",
+      "dependency": "crossbeam-channel",
+      "role": "dependencies",
+      "specification": "0.5",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "mux-compiler/src/lsp.rs",
+          "line": 263,
+          "source": "Err(crossbeam_channel::RecvTimeoutError::Timeout) => {}",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/src/lsp.rs#L263"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "LSP event and timeout channels.",
+      "purpose": "LSP event and timeout channels."
+    },
+    {
+      "repository": "mux-compiler",
+      "baseline": "f958098a6d56d1c9c7a830cb119b79ff020ff029",
+      "manifest": "mux-compiler/Cargo.toml",
+      "scope": "mux-compiler",
+      "dependency": "ordered-float",
+      "role": "dependencies",
+      "specification": "4.2",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "mux-compiler/src/ast/literals.rs",
+          "line": 2,
+          "source": "use ordered_float::OrderedFloat;",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/src/ast/literals.rs#L2"
+        },
+        {
+          "path": "mux-compiler/src/lexer/mod.rs",
+          "line": 15,
+          "source": "use ordered_float::OrderedFloat;",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/src/lexer/mod.rs#L15"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Hashable and comparable floating-point values; integration-test Value construction.",
+      "purpose": "Hashable and comparable floating-point values; integration-test Value construction."
+    },
+    {
+      "repository": "mux-compiler",
+      "baseline": "f958098a6d56d1c9c7a830cb119b79ff020ff029",
+      "manifest": "mux-compiler/Cargo.toml",
+      "scope": "mux-compiler",
+      "dependency": "unicode-width",
+      "role": "dependencies",
+      "specification": "0.1.11",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "mux-compiler/src/diagnostic/emitter.rs",
+          "line": 9,
+          "source": "use unicode_width::UnicodeWidthChar;",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/src/diagnostic/emitter.rs#L9"
+        },
+        {
+          "path": "mux-compiler/src/formatter/print.rs",
+          "line": 4,
+          "source": "use unicode_width::UnicodeWidthStr;",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/src/formatter/print.rs#L4"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Diagnostic source-column display widths.",
+      "purpose": "Diagnostic source-column display widths."
+    },
+    {
+      "repository": "mux-compiler",
+      "baseline": "f958098a6d56d1c9c7a830cb119b79ff020ff029",
+      "manifest": "mux-compiler/Cargo.toml",
+      "scope": "mux-compiler",
+      "dependency": "fs2",
+      "role": "dependencies",
+      "specification": "0.4",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "mux-compiler/src/diagnostic/fix.rs",
+          "line": 5,
+          "source": "use fs2::FileExt;",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/src/diagnostic/fix.rs#L5"
+        },
+        {
+          "path": "mux-compiler/src/formatter/files.rs",
+          "line": 7,
+          "source": "use fs2::FileExt;",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/src/formatter/files.rs#L7"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Advisory locks for safe file/update replacement.",
+      "purpose": "Advisory locks for safe file/update replacement."
+    },
+    {
+      "repository": "mux-compiler",
+      "baseline": "f958098a6d56d1c9c7a830cb119b79ff020ff029",
+      "manifest": "mux-compiler/Cargo.toml",
+      "scope": "mux-compiler",
+      "dependency": "lazy_static",
+      "role": "dependencies",
+      "specification": "1.4",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "mux-compiler/src/semantics/stdlib.rs",
+          "line": 30,
+          "source": "use lazy_static::lazy_static;",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/src/semantics/stdlib.rs#L30"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Shared standard-library metadata initialization.",
+      "purpose": "Shared standard-library metadata initialization."
+    },
+    {
+      "repository": "mux-compiler",
+      "baseline": "f958098a6d56d1c9c7a830cb119b79ff020ff029",
+      "manifest": "mux-compiler/Cargo.toml",
+      "scope": "mux-compiler",
+      "dependency": "inkwell",
+      "role": "dependencies",
+      "specification": {
+        "version": "0.9.0",
+        "features": [
+          "llvm22-1"
+        ]
+      },
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "mux-compiler/benches/compile.rs",
+          "line": 27,
+          "source": "use inkwell::context::Context;",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/benches/compile.rs#L27"
+        },
+        {
+          "path": "mux-compiler/src/codegen/classes.rs",
+          "line": 10,
+          "source": "use inkwell::AddressSpace;",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/src/codegen/classes.rs#L10"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "LLVM22 compiler backend.",
+      "purpose": "LLVM22 compiler backend."
+    },
+    {
+      "repository": "mux-compiler",
+      "baseline": "f958098a6d56d1c9c7a830cb119b79ff020ff029",
+      "manifest": "mux-compiler/Cargo.toml",
+      "scope": "mux-compiler",
+      "dependency": "clap",
+      "role": "dependencies",
+      "specification": {
+        "version": "4",
+        "features": [
+          "derive"
+        ]
+      },
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "mux-compiler/src/main.rs",
+          "line": 12,
+          "source": "use clap::{Parser as ClapParser, Subcommand, ValueEnum};",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/src/main.rs#L12"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Derive CLI argument parsers.",
+      "purpose": "Derive CLI argument parsers."
+    },
+    {
+      "repository": "mux-compiler",
+      "baseline": "f958098a6d56d1c9c7a830cb119b79ff020ff029",
+      "manifest": "mux-compiler/Cargo.toml",
+      "scope": "mux-compiler",
+      "dependency": "lsp-server",
+      "role": "dependencies",
+      "specification": "0.10",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "mux-compiler/src/lsp.rs",
+          "line": 9,
+          "source": "use lsp_server::{Connection, Message, Notification, Request, RequestId, Response};",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/src/lsp.rs#L9"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Language server stdio transport.",
+      "purpose": "Language server stdio transport."
+    },
+    {
+      "repository": "mux-compiler",
+      "baseline": "f958098a6d56d1c9c7a830cb119b79ff020ff029",
+      "manifest": "mux-compiler/Cargo.toml",
+      "scope": "mux-compiler",
+      "dependency": "lsp-types",
+      "role": "dependencies",
+      "specification": "0.97",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "mux-compiler/src/lsp.rs",
+          "line": 10,
+          "source": "use lsp_types as lsp;",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/src/lsp.rs#L10"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Language server protocol types.",
+      "purpose": "Language server protocol types."
+    },
+    {
+      "repository": "mux-compiler",
+      "baseline": "f958098a6d56d1c9c7a830cb119b79ff020ff029",
+      "manifest": "mux-compiler/Cargo.toml",
+      "scope": "mux-compiler",
+      "dependency": "url",
+      "role": "dependencies",
+      "specification": "2.5",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "mux-compiler/src/lsp.rs",
+          "line": 11,
+          "source": "use url::Url;",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/src/lsp.rs#L11"
+        },
+        {
+          "path": "mux-compiler/tests/lsp_integration.rs",
+          "line": 63,
+          "source": "let uri = url::Url::from_file_path(path).unwrap().to_string();",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/tests/lsp_integration.rs#L63"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "URL parsing and LSP file URI conversion.",
+      "purpose": "URL parsing and LSP file URI conversion."
+    },
+    {
+      "repository": "mux-compiler",
+      "baseline": "f958098a6d56d1c9c7a830cb119b79ff020ff029",
+      "manifest": "mux-compiler/Cargo.toml",
+      "scope": "mux-compiler",
+      "dependency": "mux-runtime",
+      "role": "dependencies",
+      "specification": {
+        "version": "0.6.1",
+        "git": "https://github.com/muxlang/mux-runtime",
+        "rev": "7f126042b0f8dd78a10b9db50a66e5dfb3ae448e"
+      },
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "mux-compiler/src/codegen/runtime.rs",
+          "line": 18,
+          "source": "/// mirror in lockstep with `mux_runtime::panic::RuntimeErrorCode`; the compiler",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/src/codegen/runtime.rs#L18"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Retain ABI pin; patch mysql and mysql-common-derive in compiler lock without moving the runtime git revision.",
+      "purpose": "ABI-coupled runtime for generated executables."
+    },
+    {
+      "repository": "mux-compiler",
+      "baseline": "f958098a6d56d1c9c7a830cb119b79ff020ff029",
+      "manifest": "mux-compiler/Cargo.toml",
+      "scope": "mux-compiler",
+      "dependency": "phf",
+      "role": "dependencies",
+      "specification": {
+        "version": "0.11",
+        "features": [
+          "macros"
+        ]
+      },
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "mux-compiler/src/semantics/stdlib.rs",
+          "line": 31,
+          "source": "use phf::phf_map;",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/src/semantics/stdlib.rs#L31"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Compile-time standard-library name lookup tables.",
+      "purpose": "Compile-time standard-library name lookup tables."
+    },
+    {
+      "repository": "mux-compiler",
+      "baseline": "f958098a6d56d1c9c7a830cb119b79ff020ff029",
+      "manifest": "mux-compiler/Cargo.toml",
+      "scope": "mux-compiler",
+      "dependency": "serde_json",
+      "role": "dependencies",
+      "specification": "1",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "mux-compiler/src/format_config.rs",
+          "line": 5,
+          "source": "use serde_json::{Map, Value};",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/src/format_config.rs#L5"
+        },
+        {
+          "path": "mux-compiler/src/lsp.rs",
+          "line": 143,
+          "source": "let initialize_params = serde_json::from_value::<lsp::InitializeParams>(initialize_params)?;",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/src/lsp.rs#L143"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "JSON encoding/decoding and LSP JSON transport.",
+      "purpose": "JSON encoding/decoding and LSP JSON transport."
+    },
+    {
+      "repository": "mux-compiler",
+      "baseline": "f958098a6d56d1c9c7a830cb119b79ff020ff029",
+      "manifest": "mux-compiler/Cargo.toml",
+      "scope": "mux-compiler",
+      "dependency": "insta",
+      "role": "dev-dependencies",
+      "specification": {
+        "version": "1.43.1",
+        "features": [
+          "yaml"
+        ]
+      },
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "mux-compiler/tests/executable_integration.rs",
+          "line": 1,
+          "source": "use insta::assert_snapshot;",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/tests/executable_integration.rs#L1"
+        },
+        {
+          "path": "mux-compiler/tests/lexer_integration.rs",
+          "line": 1,
+          "source": "use insta::assert_debug_snapshot;",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/tests/lexer_integration.rs#L1"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Compiler regression snapshots.",
+      "purpose": "Compiler regression snapshots."
+    },
+    {
+      "repository": "mux-compiler",
+      "baseline": "f958098a6d56d1c9c7a830cb119b79ff020ff029",
+      "manifest": "mux-compiler/Cargo.toml",
+      "scope": "mux-compiler",
+      "dependency": "ordered-float",
+      "role": "dev-dependencies",
+      "specification": "4.2",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "mux-compiler/tests/ast_unit.rs",
+          "line": 14,
+          "source": "use ordered_float::OrderedFloat;",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/tests/ast_unit.rs#L14"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Hashable and comparable floating-point values; integration-test Value construction.",
+      "purpose": "Hashable and comparable floating-point values; integration-test Value construction."
+    },
+    {
+      "repository": "mux-compiler",
+      "baseline": "f958098a6d56d1c9c7a830cb119b79ff020ff029",
+      "manifest": "mux-compiler/Cargo.toml",
+      "scope": "mux-compiler",
+      "dependency": "regex",
+      "role": "dev-dependencies",
+      "specification": "1",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "mux-compiler/tests/executable_integration.rs",
+          "line": 2,
+          "source": "use regex::Regex;",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/tests/executable_integration.rs#L2"
+        },
+        {
+          "path": "mux-compiler/tests/frontend_roundtrip.rs",
+          "line": 150,
+          "source": "let spans = regex::Regex::new(r\"Span \\{[^}]*\\}\").unwrap();",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/tests/frontend_roundtrip.rs#L150"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Public regex operations; compiler test-output normalization.",
+      "purpose": "Public regex operations; compiler test-output normalization."
+    },
+    {
+      "repository": "mux-compiler",
+      "baseline": "f958098a6d56d1c9c7a830cb119b79ff020ff029",
+      "manifest": "mux-compiler/Cargo.toml",
+      "scope": "mux-compiler",
+      "dependency": "toml",
+      "role": "dev-dependencies",
+      "specification": "0.8",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "mux-compiler/build.rs",
+          "line": 143,
+          "source": "/// `llvm-config-22` on PATH and write the prefix to `.cargo/config.toml`.",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/build.rs#L143"
+        },
+        {
+          "path": "mux-compiler/tests/styles_must_use.rs",
+          "line": 63,
+          "source": ".arg(package_root.join(\"Cargo.toml\"))",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/tests/styles_must_use.rs#L63"
+        }
+      ],
+      "verdict": "remove",
+      "reason": "No import, require, CLI/config entry, generated consumer or platform use in tracked scope. Existing replacement path is documented in the report.",
+      "purpose": "No TOML parser calls remain; config generation uses strings."
+    },
+    {
+      "repository": "mux-compiler",
+      "baseline": "f958098a6d56d1c9c7a830cb119b79ff020ff029",
+      "manifest": "mux-compiler/Cargo.toml",
+      "scope": "mux-compiler",
+      "dependency": "criterion",
+      "role": "dev-dependencies",
+      "specification": {
+        "version": "0.5",
+        "features": [
+          "html_reports"
+        ]
+      },
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "mux-compiler/benches/compile.rs",
+          "line": 26,
+          "source": "use criterion::{BatchSize, BenchmarkId, Criterion, black_box, criterion_group, criterion_main};",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/benches/compile.rs#L26"
+        },
+        {
+          "path": "mux-compiler/benches/execution.rs",
+          "line": 22,
+          "source": "use criterion::{BenchmarkId, Criterion, criterion_group, criterion_main};",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/benches/execution.rs#L22"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Manual performance benchmarks, including HTML reports.",
+      "purpose": "Manual performance benchmarks, including HTML reports."
+    },
+    {
+      "repository": "mux-compiler",
+      "baseline": "f958098a6d56d1c9c7a830cb119b79ff020ff029",
+      "manifest": "mux-compiler/Cargo.toml",
+      "scope": "mux-compiler",
+      "dependency": "set-git-hooks-dir",
+      "role": "build-dependencies",
+      "specification": "1.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "mux-compiler/build.rs",
+          "line": 23,
+          "source": "let _ = set_git_hooks_dir::setup(workspace_root.join(\".github/hooks\"), workspace_root);",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/build.rs#L23"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Install repository-local Git hooks from build.rs.",
+      "purpose": "Install repository-local Git hooks from build.rs."
+    },
+    {
+      "repository": "mux-compiler",
+      "baseline": "f958098a6d56d1c9c7a830cb119b79ff020ff029",
+      "manifest": "mux-compiler/Cargo.toml",
+      "scope": "mux-compiler",
+      "dependency": "windows-sys",
+      "role": "dependencies",
+      "specification": {
+        "version": "0.59",
+        "features": [
+          "Win32_Storage_FileSystem"
+        ]
+      },
+      "enabled_by": [],
+      "target": "cfg(windows)",
+      "evidence": [
+        {
+          "path": "mux-compiler/src/diagnostic/fix.rs",
+          "line": 627,
+          "source": "use windows_sys::Win32::Storage::FileSystem::{REPLACEFILE_WRITE_THROUGH, ReplaceFileW};",
+          "url": "https://github.com/muxlang/mux-compiler/blob/f958098a6d56d1c9c7a830cb119b79ff020ff029/mux-compiler/src/diagnostic/fix.rs#L627"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Windows file replacement, console or synchronization APIs.",
+      "purpose": "Windows file replacement, console or synchronization APIs."
+    },
+    {
+      "repository": "mux-website-api",
+      "baseline": "f21cdddb18b38eb9b734848ee847aa36bc200a21",
+      "manifest": "requirements-dev.txt",
+      "scope": ".",
+      "dependency": "pytest",
+      "role": "dev",
+      "specification": ">=9.1.1,<10.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "tests/test_server.py",
+          "line": 12,
+          "source": "import pytest",
+          "url": "https://github.com/muxlang/mux-website-api/blob/f21cdddb18b38eb9b734848ee847aa36bc200a21/tests/test_server.py#L12"
+        },
+        {
+          "path": "tests/origin_contract_smoke.py",
+          "line": 3,
+          "source": "This smoke is intentionally separate from pytest because it requires the",
+          "url": "https://github.com/muxlang/mux-website-api/blob/f21cdddb18b38eb9b734848ee847aa36bc200a21/tests/origin_contract_smoke.py#L3"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Python regression tests.",
+      "purpose": "Python regression tests."
+    },
+    {
+      "repository": "mux-website-api",
+      "baseline": "f21cdddb18b38eb9b734848ee847aa36bc200a21",
+      "manifest": "requirements-dev.txt",
+      "scope": ".",
+      "dependency": "pytest-cov",
+      "role": "dev",
+      "specification": ">=7.1.0,<8.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": ".github/workflows/ci.yml",
+          "line": 65,
+          "source": "run: python -m pytest -q --cov=server --cov-branch --cov-report=xml:coverage.xml",
+          "url": "https://github.com/muxlang/mux-website-api/blob/f21cdddb18b38eb9b734848ee847aa36bc200a21/.github/workflows/ci.yml#L65"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "CI server branch/line coverage gate.",
+      "purpose": "CI server branch/line coverage gate."
+    },
+    {
+      "repository": "mux-website-api",
+      "baseline": "f21cdddb18b38eb9b734848ee847aa36bc200a21",
+      "manifest": "requirements-dev.txt",
+      "scope": ".",
+      "dependency": "ruff",
+      "role": "dev",
+      "specification": ">=0.17.1,<1.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "pyproject.toml",
+          "line": 1,
+          "source": "[tool.ruff]",
+          "url": "https://github.com/muxlang/mux-website-api/blob/f21cdddb18b38eb9b734848ee847aa36bc200a21/pyproject.toml#L1"
+        },
+        {
+          "path": ".github/workflows/ci.yml",
+          "line": 58,
+          "source": "ruff check .",
+          "url": "https://github.com/muxlang/mux-website-api/blob/f21cdddb18b38eb9b734848ee847aa36bc200a21/.github/workflows/ci.yml#L58"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Python lint and format checks.",
+      "purpose": "Python lint and format checks."
+    },
+    {
+      "repository": "mux-website-api",
+      "baseline": "f21cdddb18b38eb9b734848ee847aa36bc200a21",
+      "manifest": "requirements-dev.txt",
+      "scope": ".",
+      "dependency": "mypy",
+      "role": "dev",
+      "specification": ">=2.4.0,<3.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "pyproject.toml",
+          "line": 12,
+          "source": "[tool.mypy]",
+          "url": "https://github.com/muxlang/mux-website-api/blob/f21cdddb18b38eb9b734848ee847aa36bc200a21/pyproject.toml#L12"
+        },
+        {
+          "path": ".github/workflows/ci.yml",
+          "line": 61,
+          "source": "run: mypy server.py",
+          "url": "https://github.com/muxlang/mux-website-api/blob/f21cdddb18b38eb9b734848ee847aa36bc200a21/.github/workflows/ci.yml#L61"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Python static type checks.",
+      "purpose": "Python static type checks."
+    },
+    {
+      "repository": "mux-website-api",
+      "baseline": "f21cdddb18b38eb9b734848ee847aa36bc200a21",
+      "manifest": "requirements-dev.txt",
+      "scope": ".",
+      "dependency": "pip-audit",
+      "role": "dev",
+      "specification": ">=2.10.1,<3.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": ".github/workflows/ci.yml",
+          "line": 63,
+          "source": "run: pip-audit -r requirements.lock",
+          "url": "https://github.com/muxlang/mux-website-api/blob/f21cdddb18b38eb9b734848ee847aa36bc200a21/.github/workflows/ci.yml#L63"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "CI locked Python vulnerability audit.",
+      "purpose": "CI locked Python vulnerability audit."
+    },
+    {
+      "repository": "mux-website-api",
+      "baseline": "f21cdddb18b38eb9b734848ee847aa36bc200a21",
+      "manifest": "requirements.txt",
+      "scope": ".",
+      "dependency": "flask",
+      "role": "runtime",
+      "specification": ">=3.1.3,<4.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "server.py",
+          "line": 15,
+          "source": "from flask import Flask, jsonify, request",
+          "url": "https://github.com/muxlang/mux-website-api/blob/f21cdddb18b38eb9b734848ee847aa36bc200a21/server.py#L15"
+        },
+        {
+          "path": ".github/workflows/ci.yml",
+          "line": 53,
+          "source": "- run: python -c \"import flask, flask_cors, flask_limiter, gunicorn\"",
+          "url": "https://github.com/muxlang/mux-website-api/blob/f21cdddb18b38eb9b734848ee847aa36bc200a21/.github/workflows/ci.yml#L53"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "API routing, JSON responses and request limits.",
+      "purpose": "API routing, JSON responses and request limits."
+    },
+    {
+      "repository": "mux-website-api",
+      "baseline": "f21cdddb18b38eb9b734848ee847aa36bc200a21",
+      "manifest": "requirements.txt",
+      "scope": ".",
+      "dependency": "flask-cors",
+      "role": "runtime",
+      "specification": ">=6.0.5,<7.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "server.py",
+          "line": 16,
+          "source": "from flask_cors import CORS",
+          "url": "https://github.com/muxlang/mux-website-api/blob/f21cdddb18b38eb9b734848ee847aa36bc200a21/server.py#L16"
+        },
+        {
+          "path": ".github/workflows/ci.yml",
+          "line": 53,
+          "source": "- run: python -c \"import flask, flask_cors, flask_limiter, gunicorn\"",
+          "url": "https://github.com/muxlang/mux-website-api/blob/f21cdddb18b38eb9b734848ee847aa36bc200a21/.github/workflows/ci.yml#L53"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Explicit browser CORS boundary.",
+      "purpose": "Explicit browser CORS boundary."
+    },
+    {
+      "repository": "mux-website-api",
+      "baseline": "f21cdddb18b38eb9b734848ee847aa36bc200a21",
+      "manifest": "requirements.txt",
+      "scope": ".",
+      "dependency": "flask-limiter",
+      "role": "runtime",
+      "specification": ">=4.1.1,<5.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "server.py",
+          "line": 17,
+          "source": "from flask_limiter import Limiter",
+          "url": "https://github.com/muxlang/mux-website-api/blob/f21cdddb18b38eb9b734848ee847aa36bc200a21/server.py#L17"
+        },
+        {
+          "path": ".github/workflows/ci.yml",
+          "line": 53,
+          "source": "- run: python -c \"import flask, flask_cors, flask_limiter, gunicorn\"",
+          "url": "https://github.com/muxlang/mux-website-api/blob/f21cdddb18b38eb9b734848ee847aa36bc200a21/.github/workflows/ci.yml#L53"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Request rate limits using configured storage.",
+      "purpose": "Request rate limits using configured storage."
+    },
+    {
+      "repository": "mux-website-api",
+      "baseline": "f21cdddb18b38eb9b734848ee847aa36bc200a21",
+      "manifest": "requirements.txt",
+      "scope": ".",
+      "dependency": "gunicorn",
+      "role": "runtime",
+      "specification": ">=26.2.0,<27.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": ".github/workflows/ci.yml",
+          "line": 53,
+          "source": "- run: python -c \"import flask, flask_cors, flask_limiter, gunicorn\"",
+          "url": "https://github.com/muxlang/mux-website-api/blob/f21cdddb18b38eb9b734848ee847aa36bc200a21/.github/workflows/ci.yml#L53"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Production WSGI process server.",
+      "purpose": "Production WSGI process server."
+    },
+    {
+      "repository": "mux-website-api",
+      "baseline": "f21cdddb18b38eb9b734848ee847aa36bc200a21",
+      "manifest": "requirements.txt",
+      "scope": ".",
+      "dependency": "redis",
+      "role": "runtime",
+      "specification": ">=5.0,<8.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "server.py",
+          "line": 48,
+          "source": "if urlparse(configured).scheme not in {\"redis\", \"rediss\", \"memory\"}:",
+          "url": "https://github.com/muxlang/mux-website-api/blob/f21cdddb18b38eb9b734848ee847aa36bc200a21/server.py#L48"
+        },
+        {
+          "path": ".github/workflows/ci.yml",
+          "line": 108,
+          "source": "-e RATE_LIMIT_STORAGE_URI=redis://smoke-test mux-website-api:ci -eu -c '",
+          "url": "https://github.com/muxlang/mux-website-api/blob/f21cdddb18b38eb9b734848ee847aa36bc200a21/.github/workflows/ci.yml#L108"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "flask-limiter production shared Redis storage driver.",
+      "purpose": "flask-limiter production shared Redis storage driver."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "@codemirror/basic-setup",
+      "role": "dependencies",
+      "specification": "^0.20.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "package.json",
+          "line": 1,
+          "source": "Full tracked package scope inspected; declaration/lock only. Negative search evidence, not a usage claim.",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/package.json#L1"
+        }
+      ],
+      "verdict": "remove",
+      "reason": "No import, require, CLI/config entry, generated consumer or platform use in tracked scope. Existing replacement path is documented in the report.",
+      "purpose": "Unused former CodeMirror playground editor."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "@codemirror/lang-python",
+      "role": "dependencies",
+      "specification": "^6.2.1",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "package.json",
+          "line": 1,
+          "source": "Full tracked package scope inspected; declaration/lock only. Negative search evidence, not a usage claim.",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/package.json#L1"
+        }
+      ],
+      "verdict": "remove",
+      "reason": "No import, require, CLI/config entry, generated consumer or platform use in tracked scope. Existing replacement path is documented in the report.",
+      "purpose": "Unused former CodeMirror playground editor."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "@codemirror/theme-one-dark",
+      "role": "dependencies",
+      "specification": "^6.1.3",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "package.json",
+          "line": 1,
+          "source": "Full tracked package scope inspected; declaration/lock only. Negative search evidence, not a usage claim.",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/package.json#L1"
+        }
+      ],
+      "verdict": "remove",
+      "reason": "No import, require, CLI/config entry, generated consumer or platform use in tracked scope. Existing replacement path is documented in the report.",
+      "purpose": "Unused former CodeMirror playground editor."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "@docusaurus/core",
+      "role": "dependencies",
+      "specification": "4.0.0-canary-6884",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "scripts/ci/npm-audit-gate.test.mjs",
+          "line": 17,
+          "source": "\"@docusaurus/core\": { severity: \"high\", via: [\"micromatch\"] },",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/scripts/ci/npm-audit-gate.test.mjs#L17"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Site build, routing and generated runtime.",
+      "purpose": "Site build, routing and generated runtime."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "@docusaurus/faster",
+      "role": "dependencies",
+      "specification": "4.0.0-canary-6884",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "docusaurus.config.ts",
+          "line": 77,
+          "source": "v4: true,",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/docusaurus.config.ts#L77"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Docusaurus v4 default accelerated compiler/bundler integration. Framework core configValidation.js enables fasterByDefault for v4; absence of a direct import does not imply unused.",
+      "purpose": "Docusaurus v4 default accelerated compiler/bundler integration."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "@docusaurus/preset-classic",
+      "role": "dependencies",
+      "specification": "4.0.0-canary-6884",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "docusaurus.config.ts",
+          "line": 3,
+          "source": "import type * as Preset from \"@docusaurus/preset-classic\";",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/docusaurus.config.ts#L3"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Docs/blog/theme preset configured by classic shorthand.",
+      "purpose": "Docs/blog/theme preset configured by classic shorthand."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "@mdx-js/react",
+      "role": "dependencies",
+      "specification": "^3.0.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "docusaurus.config.ts",
+          "line": 98,
+          "source": "presets: [",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/docusaurus.config.ts#L98"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Framework-generated MDX provider runtime peer. Generated MDX modules import the provider; required peer of framework MDX loader.",
+      "purpose": "Framework-generated MDX provider runtime peer."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "@monaco-editor/react",
+      "role": "dependencies",
+      "specification": "^4.7.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "src/components/MonacoEditor/index.tsx",
+          "line": 2,
+          "source": "import MonacoEditor, { type OnMount } from '@monaco-editor/react';",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/src/components/MonacoEditor/index.tsx#L2"
+        },
+        {
+          "path": "src/components/MonacoEditor/index.test.tsx",
+          "line": 11,
+          "source": "vi.mock(\"@monaco-editor/react\", () => ({",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/src/components/MonacoEditor/index.test.tsx#L11"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "React wrapper for playground Monaco editor.",
+      "purpose": "React wrapper for playground Monaco editor."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "@muxlang/docusaurus-search-local",
+      "role": "dependencies",
+      "specification": "file:plugins/mux-search-local",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "docusaurus.config.ts",
+          "line": 129,
+          "source": "\"@muxlang/docusaurus-search-local\",",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/docusaurus.config.ts#L129"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Configured local offline-search theme.",
+      "purpose": "Configured local offline-search theme."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "@shikijs/langs",
+      "role": "dependencies",
+      "specification": "^4.0.2",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "src/shiki/highlighter.ts",
+          "line": 3,
+          "source": "import bash from \"@shikijs/langs/bash\";",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/src/shiki/highlighter.ts#L3"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Explicit shell and JavaScript language grammars.",
+      "purpose": "Explicit shell and JavaScript language grammars."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "@shikijs/rehype",
+      "role": "dependencies",
+      "specification": "^4.0.2",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "package.json",
+          "line": 1,
+          "source": "Full tracked package scope inspected; declaration/lock only. Negative search evidence, not a usage claim.",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/package.json#L1"
+        }
+      ],
+      "verdict": "remove",
+      "reason": "No import, require, CLI/config entry, generated consumer or platform use in tracked scope. Existing replacement path is documented in the report.",
+      "purpose": "Unused former rehype syntax-highlighting pipeline."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "@uiw/react-codemirror",
+      "role": "dependencies",
+      "specification": "^4.25.9",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "package.json",
+          "line": 1,
+          "source": "Full tracked package scope inspected; declaration/lock only. Negative search evidence, not a usage claim.",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/package.json#L1"
+        }
+      ],
+      "verdict": "remove",
+      "reason": "No import, require, CLI/config entry, generated consumer or platform use in tracked scope. Existing replacement path is documented in the report.",
+      "purpose": "Unused former CodeMirror playground editor."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "clsx",
+      "role": "dependencies",
+      "specification": "^2.0.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "src/pages/index.tsx",
+          "line": 3,
+          "source": "import clsx from \"clsx\";",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/src/pages/index.tsx#L3"
+        },
+        {
+          "path": "src/pages/changelog.tsx",
+          "line": 2,
+          "source": "import clsx from \"clsx\";",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/src/pages/changelog.tsx#L2"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Conditional CSS class names.",
+      "purpose": "Conditional CSS class names."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "monaco-editor",
+      "role": "dependencies",
+      "specification": "^0.53.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "src/monaco/muxTheme.ts",
+          "line": 1,
+          "source": "import type * as Monaco from 'monaco-editor';",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/src/monaco/muxTheme.ts#L1"
+        },
+        {
+          "path": "src/monaco/muxLanguage.ts",
+          "line": 1,
+          "source": "import type * as Monaco from \"monaco-editor\";",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/src/monaco/muxLanguage.ts#L1"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Playground language API and editor workers.",
+      "purpose": "Playground language API and editor workers."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "prism-react-renderer",
+      "role": "dependencies",
+      "specification": "^2.3.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "docusaurus.config.ts",
+          "line": 1,
+          "source": "import { themes as prismThemes } from \"prism-react-renderer\";",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/docusaurus.config.ts#L1"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Docusaurus code blocks and Prism themes.",
+      "purpose": "Docusaurus code blocks and Prism themes."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "react",
+      "role": "dependencies",
+      "specification": "^19.3.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "test/setup.ts",
+          "line": 2,
+          "source": "import { cleanup } from \"@testing-library/react\";",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/test/setup.ts#L2"
+        },
+        {
+          "path": "eslint.config.mjs",
+          "line": 2,
+          "source": "import reactHooks from 'eslint-plugin-react-hooks';",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/eslint.config.mjs#L2"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Site/editor UI component runtime or plugin host peer.",
+      "purpose": "Site/editor UI component runtime or plugin host peer."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "react-dom",
+      "role": "dependencies",
+      "specification": "^19.3.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "src/hooks/useModifierKeyLabel.test.ts",
+          "line": 4,
+          "source": "import { renderToString } from 'react-dom/server';",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/src/hooks/useModifierKeyLabel.test.ts#L4"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "React renderer host peer and SSR tests.",
+      "purpose": "React renderer host peer and SSR tests."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "react-markdown",
+      "role": "dependencies",
+      "specification": "^10.1.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "src/pages/changelog.tsx",
+          "line": 4,
+          "source": "import ReactMarkdown from \"react-markdown\";",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/src/pages/changelog.tsx#L4"
+        },
+        {
+          "path": "src/components/Chat/ChatMessage.tsx",
+          "line": 2,
+          "source": "import ReactMarkdown from 'react-markdown';",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/src/components/Chat/ChatMessage.tsx#L2"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Render chat answers and changelog Markdown.",
+      "purpose": "Render chat answers and changelog Markdown."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "rehype-highlight",
+      "role": "dependencies",
+      "specification": "^7.0.2",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "package.json",
+          "line": 1,
+          "source": "Full tracked package scope inspected; declaration/lock only. Negative search evidence, not a usage claim.",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/package.json#L1"
+        }
+      ],
+      "verdict": "remove",
+      "reason": "No import, require, CLI/config entry, generated consumer or platform use in tracked scope. Existing replacement path is documented in the report.",
+      "purpose": "Unused prior Markdown highlighter."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "shiki",
+      "role": "dependencies",
+      "specification": "^4.0.2",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "src/shiki/highlighter.ts",
+          "line": 1,
+          "source": "import { createHighlighter, type Highlighter, type LanguageInput } from \"shiki\";",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/src/shiki/highlighter.ts#L1"
+        },
+        {
+          "path": "scripts/check-syntax-parity.mjs",
+          "line": 6,
+          "source": "//   - src/shiki/mux.json         (docs code blocks: regex alternations)",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/scripts/check-syntax-parity.mjs#L6"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Direct syntax highlighter and custom Mux grammar.",
+      "purpose": "Direct syntax highlighter and custom Mux grammar."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "@docusaurus/module-type-aliases",
+      "role": "devDependencies",
+      "specification": "4.0.0-canary-6884",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "tsconfig.json",
+          "line": 2,
+          "source": "\"extends\": \"@docusaurus/tsconfig\",",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/tsconfig.json#L2"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Generated Docusaurus/theme virtual-module type declarations. Framework tsconfig brings virtual @theme/@docusaurus declarations into generated type resolution.",
+      "purpose": "Generated Docusaurus/theme virtual-module type declarations."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "@docusaurus/tsconfig",
+      "role": "devDependencies",
+      "specification": "4.0.0-canary-6884",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "tsconfig.json",
+          "line": 2,
+          "source": "\"extends\": \"@docusaurus/tsconfig\",",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/tsconfig.json#L2"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Framework TypeScript base configuration.",
+      "purpose": "Framework TypeScript base configuration."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "@docusaurus/types",
+      "role": "devDependencies",
+      "specification": "4.0.0-canary-6884",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "docusaurus.config.ts",
+          "line": 2,
+          "source": "import type { Config } from \"@docusaurus/types\";",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/docusaurus.config.ts#L2"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Site configuration types.",
+      "purpose": "Site configuration types."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "@docusaurus/utils",
+      "role": "devDependencies",
+      "specification": "4.0.0-canary-6884",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "plugins/mux-search-local/lib/server/index.js",
+          "line": 7,
+          "source": "const utils_1 = require(\"@docusaurus/utils\");",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/plugins/mux-search-local/lib/server/index.js#L7"
+        },
+        {
+          "path": "plugins/mux-search-local/lib/server/options.js",
+          "line": 5,
+          "source": "const utils_validation_1 = require(\"@docusaurus/utils-validation\");",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/plugins/mux-search-local/lib/server/options.js#L5"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Search plugin server URL and build utilities.",
+      "purpose": "Search plugin server URL and build utilities."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "@docusaurus/utils-validation",
+      "role": "devDependencies",
+      "specification": "4.0.0-canary-6884",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "plugins/mux-search-local/lib/server/options.js",
+          "line": 5,
+          "source": "const utils_validation_1 = require(\"@docusaurus/utils-validation\");",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/plugins/mux-search-local/lib/server/options.js#L5"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Search plugin option schema validation.",
+      "purpose": "Search plugin option schema validation."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "@noble/hashes",
+      "role": "devDependencies",
+      "specification": "^2.4.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "package.json",
+          "line": 1,
+          "source": "Full tracked package scope inspected; declaration/lock only. Negative search evidence, not a usage claim.",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/package.json#L1"
+        }
+      ],
+      "verdict": "remove",
+      "reason": "No import, require, CLI/config entry, generated consumer or platform use in tracked scope. Existing replacement path is documented in the report.",
+      "purpose": "Unused former hashing helper."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "@testing-library/jest-dom",
+      "role": "devDependencies",
+      "specification": "^6.9.1",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "test/setup.ts",
+          "line": 1,
+          "source": "import \"@testing-library/jest-dom/vitest\";",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/test/setup.ts#L1"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "DOM assertion extensions.",
+      "purpose": "DOM assertion extensions."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "@testing-library/react",
+      "role": "devDependencies",
+      "specification": "^16.3.3",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "test/setup.ts",
+          "line": 2,
+          "source": "import { cleanup } from \"@testing-library/react\";",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/test/setup.ts#L2"
+        },
+        {
+          "path": "src/hooks/useChat.test.ts",
+          "line": 1,
+          "source": "import { act, renderHook } from '@testing-library/react';",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/src/hooks/useChat.test.ts#L1"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Browser component/hook tests.",
+      "purpose": "Browser component/hook tests."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "@types/js-yaml",
+      "role": "devDependencies",
+      "specification": "^4.0.9",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "docusaurus.config.ts",
+          "line": 4,
+          "source": "import { load as loadYaml } from \"js-yaml\";",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/docusaurus.config.ts#L4"
+        },
+        {
+          "path": "tools/docs-indexer/src/extract.ts",
+          "line": 2,
+          "source": "import { load as loadYaml } from 'js-yaml';",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/tools/docs-indexer/src/extract.ts#L2"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Type declarations for front matter parser.",
+      "purpose": "Type declarations for front matter parser."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "@vitejs/plugin-react",
+      "role": "devDependencies",
+      "specification": "^6.1.1",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "vitest.config.mts",
+          "line": 2,
+          "source": "import react from \"@vitejs/plugin-react\";",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/vitest.config.mts#L2"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Vitest JSX and React transforms.",
+      "purpose": "Vitest JSX and React transforms."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "@vitest/coverage-v8",
+      "role": "devDependencies",
+      "specification": "^4.1.11",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "package.json",
+          "line": 12,
+          "source": "\"test:coverage\": \"vitest run --coverage\",",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/package.json#L12"
+        }
+      ],
+      "verdict": "upgrade",
+      "reason": "Upgrade matched Vitest and coverage provider from 4.1.11 to 4.1.12 to fix mocker code injection and Windows redirect traversal advisories.",
+      "purpose": "Vitest dynamically selected coverage provider."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "eslint",
+      "role": "devDependencies",
+      "specification": "^10.5.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "eslint.config.mjs",
+          "line": 1,
+          "source": "import tseslint from 'typescript-eslint';",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/eslint.config.mjs#L1"
+        },
+        {
+          "path": "src/hooks/useLoadingStage.ts",
+          "line": 18,
+          "source": "/* eslint-disable react-hooks/set-state-in-effect */",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/src/hooks/useLoadingStage.ts#L18"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "JavaScript/TypeScript lint CLI.",
+      "purpose": "JavaScript/TypeScript lint CLI."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "eslint-plugin-react-hooks",
+      "role": "devDependencies",
+      "specification": "^7.1.1",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "eslint.config.mjs",
+          "line": 2,
+          "source": "import reactHooks from 'eslint-plugin-react-hooks';",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/eslint.config.mjs#L2"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "React hooks lint rules.",
+      "purpose": "React hooks lint rules."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "jsdom",
+      "role": "devDependencies",
+      "specification": "^29.1.1",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "vitest.config.mts",
+          "line": 34,
+          "source": "environment: \"jsdom\",",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/vitest.config.mts#L34"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Configured Vitest browser DOM environment.",
+      "purpose": "Configured Vitest browser DOM environment."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "prettier",
+      "role": "devDependencies",
+      "specification": "3.9.6",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "scripts/check-format.mjs",
+          "line": 37,
+          "source": "const prettier = fileURLToPath(",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/scripts/check-format.mjs#L37"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Repository formatting CLI and check script.",
+      "purpose": "Repository formatting CLI and check script."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "typescript",
+      "role": "devDependencies",
+      "specification": "^6.0.3",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "package.json",
+          "line": 19,
+          "source": "\"typecheck\": \"tsc\",",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/package.json#L19"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Provides the tsc executable used by the website's typecheck script.",
+      "purpose": "Provides the tsc executable used by the website's typecheck script."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "typescript-eslint",
+      "role": "devDependencies",
+      "specification": "^8.61.1",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "eslint.config.mjs",
+          "line": 1,
+          "source": "import tseslint from 'typescript-eslint';",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/eslint.config.mjs#L1"
+        },
+        {
+          "path": "plugins/mux-search-local/lib/server/utils/getIndexHash.js",
+          "line": 36,
+          "source": "// eslint-disable-next-line @typescript-eslint/no-var-requires",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/plugins/mux-search-local/lib/server/utils/getIndexHash.js#L36"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Typed ESLint configuration and rules.",
+      "purpose": "Typed ESLint configuration and rules."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "vitest",
+      "role": "devDependencies",
+      "specification": "^4.1.11",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "test/setup.ts",
+          "line": 1,
+          "source": "import \"@testing-library/jest-dom/vitest\";",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/test/setup.ts#L1"
+        },
+        {
+          "path": "vitest.config.mts",
+          "line": 1,
+          "source": "import { defineConfig } from \"vitest/config\";",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/vitest.config.mts#L1"
+        }
+      ],
+      "verdict": "upgrade",
+      "reason": "Upgrade matched Vitest and coverage provider from 4.1.11 to 4.1.12 to fix mocker code injection and Windows redirect traversal advisories.",
+      "purpose": "Site/search unit and browser tests."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "plugins/mux-search-local/package.json",
+      "scope": "plugins/mux-search-local",
+      "dependency": "@braintree/sanitize-url",
+      "role": "dependencies",
+      "specification": "^6.0.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "plugins/mux-search-local/lib/client/utils/getExternalURI.js",
+          "line": 1,
+          "source": "import { sanitizeUrl } from \"@braintree/sanitize-url\";",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/plugins/mux-search-local/lib/client/utils/getExternalURI.js#L1"
+        },
+        {
+          "path": "plugins/mux-search-local/lib/client/theme/SearchModal/SearchResult.jsx",
+          "line": 3,
+          "source": "import { sanitizeUrl } from \"@braintree/sanitize-url\";",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/plugins/mux-search-local/lib/client/theme/SearchModal/SearchResult.jsx#L3"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Sanitize search-result external URLs.",
+      "purpose": "Sanitize search-result external URLs."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "plugins/mux-search-local/package.json",
+      "scope": "plugins/mux-search-local",
+      "dependency": "cheerio",
+      "role": "dependencies",
+      "specification": "^1.0.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "plugins/mux-search-local/lib/server/utils/parse.js",
+          "line": 5,
+          "source": "const cheerio = tslib_1.__importStar(require(\"cheerio\"));",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/plugins/mux-search-local/lib/server/utils/parse.js#L5"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Parse generated HTML for local search indexing.",
+      "purpose": "Parse generated HTML for local search indexing."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "plugins/mux-search-local/package.json",
+      "scope": "plugins/mux-search-local",
+      "dependency": "clsx",
+      "role": "dependencies",
+      "specification": "^1.1.1",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "plugins/mux-search-local/lib/client/theme/LoadingRing/LoadingRing.jsx",
+          "line": 3,
+          "source": "import clsx from \"clsx\";",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/plugins/mux-search-local/lib/client/theme/LoadingRing/LoadingRing.jsx#L3"
+        },
+        {
+          "path": "plugins/mux-search-local/lib/client/theme/SearchModal/SearchResult.jsx",
+          "line": 2,
+          "source": "import clsx from \"clsx\";",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/plugins/mux-search-local/lib/client/theme/SearchModal/SearchResult.jsx#L2"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Conditional CSS class names.",
+      "purpose": "Conditional CSS class names."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "plugins/mux-search-local/package.json",
+      "scope": "plugins/mux-search-local",
+      "dependency": "debug",
+      "role": "dependencies",
+      "specification": "^4.3.4",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "plugins/mux-search-local/lib/server/utils/debug.js",
+          "line": 5,
+          "source": "const debug_1 = tslib_1.__importDefault(require(\"debug\"));",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/plugins/mux-search-local/lib/server/utils/debug.js#L5"
+        },
+        {
+          "path": "plugins/mux-search-local/lib/server/utils/parsePage.js",
+          "line": 4,
+          "source": "const debug_1 = require(\"./debug\");",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/plugins/mux-search-local/lib/server/utils/parsePage.js#L4"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Search index build diagnostics.",
+      "purpose": "Search index build diagnostics."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "plugins/mux-search-local/package.json",
+      "scope": "plugins/mux-search-local",
+      "dependency": "fs-extra",
+      "role": "dependencies",
+      "specification": "^10.1.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "plugins/mux-search-local/package.json",
+          "line": 1,
+          "source": "Full tracked package scope inspected; declaration/lock only. Negative search evidence, not a usage claim.",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/plugins/mux-search-local/package.json#L1"
+        }
+      ],
+      "verdict": "remove",
+      "reason": "No import, require, CLI/config entry, generated consumer or platform use in tracked scope. Existing replacement path is documented in the report.",
+      "purpose": "Unused legacy filesystem helper; source uses node:fs."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "plugins/mux-search-local/package.json",
+      "scope": "plugins/mux-search-local",
+      "dependency": "klaw-sync",
+      "role": "dependencies",
+      "specification": "^6.0.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "plugins/mux-search-local/lib/server/utils/getIndexHash.js",
+          "line": 8,
+          "source": "const klaw_sync_1 = tslib_1.__importDefault(require(\"klaw-sync\"));",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/plugins/mux-search-local/lib/server/utils/getIndexHash.js#L8"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Traverse generated docs when hashing search index.",
+      "purpose": "Traverse generated docs when hashing search index."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "plugins/mux-search-local/package.json",
+      "scope": "plugins/mux-search-local",
+      "dependency": "lunr",
+      "role": "dependencies",
+      "specification": "^2.3.9",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "plugins/mux-search-local/lib/server/utils/buildIndex.js",
+          "line": 5,
+          "source": "const lunr_1 = tslib_1.__importDefault(require(\"lunr\"));",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/plugins/mux-search-local/lib/server/utils/buildIndex.js#L5"
+        },
+        {
+          "path": "plugins/mux-search-local/lib/server/pluginServer.test.js",
+          "line": 4,
+          "source": "import lunr from \"lunr\";",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/plugins/mux-search-local/lib/server/pluginServer.test.js#L4"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Build/query local search indexes.",
+      "purpose": "Build/query local search indexes."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "plugins/mux-search-local/package.json",
+      "scope": "plugins/mux-search-local",
+      "dependency": "mark.js",
+      "role": "dependencies",
+      "specification": "^8.11.1",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "plugins/mux-search-local/lib/client/theme/SearchBar/SearchBar.jsx",
+          "line": 8,
+          "source": "import Mark from \"mark.js\";",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/plugins/mux-search-local/lib/client/theme/SearchBar/SearchBar.jsx#L8"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Highlight matched search terms in rendered pages.",
+      "purpose": "Highlight matched search terms in rendered pages."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "plugins/mux-search-local/package.json",
+      "scope": "plugins/mux-search-local",
+      "dependency": "validate-peer-dependencies",
+      "role": "dependencies",
+      "specification": "^2.2.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "plugins/mux-search-local/lib/server/index.js",
+          "line": 8,
+          "source": "const validate_peer_dependencies_1 = tslib_1.__importDefault(require(\"validate-peer-dependencies\"));",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/plugins/mux-search-local/lib/server/index.js#L8"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Validate the plugin Docusaurus/React host contract.",
+      "purpose": "Validate the plugin Docusaurus/React host contract."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "plugins/mux-search-local/package.json",
+      "scope": "plugins/mux-search-local",
+      "dependency": "@docusaurus/core",
+      "role": "peerDependencies",
+      "specification": ">=3.0.0 || >=4.0.0-canary-0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "plugins/mux-search-local/lib/server/index.js",
+          "line": 13,
+          "source": "(0, validate_peer_dependencies_1.default)(__dirname);",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/plugins/mux-search-local/lib/server/index.js#L13"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Site build, routing and generated runtime. Checked by plugin validate-peer-dependencies at load time; public peer contract retained.",
+      "purpose": "Site build, routing and generated runtime."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "plugins/mux-search-local/package.json",
+      "scope": "plugins/mux-search-local",
+      "dependency": "@docusaurus/utils",
+      "role": "peerDependencies",
+      "specification": ">=3.0.0 || >=4.0.0-canary-0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "plugins/mux-search-local/lib/server/index.js",
+          "line": 7,
+          "source": "const utils_1 = require(\"@docusaurus/utils\");",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/plugins/mux-search-local/lib/server/index.js#L7"
+        },
+        {
+          "path": "plugins/mux-search-local/lib/server/options.js",
+          "line": 5,
+          "source": "const utils_validation_1 = require(\"@docusaurus/utils-validation\");",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/plugins/mux-search-local/lib/server/options.js#L5"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Search plugin server URL and build utilities.",
+      "purpose": "Search plugin server URL and build utilities."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "plugins/mux-search-local/package.json",
+      "scope": "plugins/mux-search-local",
+      "dependency": "@docusaurus/utils-validation",
+      "role": "peerDependencies",
+      "specification": ">=3.0.0 || >=4.0.0-canary-0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "plugins/mux-search-local/lib/server/options.js",
+          "line": 5,
+          "source": "const utils_validation_1 = require(\"@docusaurus/utils-validation\");",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/plugins/mux-search-local/lib/server/options.js#L5"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Search plugin option schema validation.",
+      "purpose": "Search plugin option schema validation."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "plugins/mux-search-local/package.json",
+      "scope": "plugins/mux-search-local",
+      "dependency": "react",
+      "role": "peerDependencies",
+      "specification": ">=18.2.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "plugins/mux-search-local/lib/client/theme/ErrorBoundary.jsx",
+          "line": 1,
+          "source": "import { Component } from \"react\";",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/plugins/mux-search-local/lib/client/theme/ErrorBoundary.jsx#L1"
+        },
+        {
+          "path": "plugins/mux-search-local/lib/client/theme/SearchModal/icons.jsx",
+          "line": 1,
+          "source": "import * as React from \"react\";",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/plugins/mux-search-local/lib/client/theme/SearchModal/icons.jsx#L1"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Site/editor UI component runtime or plugin host peer.",
+      "purpose": "Site/editor UI component runtime or plugin host peer."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "plugins/mux-search-local/package.json",
+      "scope": "plugins/mux-search-local",
+      "dependency": "react-dom",
+      "role": "peerDependencies",
+      "specification": ">=18.2.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "plugins/mux-search-local/lib/server/index.js",
+          "line": 13,
+          "source": "(0, validate_peer_dependencies_1.default)(__dirname);",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/plugins/mux-search-local/lib/server/index.js#L13"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "React renderer host peer and SSR tests. Checked by plugin validate-peer-dependencies at load time; public peer contract retained.",
+      "purpose": "React renderer host peer and SSR tests."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "tools/docs-indexer/package.json",
+      "scope": "tools/docs-indexer",
+      "dependency": "@types/js-yaml",
+      "role": "devDependencies",
+      "specification": "^4.0.9",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "tools/docs-indexer/src/extract.ts",
+          "line": 2,
+          "source": "import { load as loadYaml } from 'js-yaml';",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/tools/docs-indexer/src/extract.ts#L2"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Type declarations for front matter parser.",
+      "purpose": "Type declarations for front matter parser."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "tools/docs-indexer/package.json",
+      "scope": "tools/docs-indexer",
+      "dependency": "@types/node",
+      "role": "devDependencies",
+      "specification": "^20.14.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "tools/docs-indexer/src/crawl.ts",
+          "line": 1,
+          "source": "import fs from 'node:fs';",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/tools/docs-indexer/src/crawl.ts#L1"
+        },
+        {
+          "path": "tools/docs-indexer/src/index.ts",
+          "line": 1,
+          "source": "import path from 'node:path';",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/tools/docs-indexer/src/index.ts#L1"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Node builtin types for tooling and Worker tests.",
+      "purpose": "Node builtin types for tooling and Worker tests."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "tools/docs-indexer/package.json",
+      "scope": "tools/docs-indexer",
+      "dependency": "dotenv",
+      "role": "devDependencies",
+      "specification": "^16.4.5",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "tools/docs-indexer/src/index.ts",
+          "line": 2,
+          "source": "import 'dotenv/config';",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/tools/docs-indexer/src/index.ts#L2"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Indexer loads local configuration via dotenv/config.",
+      "purpose": "Indexer loads local configuration via dotenv/config."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "tools/docs-indexer/package.json",
+      "scope": "tools/docs-indexer",
+      "dependency": "js-yaml",
+      "role": "devDependencies",
+      "specification": "^4.3.2",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "tools/docs-indexer/src/extract.ts",
+          "line": 2,
+          "source": "import { load as loadYaml } from 'js-yaml';",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/tools/docs-indexer/src/extract.ts#L2"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Indexer or site front matter parsing.",
+      "purpose": "Indexer or site front matter parsing."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "tools/docs-indexer/package.json",
+      "scope": "tools/docs-indexer",
+      "dependency": "tsx",
+      "role": "devDependencies",
+      "specification": "^4.19.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "tools/docs-indexer/package.json",
+          "line": 6,
+          "source": "\"index\": \"tsx src/index.ts\",",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/tools/docs-indexer/package.json#L6"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Execute TypeScript tooling and node:test suites.",
+      "purpose": "Execute TypeScript tooling and node:test suites."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "tools/docs-indexer/package.json",
+      "scope": "tools/docs-indexer",
+      "dependency": "typescript",
+      "role": "devDependencies",
+      "specification": "~5.6.2",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "tools/docs-indexer/package.json",
+          "line": 10,
+          "source": "\"typecheck\": \"tsc --noEmit\"",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/tools/docs-indexer/package.json#L10"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "tsc typecheck CLI and shared compiler types.",
+      "purpose": "tsc typecheck CLI and shared compiler types."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "tools/retrieval-test/package.json",
+      "scope": "tools/retrieval-test",
+      "dependency": "@types/node",
+      "role": "devDependencies",
+      "specification": "^20.14.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "tools/retrieval-test/src/error-eval.ts",
+          "line": 16,
+          "source": "import fs from 'node:fs';",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/tools/retrieval-test/src/error-eval.ts#L16"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Node builtin types for tooling and Worker tests.",
+      "purpose": "Node builtin types for tooling and Worker tests."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "tools/retrieval-test/package.json",
+      "scope": "tools/retrieval-test",
+      "dependency": "tsx",
+      "role": "devDependencies",
+      "specification": "^4.19.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "tools/retrieval-test/package.json",
+          "line": 6,
+          "source": "\"eval\": \"tsx src/run.ts\",",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/tools/retrieval-test/package.json#L6"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Execute TypeScript tooling and node:test suites.",
+      "purpose": "Execute TypeScript tooling and node:test suites."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "tools/retrieval-test/package.json",
+      "scope": "tools/retrieval-test",
+      "dependency": "typescript",
+      "role": "devDependencies",
+      "specification": "~5.6.2",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "tools/retrieval-test/package.json",
+          "line": 8,
+          "source": "\"typecheck\": \"tsc --noEmit\"",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/tools/retrieval-test/package.json#L8"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "tsc typecheck CLI and shared compiler types.",
+      "purpose": "tsc typecheck CLI and shared compiler types."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "workers/mux-ai/package.json",
+      "scope": "workers/mux-ai",
+      "dependency": "@cloudflare/workers-types",
+      "role": "devDependencies",
+      "specification": "^5.20260828.1",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "workers/mux-ai/tsconfig.json",
+          "line": 7,
+          "source": "\"types\": [\"@cloudflare/workers-types\", \"node\"],",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/workers/mux-ai/tsconfig.json#L7"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Cloudflare platform API types.",
+      "purpose": "Cloudflare platform API types."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "workers/mux-ai/package.json",
+      "scope": "workers/mux-ai",
+      "dependency": "@types/node",
+      "role": "devDependencies",
+      "specification": "^20.19.43",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "workers/mux-ai/src/index.test.ts",
+          "line": 1,
+          "source": "import assert from \"node:assert/strict\";",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/workers/mux-ai/src/index.test.ts#L1"
+        },
+        {
+          "path": "workers/mux-ai/tsconfig.json",
+          "line": 7,
+          "source": "\"types\": [\"@cloudflare/workers-types\", \"node\"],",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/workers/mux-ai/tsconfig.json#L7"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Node builtin types for tooling and Worker tests.",
+      "purpose": "Node builtin types for tooling and Worker tests."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "workers/mux-ai/package.json",
+      "scope": "workers/mux-ai",
+      "dependency": "tsx",
+      "role": "devDependencies",
+      "specification": "^4.23.12",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "workers/mux-ai/package.json",
+          "line": 9,
+          "source": "\"test\": \"tsx --test src/*.test.ts\",",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/workers/mux-ai/package.json#L9"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Execute TypeScript tooling and node:test suites.",
+      "purpose": "Execute TypeScript tooling and node:test suites."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "workers/mux-ai/package.json",
+      "scope": "workers/mux-ai",
+      "dependency": "typescript",
+      "role": "devDependencies",
+      "specification": "~5.6.2",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "workers/mux-ai/package.json",
+          "line": 10,
+          "source": "\"typecheck\": \"tsc --noEmit\"",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/workers/mux-ai/package.json#L10"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "tsc typecheck CLI and shared compiler types.",
+      "purpose": "tsc typecheck CLI and shared compiler types."
+    },
+    {
+      "repository": "mux-website",
+      "baseline": "a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187",
+      "manifest": "workers/mux-ai/package.json",
+      "scope": "workers/mux-ai",
+      "dependency": "wrangler",
+      "role": "devDependencies",
+      "specification": "^4.131.1",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "workers/mux-ai/src/index.ts",
+          "line": 13,
+          "source": "// Deploy-time only (set in wrangler.toml, never request-derived). Gates the",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/workers/mux-ai/src/index.ts#L13"
+        },
+        {
+          "path": "workers/mux-ai/src/logger.ts",
+          "line": 2,
+          "source": "* Structured JSON logging for wrangler tail and the Cloudflare dashboard.",
+          "url": "https://github.com/muxlang/mux-website/blob/a445ad8c4c8c778c9c1fa25b42ebe7cf5df18187/workers/mux-ai/src/logger.ts#L2"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Worker local development and deployment CLI.",
+      "purpose": "Worker local development and deployment CLI."
+    },
+    {
+      "repository": "tree-sitter-mux",
+      "baseline": "d3443282b978adcced99dd2ff33d27f850d94cf0",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "@eslint/js",
+      "role": "devDependencies",
+      "specification": "^10.0.1",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "eslint.config.js",
+          "line": 1,
+          "source": "const eslint = require('@eslint/js');",
+          "url": "https://github.com/muxlang/tree-sitter-mux/blob/d3443282b978adcced99dd2ff33d27f850d94cf0/eslint.config.js#L1"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "ESLint recommended JavaScript rules.",
+      "purpose": "ESLint recommended JavaScript rules."
+    },
+    {
+      "repository": "tree-sitter-mux",
+      "baseline": "d3443282b978adcced99dd2ff33d27f850d94cf0",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "eslint",
+      "role": "devDependencies",
+      "specification": "^10.9.1",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "eslint.config.js",
+          "line": 1,
+          "source": "const eslint = require('@eslint/js');",
+          "url": "https://github.com/muxlang/tree-sitter-mux/blob/d3443282b978adcced99dd2ff33d27f850d94cf0/eslint.config.js#L1"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "JavaScript/TypeScript lint CLI.",
+      "purpose": "JavaScript/TypeScript lint CLI."
+    },
+    {
+      "repository": "tree-sitter-mux",
+      "baseline": "d3443282b978adcced99dd2ff33d27f850d94cf0",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "prettier",
+      "role": "devDependencies",
+      "specification": "^3.6.2",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "package.json",
+          "line": 8,
+          "source": "\"format\": \"prettier --write 'eslint.config.js' 'scripts/**/*.js' 'package.json' 'tree-sitter.json'\",",
+          "url": "https://github.com/muxlang/tree-sitter-mux/blob/d3443282b978adcced99dd2ff33d27f850d94cf0/package.json#L8"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Repository formatting CLI and check script.",
+      "purpose": "Repository formatting CLI and check script."
+    },
+    {
+      "repository": "mux-syntax-highlighting",
+      "baseline": "c16ccb5face1582b5fcc6803f6dcefbffa8eb151",
+      "manifest": ".github/ovsx-cli/package.json",
+      "scope": ".github/ovsx-cli",
+      "dependency": "ovsx",
+      "role": "dependencies",
+      "specification": "1.2.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": ".github/workflows/publish-vscode.yml",
+          "line": 93,
+          "source": ".github/ovsx-cli/node_modules/.bin/ovsx publish --trusted-publishing dist/language-mux.vsix",
+          "url": "https://github.com/muxlang/mux-syntax-highlighting/blob/c16ccb5face1582b5fcc6803f6dcefbffa8eb151/.github/workflows/publish-vscode.yml#L93"
+        }
+      ],
+      "verdict": "upgrade",
+      "reason": "Upgrade CLI 1.2.0 to 1.3.0 to remove vulnerable follow-redirects, old VSCE Markdown/secretlint/braces transitive chain. Trusted publishing flags still supported; package checks passed.",
+      "purpose": "Open VSX publish CLI in isolated release workflow."
+    },
+    {
+      "repository": "mux-syntax-highlighting",
+      "baseline": "c16ccb5face1582b5fcc6803f6dcefbffa8eb151",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "@eslint/js",
+      "role": "devDependencies",
+      "specification": "^10.0.1",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "eslint.config.js",
+          "line": 1,
+          "source": "const eslint = require('@eslint/js');",
+          "url": "https://github.com/muxlang/mux-syntax-highlighting/blob/c16ccb5face1582b5fcc6803f6dcefbffa8eb151/eslint.config.js#L1"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "ESLint recommended JavaScript rules.",
+      "purpose": "ESLint recommended JavaScript rules."
+    },
+    {
+      "repository": "mux-syntax-highlighting",
+      "baseline": "c16ccb5face1582b5fcc6803f6dcefbffa8eb151",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "@vscode/vsce",
+      "role": "devDependencies",
+      "specification": "^4.0.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "scripts/package-vscode.js",
+          "line": 12,
+          "source": "const vsce = path.join(root, 'node_modules', '@vscode', 'vsce', 'vsce');",
+          "url": "https://github.com/muxlang/mux-syntax-highlighting/blob/c16ccb5face1582b5fcc6803f6dcefbffa8eb151/scripts/package-vscode.js#L12"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Package and verify VSIX without bundling unused node_modules.",
+      "purpose": "Package and verify VSIX without bundling unused node_modules."
+    },
+    {
+      "repository": "mux-syntax-highlighting",
+      "baseline": "c16ccb5face1582b5fcc6803f6dcefbffa8eb151",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "c8",
+      "role": "devDependencies",
+      "specification": "^12.0.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "package.json",
+          "line": 14,
+          "source": "\"test:vscode-client\": \"c8 --include=textmate-mux/vscode-language-mux/extension.js --reporter=lcov node scripts/check-vscode-client.js\"",
+          "url": "https://github.com/muxlang/mux-syntax-highlighting/blob/c16ccb5face1582b5fcc6803f6dcefbffa8eb151/package.json#L14"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "VSCode client test coverage instrumentation.",
+      "purpose": "VSCode client test coverage instrumentation."
+    },
+    {
+      "repository": "mux-syntax-highlighting",
+      "baseline": "c16ccb5face1582b5fcc6803f6dcefbffa8eb151",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "esbuild",
+      "role": "devDependencies",
+      "specification": "^0.28.2",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "scripts/package-vscode.js",
+          "line": 13,
+          "source": "const esbuild = path.join(root, 'node_modules', 'esbuild', 'bin', 'esbuild');",
+          "url": "https://github.com/muxlang/mux-syntax-highlighting/blob/c16ccb5face1582b5fcc6803f6dcefbffa8eb151/scripts/package-vscode.js#L13"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Bundle extension and language client into VSIX.",
+      "purpose": "Bundle extension and language client into VSIX."
+    },
+    {
+      "repository": "mux-syntax-highlighting",
+      "baseline": "c16ccb5face1582b5fcc6803f6dcefbffa8eb151",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "eslint",
+      "role": "devDependencies",
+      "specification": "^10.9.1",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "eslint.config.js",
+          "line": 1,
+          "source": "const eslint = require('@eslint/js');",
+          "url": "https://github.com/muxlang/mux-syntax-highlighting/blob/c16ccb5face1582b5fcc6803f6dcefbffa8eb151/eslint.config.js#L1"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "JavaScript/TypeScript lint CLI.",
+      "purpose": "JavaScript/TypeScript lint CLI."
+    },
+    {
+      "repository": "mux-syntax-highlighting",
+      "baseline": "c16ccb5face1582b5fcc6803f6dcefbffa8eb151",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "prettier",
+      "role": "devDependencies",
+      "specification": "^3.6.2",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "package.json",
+          "line": 8,
+          "source": "\"format\": \"prettier --write 'eslint.config.js' 'scripts/check-samples.js' 'scripts/package-vscode.js' 'scripts/verify-vsix.js' 'scripts/check-vscode-client.js' 'textmate-mux/vscode-language-mux/extension.js' 'textmate-mux/vscode-language-mu",
+          "url": "https://github.com/muxlang/mux-syntax-highlighting/blob/c16ccb5face1582b5fcc6803f6dcefbffa8eb151/package.json#L8"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Repository formatting CLI and check script.",
+      "purpose": "Repository formatting CLI and check script."
+    },
+    {
+      "repository": "mux-syntax-highlighting",
+      "baseline": "c16ccb5face1582b5fcc6803f6dcefbffa8eb151",
+      "manifest": "package.json",
+      "scope": ".",
+      "dependency": "yauzl",
+      "role": "devDependencies",
+      "specification": "^3.4.0",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "scripts/verify-vsix.js",
+          "line": 6,
+          "source": "const yauzl = require('yauzl');",
+          "url": "https://github.com/muxlang/mux-syntax-highlighting/blob/c16ccb5face1582b5fcc6803f6dcefbffa8eb151/scripts/verify-vsix.js#L6"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Inspect packaged VSIX ZIP contents.",
+      "purpose": "Inspect packaged VSIX ZIP contents."
+    },
+    {
+      "repository": "mux-syntax-highlighting",
+      "baseline": "c16ccb5face1582b5fcc6803f6dcefbffa8eb151",
+      "manifest": "textmate-mux/vscode-language-mux/package.json",
+      "scope": "textmate-mux/vscode-language-mux",
+      "dependency": "vscode-languageclient",
+      "role": "dependencies",
+      "specification": "^9.0.1",
+      "enabled_by": [],
+      "evidence": [
+        {
+          "path": "textmate-mux/vscode-language-mux/extension.js",
+          "line": 4,
+          "source": "const { LanguageClient } = require('vscode-languageclient/node');",
+          "url": "https://github.com/muxlang/mux-syntax-highlighting/blob/c16ccb5face1582b5fcc6803f6dcefbffa8eb151/textmate-mux/vscode-language-mux/extension.js#L4"
+        }
+      ],
+      "verdict": "retain",
+      "reason": "Launch and connect mux lsp from VSCode.",
+      "purpose": "Launch and connect mux lsp from VSCode."
+    }
+  ],
+  "proposed_additions": [
+    {
+      "repository": "mux-compiler",
+      "manifest": "mux-update/Cargo.toml",
+      "dependency": "ctrlc",
+      "specification": {
+        "version": "3",
+        "features": [
+          "termination"
+        ]
+      },
+      "role": "dependencies",
+      "verdict": "retain",
+      "purpose": "Cancel update safely on interrupt/termination.",
+      "evidence": [
+        {
+          "path": "mux-update/src/cancellation.rs",
+          "line": 11,
+          "source": "ctrlc::set_handler(|| CANCELLED.store(true, Ordering::SeqCst))",
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/cancellation.rs#L11"
+        }
+      ],
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
+    },
+    {
+      "repository": "mux-compiler",
+      "manifest": "mux-update/Cargo.toml",
+      "dependency": "flate2",
+      "specification": "1",
+      "role": "dependencies",
+      "verdict": "retain",
+      "purpose": "Decompress release tar.gz archives.",
+      "evidence": [
+        {
+          "path": "mux-update/src/download.rs",
+          "line": 2,
+          "source": "use flate2::read::GzDecoder;",
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/download.rs#L2"
+        }
+      ],
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
+    },
+    {
+      "repository": "mux-compiler",
+      "manifest": "mux-update/Cargo.toml",
+      "dependency": "fs2",
+      "specification": "0.4",
+      "role": "dependencies",
+      "verdict": "retain",
+      "purpose": "Advisory locks for safe file/update replacement.",
+      "evidence": [
+        {
+          "path": "mux-update/src/receipt.rs",
+          "line": 38,
+          "source": "if let Err(error) = fs2::FileExt::unlock(&self._file) {",
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/receipt.rs#L38"
+        }
+      ],
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
+    },
+    {
+      "repository": "mux-compiler",
+      "manifest": "mux-update/Cargo.toml",
+      "dependency": "semver",
+      "specification": "1",
+      "role": "dependencies",
+      "verdict": "retain",
+      "purpose": "Compare installed and released compiler versions.",
+      "evidence": [
+        {
+          "path": "mux-update/src/lib.rs",
+          "line": 11,
+          "source": "use semver::Version;",
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/lib.rs#L11"
+        },
+        {
+          "path": "mux-update/src/receipt.rs",
+          "line": 108,
+          "source": "semver::Version::parse(&receipt.version).context(\"Invalid receipt version\")?;",
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/receipt.rs#L108"
+        }
+      ],
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
+    },
+    {
+      "repository": "mux-compiler",
+      "manifest": "mux-update/Cargo.toml",
+      "dependency": "serde",
+      "specification": {
+        "version": "1",
+        "features": [
+          "derive"
+        ]
+      },
+      "role": "dependencies",
+      "verdict": "retain",
+      "purpose": "Custom JSON deserialization and updater release metadata.",
+      "evidence": [
+        {
+          "path": "mux-update/src/receipt.rs",
+          "line": 2,
+          "source": "use serde::{Deserialize, Serialize};",
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/receipt.rs#L2"
+        },
+        {
+          "path": "mux-update/src/download.rs",
+          "line": 4,
+          "source": "use serde::Deserialize;",
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/download.rs#L4"
+        }
+      ],
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
+    },
+    {
+      "repository": "mux-compiler",
+      "manifest": "mux-update/Cargo.toml",
+      "dependency": "serde_json",
+      "specification": "1",
+      "role": "dependencies",
+      "verdict": "retain",
+      "purpose": "JSON encoding/decoding and LSP JSON transport.",
+      "evidence": [
+        {
+          "path": "mux-update/src/receipt.rs",
+          "line": 95,
+          "source": "serde_json::from_slice(&bytes).context(\"Invalid installation receipt\")?;",
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/receipt.rs#L95"
+        },
+        {
+          "path": "mux-update/src/download.rs",
+          "line": 211,
+          "source": "serde_json::from_slice(bytes).context(\"Invalid GitHub release metadata\")?;",
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/download.rs#L211"
+        }
+      ],
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
+    },
+    {
+      "repository": "mux-compiler",
+      "manifest": "mux-update/Cargo.toml",
+      "dependency": "sha2",
+      "specification": "0.10",
+      "role": "dependencies",
+      "verdict": "retain",
+      "purpose": "SHA-2 digests, SQL authentication and updater archive integrity.",
+      "evidence": [
+        {
+          "path": "mux-update/src/download.rs",
+          "line": 5,
+          "source": "use sha2::{Digest, Sha256};",
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/download.rs#L5"
+        }
+      ],
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
+    },
+    {
+      "repository": "mux-compiler",
+      "manifest": "mux-update/Cargo.toml",
+      "dependency": "tar",
+      "specification": "0.4",
+      "role": "dependencies",
+      "verdict": "retain",
+      "purpose": "Extract Unix release archives.",
+      "evidence": [
+        {
+          "path": "mux-update/src/download.rs",
+          "line": 310,
+          "source": "let mut archive = tar::Archive::new(Interruptible(GzDecoder::new(bytes)));",
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/download.rs#L310"
+        }
+      ],
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
+    },
+    {
+      "repository": "mux-compiler",
+      "manifest": "mux-update/Cargo.toml",
+      "dependency": "tempfile",
+      "specification": "3",
+      "role": "dependencies",
+      "verdict": "retain",
+      "purpose": "Stage downloads/extraction in private temporary directories.",
+      "evidence": [
+        {
+          "path": "mux-update/src/lib.rs",
+          "line": 86,
+          "source": "let stage = tempfile::tempdir().context(\"Create update staging directory\")?;",
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/lib.rs#L86"
+        },
+        {
+          "path": "mux-update/src/receipt.rs",
+          "line": 283,
+          "source": "fn fixture() -> (tempfile::TempDir, PathBuf) {",
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/receipt.rs#L283"
+        }
+      ],
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
+    },
+    {
+      "repository": "mux-compiler",
+      "manifest": "mux-update/Cargo.toml",
+      "dependency": "ureq",
+      "specification": "3.4",
+      "role": "dependencies",
+      "verdict": "retain",
+      "purpose": "Blocking HTTP client and updater HTTPS downloads.",
+      "evidence": [
+        {
+          "path": "mux-update/src/download.rs",
+          "line": 35,
+          "source": "let uri: ureq::http::Uri = url.parse().context(\"Invalid release URL\")?;",
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/download.rs#L35"
+        }
+      ],
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
+    },
+    {
+      "repository": "mux-compiler",
+      "manifest": "mux-update/Cargo.toml",
+      "dependency": "zip",
+      "specification": {
+        "version": "9.0.5",
+        "default-features": false,
+        "features": [
+          "deflate-flate2"
+        ]
+      },
+      "role": "dependencies",
+      "verdict": "retain",
+      "purpose": "Extract Windows release archives with deflate only.",
+      "evidence": [
+        {
+          "path": "mux-update/src/download.rs",
+          "line": 341,
+          "source": "let mut archive = zip::ZipArchive::new(Cursor::new(bytes)).context(\"Read ZIP archive\")?;",
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-update/src/download.rs#L341"
+        }
+      ],
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
+    },
+    {
+      "repository": "mux-compiler",
+      "manifest": "mux-windows-launcher/Cargo.toml",
+      "dependency": "clap",
+      "specification": {
+        "version": "4",
+        "features": [
+          "derive"
+        ]
+      },
+      "role": "dependencies",
+      "verdict": "retain",
+      "purpose": "Derive CLI argument parsers.",
+      "evidence": [
+        {
+          "path": "mux-windows-launcher/src/main.rs",
+          "line": 8,
+          "source": "use clap::{Args, Parser, Subcommand};",
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-windows-launcher/src/main.rs#L8"
+        }
+      ],
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
+    },
+    {
+      "repository": "mux-compiler",
+      "manifest": "mux-windows-launcher/Cargo.toml",
+      "dependency": "mux-update",
+      "specification": {
+        "version": "0.1.0",
+        "path": "../mux-update"
+      },
+      "role": "dependencies",
+      "verdict": "retain",
+      "purpose": "Share updater across Unix compiler and Windows launcher.",
+      "evidence": [
+        {
+          "path": "mux-windows-launcher/src/main.rs",
+          "line": 49,
+          "source": "if let Some(result) = mux_update::run_download_worker(&arguments) {",
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-windows-launcher/src/main.rs#L49"
+        }
+      ],
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
+    },
+    {
+      "repository": "mux-compiler",
+      "manifest": "mux-windows-launcher/Cargo.toml",
+      "dependency": "windows-sys",
+      "specification": {
+        "version": "0.59",
+        "features": [
+          "Win32_System_Console"
+        ]
+      },
+      "role": "dependencies cfg(windows)",
+      "verdict": "retain",
+      "purpose": "Windows file replacement, console or synchronization APIs.",
+      "evidence": [
+        {
+          "path": "mux-windows-launcher/src/main.rs",
+          "line": 141,
+          "source": "use windows_sys::Win32::System::Console::{",
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-windows-launcher/src/main.rs#L141"
+        }
+      ],
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
+    },
+    {
+      "repository": "mux-compiler",
+      "manifest": "mux-compiler/Cargo.toml",
+      "dependency": "mux-update",
+      "role": "dependencies",
+      "specification": {
+        "path": "../mux-update"
+      },
+      "verdict": "retain",
+      "purpose": "Compiler update command shares the transactional updater.",
+      "evidence": [
+        {
+          "path": "mux-compiler/src/main.rs",
+          "source": "mux_update::run_cli invocation in update command dispatch.",
+          "url": "https://github.com/muxlang/mux-compiler/blob/83446fc75d70181380aff9ca4569e57c9771e119/mux-compiler/src/main.rs"
+        }
+      ],
+      "reviewed_commit": "83446fc75d70181380aff9ca4569e57c9771e119"
+    }
+  ],
+  "audit_additions": [
+    {
+      "repository": "mux-website",
+      "manifest": "package.json",
+      "dependency": "js-yaml",
+      "role": "dependencies/build",
+      "specification": ">=4.2.0 <5.0.0",
+      "verdict": "retain",
+      "purpose": "Declare the root front matter parser import directly rather than relying on transitive hoisting. Existing approved override range and locked4.3.2 retained.",
+      "evidence": [
+        {
+          "path": "docusaurus.config.ts",
+          "line": 4,
+          "source": "import { load as loadYaml } from \"js-yaml\";"
+        }
+      ]
+    },
+    {
+      "repository": "mux-website",
+      "manifest": "plugins/mux-search-local/package.json",
+      "dependency": "tslib",
+      "role": "dependencies/build",
+      "specification": "^2.8.1",
+      "verdict": "retain",
+      "purpose": "Declare generated CommonJS helper runtime directly rather than relying on transitive hoisting. Existing locked2.8.1 retained.",
+      "evidence": [
+        {
+          "path": "plugins/mux-search-local/lib/server/index.js",
+          "line": 5,
+          "source": "const tslib_1 = require(\"tslib\");"
+        }
+      ]
+    }
+  ],
+  "security_scans": {
+    "runtime": {
+      "tool": "cargo audit --no-fetch",
+      "date": "2026-10-22",
+      "database": {
+        "advisory-count": 1226,
+        "last-commit": null,
+        "last-updated": null
+      },
+      "vulnerabilities": 0,
+      "warnings": []
+    },
+    "compiler": {
+      "tool": "cargo audit --no-fetch",
+      "date": "2026-10-22",
+      "database": {
+        "advisory-count": 1226,
+        "last-commit": null,
+        "last-updated": null
+      },
+      "vulnerabilities": 0,
+      "warnings": [
+        {
+          "kind": "unmaintained",
+          "package": "proc-macro-error2",
+          "version": "2.0.1",
+          "advisory": "RUSTSEC-2026-0173"
+        },
+        {
+          "kind": "unsound",
+          "package": "lru",
+          "version": "0.16.4",
+          "advisory": "RUSTSEC-2026-0253"
+        }
+      ]
+    },
+    "compiler-fixed": {
+      "tool": "cargo audit --no-fetch",
+      "date": "2026-10-22",
+      "database": {
+        "advisory-count": 1226,
+        "last-commit": null,
+        "last-updated": null
+      },
+      "vulnerabilities": 0,
+      "warnings": []
+    },
+    "website": {
+      "tool": "npm audit --package-lock-only",
+      "date": "2026-10-22",
+      "counts": {
+        "info": 0,
+        "low": 0,
+        "moderate": 3,
+        "high": 19,
+        "critical": 0,
+        "total": 22
+      },
+      "findings": [
+        {
+          "package": "@docusaurus/core",
+          "severity": "high",
+          "via": [
+            "@docusaurus/glob",
+            "webpack-dev-server"
+          ]
+        },
+        {
+          "package": "@docusaurus/glob",
+          "severity": "high",
+          "via": [
+            "chokidar",
+            "micromatch"
+          ]
+        },
+        {
+          "package": "@docusaurus/plugin-content-blog",
+          "severity": "high",
+          "via": [
+            "@docusaurus/core",
+            "@docusaurus/glob"
+          ]
+        },
+        {
+          "package": "@docusaurus/plugin-content-docs",
+          "severity": "high",
+          "via": [
+            "@docusaurus/core",
+            "@docusaurus/glob"
+          ]
+        },
+        {
+          "package": "@docusaurus/plugin-content-pages",
+          "severity": "high",
+          "via": [
+            "@docusaurus/core",
+            "@docusaurus/glob"
+          ]
+        },
+        {
+          "package": "@docusaurus/plugin-css-cascade-layers",
+          "severity": "high",
+          "via": [
+            "@docusaurus/core"
+          ]
+        },
+        {
+          "package": "@docusaurus/plugin-debug",
+          "severity": "high",
+          "via": [
+            "@docusaurus/core"
+          ]
+        },
+        {
+          "package": "@docusaurus/plugin-google-gtag",
+          "severity": "high",
+          "via": [
+            "@docusaurus/core"
+          ]
+        },
+        {
+          "package": "@docusaurus/plugin-google-tag-manager",
+          "severity": "high",
+          "via": [
+            "@docusaurus/core"
+          ]
+        },
+        {
+          "package": "@docusaurus/plugin-sitemap",
+          "severity": "high",
+          "via": [
+            "@docusaurus/core",
+            "@docusaurus/glob"
+          ]
+        },
+        {
+          "package": "@docusaurus/plugin-svgr",
+          "severity": "high",
+          "via": [
+            "@docusaurus/core"
+          ]
+        },
+        {
+          "package": "@docusaurus/preset-classic",
+          "severity": "high",
+          "via": [
+            "@docusaurus/core",
+            "@docusaurus/plugin-content-blog",
+            "@docusaurus/plugin-content-docs",
+            "@docusaurus/plugin-content-pages",
+            "@docusaurus/plugin-css-cascade-layers",
+            "@docusaurus/plugin-debug",
+            "@docusaurus/plugin-google-gtag",
+            "@docusaurus/plugin-google-tag-manager",
+            "@docusaurus/plugin-sitemap",
+            "@docusaurus/plugin-svgr",
+            "@docusaurus/theme-classic",
+            "@docusaurus/theme-search-algolia"
+          ]
+        },
+        {
+          "package": "@docusaurus/theme-classic",
+          "severity": "high",
+          "via": [
+            "@docusaurus/core",
+            "@docusaurus/plugin-content-blog",
+            "@docusaurus/plugin-content-docs",
+            "@docusaurus/plugin-content-pages"
+          ]
+        },
+        {
+          "package": "@docusaurus/theme-search-algolia",
+          "severity": "high",
+          "via": [
+            "@docusaurus/core",
+            "@docusaurus/plugin-content-docs",
+            "@docusaurus/theme-classic"
+          ]
+        },
+        {
+          "package": "@vitest/coverage-v8",
+          "severity": "moderate",
+          "via": [
+            "vitest"
+          ]
+        },
+        {
+          "package": "@vitest/mocker",
+          "severity": "moderate",
+          "via": [
+            {
+              "source": 1242767,
+              "name": "@vitest/mocker",
+              "dependency": "@vitest/mocker",
+              "title": "Vitest: Code injection via unauthenticated manual mock registration",
+              "url": "https://github.com/advisories/GHSA-qxg6-89mg-rqv8",
+              "severity": "moderate",
+              "cwe": [
+                "CWE-94",
+                "CWE-116",
+                "CWE-306"
+              ],
+              "cvss": {
+                "score": 4.7,
+                "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:L/I:L/A:N"
+              },
+              "range": ">=2.1.0-beta.7 <4.1.12"
+            },
+            {
+              "source": 1242769,
+              "name": "@vitest/mocker",
+              "dependency": "@vitest/mocker",
+              "title": "Vitest: Windows backslash traversal bypasses the @vitest/mocker redirect allowlist fix",
+              "url": "https://github.com/advisories/GHSA-xp26-3454-mjgp",
+              "severity": "moderate",
+              "cwe": [
+                "CWE-22"
+              ],
+              "cvss": {
+                "score": 5.9,
+                "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N"
+              },
+              "range": ">=4.1.11 <4.1.12"
+            }
+          ]
+        },
+        {
+          "package": "braces",
+          "severity": "high",
+          "via": [
+            {
+              "source": 1240992,
+              "name": "braces",
+              "dependency": "braces",
+              "title": "braces vulnerable to stack-exhaustion denial of service through deeply nested patterns",
+              "url": "https://github.com/advisories/GHSA-vfj7-8cjw-p6xm",
+              "severity": "high",
+              "cwe": [
+                "CWE-674"
+              ],
+              "cvss": {
+                "score": 7.5,
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+              },
+              "range": "<=3.0.3"
+            }
+          ]
+        },
+        {
+          "package": "chokidar",
+          "severity": "high",
+          "via": [
+            "braces"
+          ]
+        },
+        {
+          "package": "http-proxy-middleware",
+          "severity": "high",
+          "via": [
+            "micromatch"
+          ]
+        },
+        {
+          "package": "micromatch",
+          "severity": "high",
+          "via": [
+            "braces"
+          ]
+        },
+        {
+          "package": "vitest",
+          "severity": "moderate",
+          "via": [
+            "@vitest/coverage-v8",
+            "@vitest/mocker"
+          ]
+        },
+        {
+          "package": "webpack-dev-server",
+          "severity": "high",
+          "via": [
+            "chokidar",
+            "http-proxy-middleware"
+          ]
+        }
+      ]
+    },
+    "worker": {
+      "tool": "npm audit --package-lock-only",
+      "date": "2026-10-22",
+      "counts": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "findings": []
+    },
+    "indexer": {
+      "tool": "npm audit --package-lock-only",
+      "date": "2026-10-22",
+      "counts": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "findings": []
+    },
+    "retrieval": {
+      "tool": "npm audit --package-lock-only",
+      "date": "2026-10-22",
+      "counts": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "findings": []
+    },
+    "syntax": {
+      "tool": "npm audit --package-lock-only",
+      "date": "2026-10-22",
+      "counts": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "findings": []
+    },
+    "ovsx": {
+      "tool": "npm audit --package-lock-only",
+      "date": "2026-10-22",
+      "counts": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 8,
+        "critical": 0,
+        "total": 8
+      },
+      "findings": [
+        {
+          "package": "@vscode/vsce",
+          "severity": "high",
+          "via": [
+            "secretlint"
+          ]
+        },
+        {
+          "package": "braces",
+          "severity": "high",
+          "via": [
+            {
+              "source": 1240992,
+              "name": "braces",
+              "dependency": "braces",
+              "title": "braces vulnerable to stack-exhaustion denial of service through deeply nested patterns",
+              "url": "https://github.com/advisories/GHSA-vfj7-8cjw-p6xm",
+              "severity": "high",
+              "cwe": [
+                "CWE-674"
+              ],
+              "cvss": {
+                "score": 7.5,
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+              },
+              "range": "<=3.0.3"
+            }
+          ]
+        },
+        {
+          "package": "fast-glob",
+          "severity": "high",
+          "via": [
+            "micromatch"
+          ]
+        },
+        {
+          "package": "follow-redirects",
+          "severity": "high",
+          "via": [
+            {
+              "source": 1242604,
+              "name": "follow-redirects",
+              "dependency": "follow-redirects",
+              "title": "follow-redirects array-form headers bypass cross-origin credential stripping",
+              "url": "https://github.com/advisories/GHSA-q3jh-wrc6-jgq8",
+              "severity": "high",
+              "cwe": [
+                "CWE-200",
+                "CWE-212"
+              ],
+              "cvss": {
+                "score": 0,
+                "vectorString": null
+              },
+              "range": ">=1.16.0 <1.16.1"
+            },
+            {
+              "source": 1242605,
+              "name": "follow-redirects",
+              "dependency": "follow-redirects",
+              "title": "follow-redirects sensitiveHeaders regex escaping can expose credential headers",
+              "url": "https://github.com/advisories/GHSA-8r9p-f939-6h3c",
+              "severity": "high",
+              "cwe": [
+                "CWE-185",
+                "CWE-200"
+              ],
+              "cvss": {
+                "score": 0,
+                "vectorString": null
+              },
+              "range": ">=1.16.0 <1.16.1"
+            }
+          ]
+        },
+        {
+          "package": "globby",
+          "severity": "high",
+          "via": [
+            "fast-glob"
+          ]
+        },
+        {
+          "package": "markdown-it",
+          "severity": "high",
+          "via": [
+            {
+              "source": 1242646,
+              "name": "markdown-it",
+              "dependency": "markdown-it",
+              "title": "markdown-it: Quadratic-time denial of service in inline HTML parsing with html enabled",
+              "url": "https://github.com/advisories/GHSA-vfgh-jcmw-g37q",
+              "severity": "low",
+              "cwe": [
+                "CWE-400",
+                "CWE-407"
+              ],
+              "cvss": {
+                "score": 3.7,
+                "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L"
+              },
+              "range": "<14.3.3"
+            },
+            {
+              "source": 1242672,
+              "name": "markdown-it",
+              "dependency": "markdown-it",
+              "title": "markdown-it: Quadratic-time rendering of a single multi-line link reference definition with default options (regression since 14.0)",
+              "url": "https://github.com/advisories/GHSA-gfr2-rv44-r23c",
+              "severity": "high",
+              "cwe": [
+                "CWE-400",
+                "CWE-407"
+              ],
+              "cvss": {
+                "score": 7.5,
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+              },
+              "range": ">=14.1.0 <14.3.3"
+            }
+          ]
+        },
+        {
+          "package": "micromatch",
+          "severity": "high",
+          "via": [
+            "braces"
+          ]
+        },
+        {
+          "package": "secretlint",
+          "severity": "high",
+          "via": [
+            "globby"
+          ]
+        }
+      ]
+    },
+    "tree-sitter": {
+      "tool": "npm audit --package-lock-only",
+      "date": "2026-10-22",
+      "counts": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 1,
+        "critical": 0,
+        "total": 1
+      },
+      "findings": [
+        {
+          "package": "brace-expansion",
+          "severity": "high",
+          "via": [
+            {
+              "source": 1240103,
+              "name": "brace-expansion",
+              "dependency": "brace-expansion",
+              "title": "brace-expansion: Quadratic-time expansion of the `{a},b}` rewrite causes CPU denial of service",
+              "url": "https://github.com/advisories/GHSA-q2hr-2g5m-vwhr",
+              "severity": "moderate",
+              "cwe": [
+                "CWE-400",
+                "CWE-407"
+              ],
+              "cvss": {
+                "score": 5.3,
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+              },
+              "range": ">=4.0.0 <5.0.12"
+            },
+            {
+              "source": 1240107,
+              "name": "brace-expansion",
+              "dependency": "brace-expansion",
+              "title": "brace-expansion: DoS via uncontrolled recursion on nested brace groups causing stack exhaustion",
+              "url": "https://github.com/advisories/GHSA-qhr7-859c-m2p7",
+              "severity": "high",
+              "cwe": [
+                "CWE-400",
+                "CWE-674"
+              ],
+              "cvss": {
+                "score": 7.5,
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+              },
+              "range": ">=4.0.0 <5.0.11"
+            },
+            {
+              "source": 1240111,
+              "name": "brace-expansion",
+              "dependency": "brace-expansion",
+              "title": "brace-expansion: DoS via uncontrolled recursion in parseCommaParts causing stack exhaustion",
+              "url": "https://github.com/advisories/GHSA-6j4f-fj2g-mc7p",
+              "severity": "high",
+              "cwe": [
+                "CWE-400",
+                "CWE-674"
+              ],
+              "cvss": {
+                "score": 7.5,
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+              },
+              "range": ">=4.0.0 <5.0.10"
+            }
+          ]
+        }
+      ]
+    },
+    "ovsx-after": {
+      "tool": "npm audit --package-lock-only",
+      "date": "2026-10-22",
+      "counts": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "findings": []
+    },
+    "tree-sitter-after": {
+      "tool": "npm audit --package-lock-only",
+      "date": "2026-10-22",
+      "counts": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "findings": []
+    },
+    "python": {
+      "tool": "pip-audit -r requirements.lock --disable-pip",
+      "date": "2026-10-22",
+      "vulnerabilities": 0
+    },
+    "website-after": {
+      "tool": "npm audit",
+      "date": "2026-10-22",
+      "counts": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 19,
+        "critical": 0,
+        "total": 19
+      },
+      "findings": [
+        {
+          "package": "@docusaurus/core",
+          "severity": "high",
+          "via": [
+            "@docusaurus/glob",
+            "webpack-dev-server"
+          ]
+        },
+        {
+          "package": "@docusaurus/glob",
+          "severity": "high",
+          "via": [
+            "chokidar",
+            "micromatch"
+          ]
+        },
+        {
+          "package": "@docusaurus/plugin-content-blog",
+          "severity": "high",
+          "via": [
+            "@docusaurus/core",
+            "@docusaurus/glob"
+          ]
+        },
+        {
+          "package": "@docusaurus/plugin-content-docs",
+          "severity": "high",
+          "via": [
+            "@docusaurus/core",
+            "@docusaurus/glob"
+          ]
+        },
+        {
+          "package": "@docusaurus/plugin-content-pages",
+          "severity": "high",
+          "via": [
+            "@docusaurus/core",
+            "@docusaurus/glob"
+          ]
+        },
+        {
+          "package": "@docusaurus/plugin-css-cascade-layers",
+          "severity": "high",
+          "via": [
+            "@docusaurus/core"
+          ]
+        },
+        {
+          "package": "@docusaurus/plugin-debug",
+          "severity": "high",
+          "via": [
+            "@docusaurus/core"
+          ]
+        },
+        {
+          "package": "@docusaurus/plugin-google-gtag",
+          "severity": "high",
+          "via": [
+            "@docusaurus/core"
+          ]
+        },
+        {
+          "package": "@docusaurus/plugin-google-tag-manager",
+          "severity": "high",
+          "via": [
+            "@docusaurus/core"
+          ]
+        },
+        {
+          "package": "@docusaurus/plugin-sitemap",
+          "severity": "high",
+          "via": [
+            "@docusaurus/core",
+            "@docusaurus/glob"
+          ]
+        },
+        {
+          "package": "@docusaurus/plugin-svgr",
+          "severity": "high",
+          "via": [
+            "@docusaurus/core"
+          ]
+        },
+        {
+          "package": "@docusaurus/preset-classic",
+          "severity": "high",
+          "via": [
+            "@docusaurus/core",
+            "@docusaurus/plugin-content-blog",
+            "@docusaurus/plugin-content-docs",
+            "@docusaurus/plugin-content-pages",
+            "@docusaurus/plugin-css-cascade-layers",
+            "@docusaurus/plugin-debug",
+            "@docusaurus/plugin-google-gtag",
+            "@docusaurus/plugin-google-tag-manager",
+            "@docusaurus/plugin-sitemap",
+            "@docusaurus/plugin-svgr",
+            "@docusaurus/theme-classic",
+            "@docusaurus/theme-search-algolia"
+          ]
+        },
+        {
+          "package": "@docusaurus/theme-classic",
+          "severity": "high",
+          "via": [
+            "@docusaurus/core",
+            "@docusaurus/plugin-content-blog",
+            "@docusaurus/plugin-content-docs",
+            "@docusaurus/plugin-content-pages"
+          ]
+        },
+        {
+          "package": "@docusaurus/theme-search-algolia",
+          "severity": "high",
+          "via": [
+            "@docusaurus/core",
+            "@docusaurus/plugin-content-docs",
+            "@docusaurus/theme-classic"
+          ]
+        },
+        {
+          "package": "braces",
+          "severity": "high",
+          "via": [
+            {
+              "source": 1240992,
+              "name": "braces",
+              "dependency": "braces",
+              "title": "braces vulnerable to stack-exhaustion denial of service through deeply nested patterns",
+              "url": "https://github.com/advisories/GHSA-vfj7-8cjw-p6xm",
+              "severity": "high",
+              "cwe": [
+                "CWE-674"
+              ],
+              "cvss": {
+                "score": 7.5,
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+              },
+              "range": "<=3.0.3"
+            }
+          ]
+        },
+        {
+          "package": "chokidar",
+          "severity": "high",
+          "via": [
+            "braces"
+          ]
+        },
+        {
+          "package": "http-proxy-middleware",
+          "severity": "high",
+          "via": [
+            "micromatch"
+          ]
+        },
+        {
+          "package": "micromatch",
+          "severity": "high",
+          "via": [
+            "braces"
+          ]
+        },
+        {
+          "package": "webpack-dev-server",
+          "severity": "high",
+          "via": [
+            "chokidar",
+            "http-proxy-middleware"
+          ]
+        }
+      ]
+    }
+  },
+  "validation": {
+    "website": {
+      "node": "24.21.0",
+      "lint": "pass",
+      "typecheck": "pass",
+      "syntax_parity": "pass; online canonical",
+      "tests": {
+        "files": 30,
+        "tests": 104,
+        "result": "pass"
+      },
+      "coverage": {
+        "lines": 86.14,
+        "branches": 70.07
+      },
+      "build": "pass",
+      "advisory_gate": "pass; existing19bracespaths only"
+    },
+    "compiler": {
+      "fmt": "pass",
+      "metadata_locked_offline": "pass",
+      "clippy_all_targets_all_features_warnings_denied": "pass",
+      "cargo_deny": "advisories/bans/licenses/sources pass",
+      "cargo_audit": "0 vulnerabilities;0 warnings",
+      "sql_tests": {
+        "result": "pass",
+        "tests": 52,
+        "groups": {
+          "library": 17,
+          "drivers": 7,
+          "sql_unit": 28
+        },
+        "runtime_git_rev": "7f126042b0f8dd78a10b9db50a66e5dfb3ae448e",
+        "shared_crate_source_checksums": "unchanged",
+        "live_database_services": "not exercised"
+      }
+    },
+    "context": {
+      "docs_check": "pass --repository mux-context",
+      "unit_tests": "6 pass"
+    }
+  }
+}
