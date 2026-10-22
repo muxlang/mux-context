@@ -12,6 +12,7 @@ relative to the owning repo. User-facing docs for these live at
 | Lossless parsing and AST lowering | `syntax/` (syntax tree, parser facts, AST lowering), `parser/`, `ast/` (`nodes.rs`, `types.rs`, `patterns.rs`, `operators.rs`, `literals.rs`) |
 | Source formatting | `formatter/` (`print.rs`, `files.rs`) |
 | Type checking, inference, symbol resolution | `semantics/` (`declarations.rs`, `expressions.rs`, `imports.rs`, `free_vars.rs`, `format.rs`) |
+| Command-line source checking (`mux check`) | `main.rs` shares the build/run frontend and stops after semantic analysis |
 | LLVM IR generation | `codegen/` (`expressions.rs`, `statements.rs`, `functions.rs`, `methods.rs`, `classes.rs`, `constructors.rs`, `operators.rs`, `generics.rs`, `types.rs`) |
 | Reference-count cleanup (scope stack) | `codegen/memory.rs` |
 | Runtime FFI call generation | `codegen/runtime.rs` |
